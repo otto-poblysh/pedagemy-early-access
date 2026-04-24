@@ -1,0 +1,183 @@
+{
+  "nav": {
+    "applyNow": "Aplicar ahora",
+    "registrationsOngoing": "Registro de acceso anticipado en curso"
+  },
+  "hero": {
+    "headline": "Gana acceso a formación premium — hasta $755 de valor.",
+    "subheadline": "La mayoría espera a que su empleador invierta en ellos. Esta es tu oportunidad de llegar primero — totalmente patrocinada, sin costo para ti.",
+    "questionLabel": "Regístrate para ganar antes del viernes 15 de mayo de 2026",
+    "questionPrompt": "¿Cuál de estas movería más las cosas para ti ahora mismo? Elige la que te haga pensar «Lo necesito.»",
+    "questionContext": "Participa en el sorteo de Pedagemy para tener la oportunidad de acceder a cursos de clase mundial organizados por iCUBEFARM.",
+    "programmesIncluded": "4 programas incluidos",
+    "applyForAccess": "Solicitar acceso",
+    "applyCaveat": "Gratis. Revisado personalmente. Abierto a cualquiera listo para crecer."
+  },
+  "courses": {
+    "softSkills": {
+      "label": "Acelerador de habilidades blandas",
+      "description": [
+        "Este programa está diseñado para estudiantes que quieren una amplia base de habilidades laborales actuales.",
+        "Cubre liderazgo, comunicación, productividad, transformación digital, alfabetización en datos, Inteligencia Artificial (IA), ciberseguridad, cloud, DevOps, gestión de proyectos, servicio al cliente y desarrollo profesional.",
+        "Es útil para estudiantes, profesionales y buscadores de empleo que quieren acceso flexible a muchas rutas de aprendizaje relevantes para su carrera."
+      ]
+    },
+    "techCareer": {
+      "label": "Impulso de carrera tech",
+      "description": [
+        "Este programa está construido para estudiantes que quieren crecer en roles técnicos o fortalecer sus habilidades tech existentes.",
+        "Incluye temas como inteligencia artificial, big data, ciencia de datos, aprendizaje automático, business intelligence, Python, Java, SQL, HTML5, GitHub, desarrollo full-stack, computación en la nube, DevOps, ciberseguridad, seguridad de API y seguridad de aplicaciones.",
+        "También apoya el aprendizaje práctico a través de cursos interactivos, laboratorios de programación y herramientas de práctica impulsadas por IA."
+      ]
+    },
+    "leadership": {
+      "label": "Acelerador de liderazgo",
+      "description": [
+        "Este programa está diseñado para profesionales que quieren convertirse en líderes más fuertes en el trabajo.",
+        "Cubre tres áreas: liderarse a sí mismo, liderar a tu equipo y liderar el negocio.",
+        "Los estudiantes exploran presencia ejecutiva, inteligencia emocional, liderazgo ético, construcción de equipos, liderazgo intercultural, coaching, gestión de conflictos, liderazgo orientado al cliente, toma de decisiones, innovación, estrategia y liderazgo en la era de la IA.",
+        "Es adecuado para líderes emergentes, gerentes, líderes de equipo y profesionales que se preparan para mayor responsabilidad."
+      ]
+    },
+    "workplaceReadiness": {
+      "label": "Preparación laboral",
+      "description": [
+        "Este programa está diseñado para ayudar a los estudiantes a entender las reglas, responsabilidades y prácticas seguras requeridas en los lugares de trabajo modernos.",
+        "Cubre temas legales y de cumplimiento como anti-acoso, código de conducta, ética, privacidad de datos, cumplimiento del RGPD, HIPAA, ciberseguridad y seguridad laboral.",
+        "También incluye temas ambientales, de salud y seguridad como ergonomía, seguridad de oficina en casa, sostenibilidad, transporte, seguridad laboral y prácticas laborales post-pandemia.",
+        "Es útil para profesionales, buscadores de empleo y organizaciones que quieren una mejor preparación laboral."
+      ]
+    }
+  },
+  "form": {
+    "title": "Formulario de registro",
+    "subtitle": "Todos los campos son obligatorios. Toma menos de 2 minutos.",
+    "fullName": "Nombre completo",
+    "fullNamePlaceholder": "Tu nombre completo",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@email.com",
+    "phone": "Número de teléfono",
+    "phonePlaceholder": "+237 000 000 0000",
+    "programme": "Programa",
+    "reason": "¿Por qué este programa?",
+    "reasonPlaceholder": "Describe cómo este programa se alinea con tus metas de carrera\u2026",
+    "submit": "Enviar solicitud",
+    "submitting": "Enviando\u2026",
+    "successTitle": "Solicitud recibida.",
+    "successBody": "Si eres seleccionado, Pedagemy te contactará directamente con las instrucciones de acceso.",
+    "noPayment": "No se requiere pago. Los candidatos seleccionados son contactados directamente.",
+    "errorRequired": "Todos los campos son obligatorios",
+    "errorInvalidEmail": "Dirección de correo inválida",
+    "errorGeneric": "Algo salió mal. Por favor intenta de nuevo.",
+    "errorNetwork": "Error de red. Por favor intenta de nuevo."
+  },
+  "photoCard": {
+    "statusLabel": "Solicitudes abiertas",
+    "subtitle": "Seleccionado por iCUBEFARM",
+    "cardHeadline": "Las habilidades en las que los empleadores invierten — ahora disponibles para ti sin costo."
+  },
+  "stats": {
+    "programmes": "Programas",
+    "value": "Valor",
+    "free": "Gratis"
+  },
+  "process": {
+    "sectionTitle": "Tres pasos de donde estás a donde quieres estar.",
+    "sectionSubtitle": "Visualiza la versión de ti mismo al otro lado de esto. Mejor pagado, más seguro, más avanzado. Esa persona dio el primer paso. Tú también puedes.",
+    "futureContext": "Tu yo del futuro ya está en esta habitación.",
+    "futurePrompt": "La única pregunta es si te presentas.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Aprovecha la oportunidad",
+        "body": "Aplica en menos de dos minutos. Dinos qué programa elegiste y por qué importa para ti ahora mismo. Esa decisión sola te pone por delante de todos los que scrolearon."
+      },
+      {
+        "n": "02",
+        "title": "Haz el trabajo que te cambia",
+        "body": "Completa un programa de clase mundial — la misma formación en la que invierten las organizaciones para sus mejores empleados. Esto no es aprendizaje pasivo. Es la versión de ti que has estado posponiendo."
+      },
+      {
+        "n": "03",
+        "title": "Da el paso hacia un futuro diferente",
+        "body": "Una promoción que dejaste de esperar. Una conversación salarial que ahora puedes tener. Un movimiento de carrera que finalmente te sientes listo para hacer. Ese futuro comienza en el momento en que terminas el primer paso."
+      }
+    ]
+  },
+  "socialProof": {
+    "sectionTitle": "Resultados reales de los mismos programas, dentro de organizaciones reales.",
+    "trainingLabel": "Las iniciativas de formación de iCUBEFARM entregadas en organizaciones líderes en África, incluyendo:",
+    "outcomes": [
+      {
+        "outcome": "Primer empleo obtenido",
+        "detail": "Los graduados que completaron la formación de iCUBEFARM lograron obtener sus primeros puestos profesionales — en organizaciones que habían estado apuntando durante meses."
+      },
+      {
+        "outcome": "Primera pasantía ganada",
+        "detail": "Estudiantes sin experiencia corporativa previa usaron las habilidades de estos programas para competir — y ganar — contra candidatos con CV más largos."
+      },
+      {
+        "outcome": "Promovido desde dentro",
+        "detail": "Los empleados que se capacitaron a través de los programas corporativos de iCUBEFARM hicieron válido su caso de ascenso con nuevas habilidades que sus gerentes podían ver."
+      },
+      {
+        "outcome": "Cambió de carrera",
+        "detail": "Profesionales que se sentían estancados usaron formación dirigida para pivocar hacia roles mejor pagados y alineados con donde querían estar."
+      }
+    ]
+  },
+  "faq": {
+    "sectionTitle": "Antes de aplicar.",
+    "items": [
+      {
+        "q": "¿Por qué es gratis?",
+        "a": "Pedagemy se lanza como una plataforma de e-learning dedicada que se asocia con empresas, instituciones de formación y organismos profesionales en África para hacer accesible el desarrollo profesional. Este es nuestro programa de acceso anticipado — estamos abriendo al público por primera vez la formación que iCUBEFARM ha entregado dentro de corporaciones. No hay trampa. Sin costo para aplicar, sin costo para acceder, sin venta adicional."
+      },
+      {
+        "q": "¿Quién puede aplicar?",
+        "a": "Las solicitudes están abiertas para estudiantes, buscadores de empleo y profesionales en cualquier etapa de carrera. No hay restricciones de elegibilidad."
+      },
+      {
+        "q": "¿Qué hace diferentes a estos programas?",
+        "a": "Cada uno es de un proveedor de formación profesional establecido — Skillsoft, Codecademy o el currículo de liderazgo propio de iCUBEFARM. Estos son los mismos programas acreditados que las organizaciones compran para el desarrollo de empleados, no contenido genérico de autoestudio."
+      },
+      {
+        "q": "¿Quién es iCUBEFARM?",
+        "a": "iCUBEFARM es una organización de desarrollo profesional que curadora formación profesional para estudiantes y profesionales en actividad. Pedagemy es su plataforma de aprendizaje dedicada."
+      },
+      {
+        "q": "¿Cómo se seleccionan los candidatos?",
+        "a": "Las solicitudes son revisadas personalmente. Se da prioridad a los candidatos que articulan claramente cómo el programa se alinea con sus metas de carrera específicas."
+      },
+      {
+        "q": "¿Qué pasa después de la selección?",
+        "a": "Recibes un correo con las instrucciones de activación. No hay paso de pago — solo tu programa."
+      },
+      {
+        "q": "¿Puedo aplicar a más de un programa?",
+        "a": "Cada solicitud cubre un programa. Elige el que mejor se ajuste a tus metas."
+      },
+      {
+        "q": "¿Cuándo se cierra la ventana de selección?",
+        "a": "Los asientos son limitados y revisados en orden de envío. Aplica temprano para ser considerado antes de que se alcance la capacidad."
+      }
+    ]
+  },
+  "contact": {
+    "footerEmail": "training@icubefarm.com",
+    "englishPhone": "+237 683 064 880",
+    "frenchSpanishPhone": "+240 555 79 65 52"
+  },
+  "footer": {
+    "copyright": "\u00a9 2026 Pedagemy. Todos los derechos reservados."
+  },
+  "email": {
+    "subject": "Solicitud recibida \u2014 {{course}}",
+    "greeting": "Hola {{name}},",
+    "confirmation": "Tu solicitud para <strong>{{course}}</strong> ha sido recibida.",
+    "timeline": "Te contactaremos con actualizaciones sobre el proceso de selección antes del <strong>viernes 15 de mayo de 2026</strong>.",
+    "contactLabel": "Si tienes preguntas antes de entonces, comunícate con nosotros:",
+    "closing": "Saludos cordiales,",
+    "team": "El equipo de Pedagemy"
+  }
+}

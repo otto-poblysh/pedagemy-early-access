@@ -15,9 +15,6 @@ node_modules
 # Testing
 coverage
 
-# Turbo
-.turbo
-
 # Vercel
 .vercel
 
@@ -28,7 +25,8 @@ build
 dist
 
 # SQLite database
-apps/web/data/*.sqlite
+data/*.sqlite
+data/*.sqlite-*
 
 
 # Debug

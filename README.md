@@ -1,21 +1,19 @@
-# shadcn/ui monorepo template
+# Pedagemy Early Access
 
-This is a Next.js monorepo template with shadcn/ui.
+A simple Next.js app for the Pedagemy early access landing page, registration flow, and private admin export view.
 
-## Adding components
-
-To add components to your app, run the following command at the root of your `web` app:
+## Development
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+bun install
+bun dev
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+The app runs from the project root. Common checks:
 
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button";
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
 ```

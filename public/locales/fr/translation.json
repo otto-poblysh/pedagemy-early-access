@@ -1,0 +1,183 @@
+{
+  "nav": {
+    "applyNow": "Postuler maintenant",
+    "registrationsOngoing": "Inscriptions en accès anticipé en cours"
+  },
+  "hero": {
+    "headline": "Gagnez un accès à une formation premium — d'une valeur allant jusqu'à 755 $.",
+    "subheadline": "La plupart attendent que leur employeur investisse en eux. C'est votre chance d'arriver en premier — entièrement financée, sans frais pour vous.",
+    "questionLabel": "Inscrivez-vous pour gagner avant le vendredi 15 mai 2026",
+    "questionPrompt": "Laquelle de ces options ferait le plus bouger les choses pour vous en ce moment ? Choisissez celle qui vous fait penser « J'en ai besoin. »",
+    "questionContext": "Participez au tirage Pedagemy pour une chance d'accéder à des formations de classe mondiale organisées par iCUBEFARM.",
+    "programmesIncluded": "4 programmes inclus",
+    "applyForAccess": "Faire une demande d'accès",
+    "applyCaveat": "Gratuit. Examiné personnellement. Ouvert à tous ceux qui sont prêts à progresser."
+  },
+  "courses": {
+    "softSkills": {
+      "label": "Accélérateur de compétences douces",
+      "description": [
+        "Ce programme est conçu pour les apprenants qui veulent une large base de compétences actuelles en milieu de travail.",
+        "Il couvre le leadership, la communication, la productivité, la transformation numérique, la culture des données, l'intelligence artificielle (IA), la cybersécurité, le cloud, DevOps, la gestion de projet, le service client et le développement de carrière.",
+        "Il est utile pour les étudiants, les professionnels et les chercheurs d'emploi qui veulent un accès flexible à de nombreux parcours d'apprentissage pertinents pour leur carrière."
+      ]
+    },
+    "techCareer": {
+      "label": "Lance-palette de carrière tech",
+      "description": [
+        "Ce programme est construit pour les apprenants qui veulent évoluer vers des rôles techniques ou renforcer leurs compétences tech existantes.",
+        "Il inclut des sujets tels que l'intelligence artificielle, le big data, la science des données, l'apprentissage automatique, la business intelligence, Python, Java, SQL, HTML5, GitHub, le développement full-stack, l'informatique en cloud, DevOps, la cybersécurité, la sécurité des API et la sécurité des applications.",
+        "Il prend également en charge l'apprentissage pratique grâce à des cours interactifs, des laboratoires de codage et des outils de pratique alimentés par l'IA."
+      ]
+    },
+    "leadership": {
+      "label": "Accélérateur de leadership",
+      "description": [
+        "Ce programme est conçu pour les professionnels qui veulent devenir de meilleurs leaders au travail.",
+        "Il couvre trois domaines : se diriger soi-même, diriger son équipe et diriger l'entreprise.",
+        "Les apprenants explorent la présence exécutive, l'intelligence émotionnelle, le leadership éthique, le développement d'équipe, le leadership interculturel, le coaching, la gestion des conflits, le leadership orienté client, la prise de décision, l'innovation, la stratégie et le leadership à l'ère de l'IA.",
+        "Il convient aux dirigeants émergents, aux managers, aux responsables d'équipe et aux professionnels qui se préparent à plus de responsabilités."
+      ]
+    },
+    "workplaceReadiness": {
+      "label": "Préparation au milieu de travail",
+      "description": [
+        "Ce programme est conçu pour aider les apprenants à comprendre les règles, les responsabilités et les pratiques sécuritaires requises dans les milieux de travail modernes.",
+        "Il couvre les sujets juridiques et de conformité tels que la lutte contre le harcèlement, le code de conduite, l'éthique, la protection des données, la conformité au RGPD, HIPAA, la cybersécurité et la sécurité au travail.",
+        "Il comprend également des sujets environnementaux, de santé et de sécurité tels que l'ergonomie, la sécurité du bureau à domicile, la durabilité, le transport, la sécurité de la main-d'œuvre et les pratiques de milieu de travail post-pandémiques.",
+        "Il est utile pour les professionnels, les chercheurs d'emploi et les organisations qui veulent une meilleure préparation au milieu de travail."
+      ]
+    }
+  },
+  "form": {
+    "title": "Formulaire d'inscription",
+    "subtitle": "Tous les champs sont obligatoires. Prend moins de 2 minutes.",
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Votre nom complet",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "vous@email.com",
+    "phone": "Numéro de téléphone",
+    "phonePlaceholder": "+237 000 000 0000",
+    "programme": "Programme",
+    "reason": "Pourquoi ce programme ?",
+    "reasonPlaceholder": "Décrivez comment ce programme s'aligne avec vos objectifs de carrière\u2026",
+    "submit": "Soumettre ma candidature",
+    "submitting": "Soumission en cours\u2026",
+    "successTitle": "Candidature reçue.",
+    "successBody": "Si vous êtes sélectionné, Pedagemy vous contactera directement avec les instructions d'accès.",
+    "noPayment": "Aucun paiement requis. Les candidats sélectionnés sont contactés directement.",
+    "errorRequired": "Tous les champs sont obligatoires",
+    "errorInvalidEmail": "Adresse e-mail invalide",
+    "errorGeneric": "Une erreur s'est produite. Veuillez réessayer.",
+    "errorNetwork": "Erreur réseau. Veuillez réessayer."
+  },
+  "photoCard": {
+    "statusLabel": "Candidatures ouvertes",
+    "subtitle": "Sélectionné par iCUBEFARM",
+    "cardHeadline": "Les compétences dans lesquelles les employeurs investissent — maintenant disponibles pour vous sans frais."
+  },
+  "stats": {
+    "programmes": "Programmes",
+    "value": "Valeur",
+    "free": "Gratuit"
+  },
+  "process": {
+    "sectionTitle": "Trois étapes pour passer de là où vous êtes à là où vous voulez être.",
+    "sectionSubtitle": "Visualisez la version de vous-même de l'autre côté de ceci. Mieux rémunéré, plus confiant, plus avancé. Cette personne a pris la première étape. Vous aussi.",
+    "futureContext": "Votre futur vous est déjà dans cette pièce.",
+    "futurePrompt": "La seule question est de savoir si vous vous présentez.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Saisir l'ouverture",
+        "body": "Postulez en moins de deux minutes. Dites-nous quel programme vous avez choisi et pourquoi il compte pour vous en ce moment. Cette décision seule vous met devant tous ceux qui ont scrollé."
+      },
+      {
+        "n": "02",
+        "title": "Faire le travail qui vous transforme",
+        "body": "Complétez un programme de classe mondiale — la même formation que les organisations investissent pour leurs meilleurs éléments. Ce n'est pas un apprentissage passif. C'est la version de vous que vous avez reportée."
+      },
+      {
+        "n": "03",
+        "title": "Entrez dans un avenir différent",
+        "body": "Une promotion que vous avez cessé d'attendre. Une conversation salariale que vous pouvez maintenant avoir. Un mouvement d'entreprise que vous vous sentez enfin prêt à faire. Cet avenir commence au moment où vous terminez la première étape."
+      }
+    ]
+  },
+  "socialProof": {
+    "sectionTitle": "Résultats réels des mêmes programmes, dans de vraies organisations.",
+    "trainingLabel": "Les initiatives de formation d'iCUBEFARM dispensées dans des organisations leaders en Afrique, notamment :",
+    "outcomes": [
+      {
+        "outcome": "Premier rôle obtenu",
+        "detail": "Les diplômés qui ont suivi la formation iCUBEFARM ont obtenu leurs premiers postes professionnels — dans des organisations qu'ils visaient depuis des mois."
+      },
+      {
+        "outcome": "Premier stage gagné",
+        "detail": "Les étudiants sans expérience corporate préalable ont utilisé les compétences de ces programmes pour compétitionner — et gagner — contre des candidats avec des CV plus longs."
+      },
+      {
+        "outcome": "Promu depuis l'intérieur",
+        "detail": "Les employés qui se sont perfectionnés grâce aux programmes corporate d'iCUBEFARM ont fait valoir leur promotion avec de nouvelles compétences visibles par leurs managers."
+      },
+      {
+        "outcome": "Reconversion réussie",
+        "detail": "Les professionnels qui se sentaient bloqués ont utilisé une formation ciblée pour pivoter vers des rôles mieux rémunérés et alignés avec leurs aspirations."
+      }
+    ]
+  },
+  "faq": {
+    "sectionTitle": "Avant de postuler.",
+    "items": [
+      {
+        "q": "Pourquoi est-ce gratuit ?",
+        "a": "Pedagemy se lance comme une plateforme e-learning dédiée qui s'associe à des entreprises, des institutions de formation et des organismes professionnels en Afrique pour rendre le développement de carrière accessible. C'est notre programme d'accès anticipé — nous ouvrons pour la première fois au public la formation qu'iCUBEFARM dispensait en entreprise. Pas de piège. Pas de frais pour postuler, pas de frais pour accéder, pas de vente forcée."
+      },
+      {
+        "q": "Qui peut postuler ?",
+        "a": "Les candidatures sont ouvertes aux étudiants, chercheurs d'emploi et professionnels en activité à tout stade de carrière. Aucune restriction d'éligibilité."
+      },
+      {
+        "q": "Qu'est-ce qui rend ces programmes différents ?",
+        "a": "Chacun provient d'un fournisseur de formation professionnelle établi — Skillsoft, Codecademy ou le curriculum de leadership propre à iCUBEFARM. Ce sont les mêmes programmes accrédités que les organisations achètent pour le développement de leurs employés, pas du contenu générique d'auto-formation."
+      },
+      {
+        "q": "Qui est iCUBEFARM ?",
+        "a": "iCUBEFARM est une organisation de développement de carrière qui sélectionne des formations professionnelles pour les étudiants et les professionnels en activité. Pedagemy est leur plateforme d'apprentissage dédiée."
+      },
+      {
+        "q": "Comment les candidats sont-ils sélectionnés ?",
+        "a": "Les candidatures sont examinées personnellement. La priorité est donnée aux candidats qui expliquent clairement comment le programme s'aligne avec leurs objectifs de carrière spécifiques."
+      },
+      {
+        "q": "Que se passe-t-il après la sélection ?",
+        "a": "Vous recevez un e-mail avec les instructions d'activation. Aucune étape de paiement — juste votre programme."
+      },
+      {
+        "q": "Puis-je postuler à plusieurs programmes ?",
+        "a": "Chaque candidature couvre un programme. Choisissez celui qui correspond le mieux à vos objectifs."
+      },
+      {
+        "q": "Quand la fenêtre de sélection se ferme-t-elle ?",
+        "a": "Les places sont limitées et examinées dans l'ordre de soumission. Postulez tôt pour être considéré avant que la capacité soit atteinte."
+      }
+    ]
+  },
+  "contact": {
+    "footerEmail": "training@icubefarm.com",
+    "englishPhone": "+237 683 064 880",
+    "frenchSpanishPhone": "+240 555 79 65 52"
+  },
+  "footer": {
+    "copyright": "\u00a9 2026 Pedagemy. Tous droits réservés."
+  },
+  "email": {
+    "subject": "Candidature reçue \u2014 {{course}}",
+    "greeting": "Bonjour {{name}},",
+    "confirmation": "Votre candidature pour <strong>{{course}}</strong> a été reçue.",
+    "timeline": "Nous vous contacterons avec des mises à jour sur le processus de sélection avant le <strong>vendredi 15 mai 2026</strong>.",
+    "contactLabel": "Si vous avez des questions d'ici là, contactez-nous :",
+    "closing": "Cordialement,",
+    "team": "L'équipe Pedagemy"
+  }
+}
