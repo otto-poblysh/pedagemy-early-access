@@ -78,7 +78,7 @@ export default function PedagemyEarlyAccessLandingPage() {
       })
       const data = (await response.json()) as { error?: string; ok?: boolean }
 
-        if (!response.ok || !data.ok) {
+      if (!response.ok || !data.ok) {
         setSubmitError(t("form.errorGeneric"))
         return
       }
@@ -96,40 +96,42 @@ export default function PedagemyEarlyAccessLandingPage() {
       <div className="flex-1 pb-20">
         <LandingNav registrationsLabel={t("nav.registrationsOngoing", "Early access registrations ongoing")} />
 
-        <HeroSection
-          headline={t("hero.headline")}
-          questionLabel={t("hero.questionLabel")}
-          questionContext={t("hero.questionContext")}
-          courseOptions={courseOptions}
-          selectedCourse={selectedCourse}
-          onCourseSelect={setSelectedCourse}
-        />
+        <section className="mx-auto grid max-w-7xl items-start gap-10 px-6 py-12 sm:px-8 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:gap-16 lg:px-12 lg:py-24 xl:gap-20">
+          <HeroSection
+            headline={t("hero.headline")}
+            questionLabel={t("hero.questionLabel")}
+            questionContext={t("hero.questionContext")}
+            courseOptions={courseOptions}
+            selectedCourse={selectedCourse}
+            onCourseSelect={setSelectedCourse}
+          />
 
-        <ApplicationFormPanel
-          selectedCourse={selectedCourse}
-          courseOptions={courseOptions}
-          submitted={submitted}
-          submitting={submitting}
-          submitError={submitError}
-          onCourseSelect={setSelectedCourse}
-          onSubmit={handleSubmit}
-          formTitle={t("form.title")}
-          formSubtitle={t("form.subtitle")}
-          fullNameLabel={t("form.fullName")}
-          fullNamePlaceholder={t("form.fullNamePlaceholder")}
-          emailLabel={t("form.email")}
-          emailPlaceholder={t("form.emailPlaceholder")}
-          phoneLabel={t("form.phone")}
-          phonePlaceholder={t("form.phonePlaceholder")}
-          programmeLabel={t("form.programme")}
-          reasonLabel={t("form.reason")}
-          reasonPlaceholder={t("form.reasonPlaceholder")}
-          noPayment={t("form.noPayment")}
-          submitLabel={t("form.submit")}
-          submittingLabel={t("form.submitting")}
-          successTitle={t("form.successTitle")}
-          successBody={t("form.successBody")}
-        />
+          <ApplicationFormPanel
+            selectedCourse={selectedCourse}
+            courseOptions={courseOptions}
+            submitted={submitted}
+            submitting={submitting}
+            submitError={submitError}
+            onCourseSelect={setSelectedCourse}
+            onSubmit={handleSubmit}
+            formTitle={t("form.title")}
+            formSubtitle={t("form.subtitle")}
+            fullNameLabel={t("form.fullName")}
+            fullNamePlaceholder={t("form.fullNamePlaceholder")}
+            emailLabel={t("form.email")}
+            emailPlaceholder={t("form.emailPlaceholder")}
+            phoneLabel={t("form.phone")}
+            phonePlaceholder={t("form.phonePlaceholder")}
+            programmeLabel={t("form.programme")}
+            reasonLabel={t("form.reason")}
+            reasonPlaceholder={t("form.reasonPlaceholder")}
+            noPayment={t("form.noPayment")}
+            submitLabel={t("form.submit")}
+            submittingLabel={t("form.submitting")}
+            successTitle={t("form.successTitle")}
+            successBody={t("form.successBody")}
+          />
+        </section>
       </div>
 
       <LandingFooter
