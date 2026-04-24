@@ -165,7 +165,9 @@
   },
   "contact": {
     "footerEmail": "training@icubefarm.com",
+    "englishPhoneLabel": "Inglés",
     "englishPhone": "+237 683 064 880",
+    "frenchSpanishPhoneLabel": "Francés y español",
     "frenchSpanishPhone": "+240 555 79 65 52"
   },
   "footer": {

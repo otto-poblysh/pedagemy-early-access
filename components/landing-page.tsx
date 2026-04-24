@@ -92,9 +92,14 @@ export default function PedagemyEarlyAccessLandingPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-dvh bg-[#F7F9FC] font-(family-name:--font-dm-sans) text-[#1A1A2E] antialiased">
-      <div className="flex-1 pb-20">
-        <LandingNav registrationsLabel={t("nav.registrationsOngoing", "Early access registrations ongoing")} />
+    <div className="flex min-h-dvh flex-col bg-[#F7F9FC] font-(family-name:--font-dm-sans) text-[#1A1A2E] antialiased">
+      <div className="flex-1 pb-52 sm:pb-28">
+        <LandingNav
+          registrationsLabel={t(
+            "nav.registrationsOngoing",
+            "Early access registrations ongoing"
+          )}
+        />
 
         <section className="mx-auto grid max-w-7xl items-start gap-10 px-6 py-12 sm:px-8 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:gap-16 lg:px-12 lg:py-24 xl:gap-20">
           <HeroSection
@@ -137,7 +142,9 @@ export default function PedagemyEarlyAccessLandingPage() {
       <LandingFooter
         footerEmail={t("contact.footerEmail")}
         englishPhone={t("contact.englishPhone")}
+        englishPhoneLabel={t("contact.englishPhoneLabel")}
         frenchSpanishPhone={t("contact.frenchSpanishPhone")}
+        frenchSpanishPhoneLabel={t("contact.frenchSpanishPhoneLabel")}
         copyright={t("footer.copyright")}
       />
     </div>

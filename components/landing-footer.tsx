@@ -5,49 +5,57 @@ import { PedagemyLogo } from "@/components/logo"
 interface LandingFooterProps {
   footerEmail: string
   englishPhone: string
+  englishPhoneLabel: string
   frenchSpanishPhone: string
+  frenchSpanishPhoneLabel: string
   copyright: string
 }
 
 export function LandingFooter({
   footerEmail,
   englishPhone,
+  englishPhoneLabel,
   frenchSpanishPhone,
+  frenchSpanishPhoneLabel,
   copyright,
 }: LandingFooterProps) {
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-50 h-20 border-t border-[#1A1A2E]/8 bg-[#F7F9FC] px-6 py-10 sm:px-8 lg:px-12">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row sm:items-center">
-        <PedagemyLogo />
-        <div className="flex flex-col items-center gap-1 text-center text-[12px] text-[#1A1A2E]/40">
+    <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-[#1A1A2E]/8 bg-white/92 px-6 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(26,26,46,0.04)] backdrop-blur-md sm:px-8 lg:px-12">
+      <div className="mx-auto grid max-w-7xl items-center justify-items-center gap-3 text-center sm:grid-cols-[1fr_auto_1fr] sm:justify-items-stretch sm:gap-4 sm:text-left">
+        <div className="sm:justify-self-start">
+          <PedagemyLogo />
+        </div>
+        <div className="flex min-w-0 flex-col items-center gap-1.5 text-center text-[11px] leading-5 text-[#1A1A2E]/50 sm:text-[12px]">
           <a
             href={`mailto:${footerEmail}`}
-            className="transition-colors duration-200 hover:text-[#1A1A2E]/70"
+            className="font-medium transition-colors duration-200 hover:text-[#1A1A2E]/75"
           >
             {footerEmail}
           </a>
-          <div className="flex gap-4">
-            <span>
-              English:{" "}
+          <div className="flex flex-col items-center gap-y-0.5 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-4 sm:gap-y-1">
+            <span className="sm:whitespace-nowrap">
+              {englishPhoneLabel}:{" "}
               <a
                 href={`tel:${englishPhone.replace(/\s/g, "")}`}
-                className="transition-colors duration-200 hover:text-[#1A1A2E]/70"
+                className="font-medium transition-colors duration-200 hover:text-[#1A1A2E]/75"
               >
                 {englishPhone}
               </a>
             </span>
-            <span>
-              French and Spanish:{" "}
+            <span className="sm:whitespace-nowrap">
+              {frenchSpanishPhoneLabel}:{" "}
               <a
                 href={`tel:${frenchSpanishPhone.replace(/\s/g, "")}`}
-                className="transition-colors duration-200 hover:text-[#1A1A2E]/70"
+                className="font-medium transition-colors duration-200 hover:text-[#1A1A2E]/75"
               >
                 {frenchSpanishPhone}
               </a>
             </span>
           </div>
         </div>
-        <p className="text-[12px] text-[#1A1A2E]/22">{copyright}</p>
+        <p className="text-[11px] leading-5 text-[#1A1A2E]/32 sm:justify-self-end sm:text-right sm:text-[12px]">
+          {copyright}
+        </p>
       </div>
     </footer>
   )
