@@ -16,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "e21044ae7496fc285f1df9ff3fb518a3a20bea6f5216c1f59f4987e12c769a0a"
     },
+    "email-best-practices": {
+      "source": "resend/email-best-practices",
+      "sourceType": "github",
+      "computedHash": "6a88d51e8c8ffd7d5b70831c303878ad29a3734792db9b56456269c4d70c2ff8"
+    },
     "executing-plans": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -35,6 +40,11 @@
       "source": "leonxlnx/taste-skill",
       "sourceType": "github",
       "computedHash": "7db385e4c5370e5a7fca9704a1361b056e4504ea6a03924bb86f33a4f00b5c73"
+    },
+    "internationalization-i18n": {
+      "source": "aj-geddes/useful-ai-prompts",
+      "sourceType": "github",
+      "computedHash": "9822ad7f8f07a7c53e83e384b81a0248fd8e30ee86f068ca6590f9e9b167b08e"
     },
     "landing-page-copywriter": {
       "source": "onewave-ai/claude-skills",
@@ -61,6 +71,11 @@
       "sourceType": "github",
       "computedHash": "246e65cd72a7e360987d94e6c61564ce6d71c6361d1784d529d70e4cbbe8522d"
     },
+    "resend": {
+      "source": "resend/resend-skills",
+      "sourceType": "github",
+      "computedHash": "936851c3e22e6de1d416134a9cd170d7540ddebe5a1c0113eef66537c843c6ed"
+    },
     "sales-page-copywriting": {
       "source": "yashaiguy-dev/sales-page-copywriting-skill",
       "sourceType": "github",
@@ -85,6 +100,16 @@
       "source": "obra/superpowers",
       "sourceType": "github",
       "computedHash": "126f1ebf6ccd414f42544f6e83d8cc5adb089e1108eaffb7c400701e37eecd9f"
+    },
+    "translation": {
+      "source": "kostja94/marketing-skills",
+      "sourceType": "github",
+      "computedHash": "8416425bae614dd3bbf72713f9a60dc3c2a6d90a47952aa698166744a13458ea"
+    },
+    "typescript-pro": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "1676ebbc84a1d9506b46d7978b91c4bce30d189ac1c619a9e875becd6e1c2c55"
     },
     "ui-typography": {
       "source": "bencium/bencium-marketplace",

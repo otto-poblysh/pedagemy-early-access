@@ -1,0 +1,278 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - navigation [ref=e5]:
+        - generic "Pedagemy" [ref=e6]:
+          - img "Pedagemy" [ref=e7]
+        - generic [ref=e8]:
+          - generic [ref=e9]: Early access registrations ongoing
+          - button "Apply Now" [ref=e11]:
+            - text: Apply Now
+            - img [ref=e13]
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - heading "Win Premium Learning Access Worth up to $755" [level=1] [ref=e19]
+          - generic [ref=e20]:
+            - generic [ref=e21]:
+              - paragraph [ref=e22]: Register to Win by Friday, May 15, 2026.
+              - paragraph [ref=e23]: Enter the Pedagemy Raffle for a chance to access world-class courses curated by iCUBEFARM.
+            - generic [ref=e24]:
+              - button "Soft Skills Accelerator $300 This program is designed for learners who want a wide foundation across today's workplace skills. It covers leadership, communication, productivity, digital transformation, data literacy, Artificial Intelligence (AI), cybersecurity, cloud, DevOps, project management, customer service, and career development. It is useful for students, professionals, and job seekers who want flexible access to many career-relevant learning paths." [ref=e25]:
+                - generic [ref=e26]:
+                  - generic [ref=e27]:
+                    - img [ref=e29]
+                    - paragraph [ref=e35]: Soft Skills Accelerator
+                    - generic [ref=e36]:
+                      - generic [ref=e37]: $300
+                      - img [ref=e39]
+                  - list [ref=e41]:
+                    - listitem [ref=e42]:
+                      - generic [ref=e44]: This program is designed for learners who want a wide foundation across today's workplace skills.
+                    - listitem [ref=e45]:
+                      - generic [ref=e47]: It covers leadership, communication, productivity, digital transformation, data literacy, Artificial Intelligence (AI), cybersecurity, cloud, DevOps, project management, customer service, and career development.
+                    - listitem [ref=e48]:
+                      - generic [ref=e50]: It is useful for students, professionals, and job seekers who want flexible access to many career-relevant learning paths.
+              - button "Tech Career Launchpad $325 This program is built for learners who want to grow into technical roles or strengthen their existing tech skills. It includes topics such as artificial intelligence, big data, data science, machine learning, business intelligence, Python, Java, SQL, HTML5, GitHub, full-stack development, cloud computing, DevOps, cybersecurity, API security, and application security. It also supports hands-on learning through interactive courses, coding labs, and AI-powered practice tools." [ref=e51]:
+                - generic [ref=e52]:
+                  - generic [ref=e53]:
+                    - img [ref=e55]
+                    - paragraph [ref=e58]: Tech Career Launchpad
+                    - generic [ref=e59]:
+                      - generic [ref=e60]: $325
+                      - img [ref=e62]
+                  - list [ref=e65]:
+                    - listitem [ref=e66]:
+                      - generic [ref=e68]: This program is built for learners who want to grow into technical roles or strengthen their existing tech skills.
+                    - listitem [ref=e69]:
+                      - generic [ref=e71]: It includes topics such as artificial intelligence, big data, data science, machine learning, business intelligence, Python, Java, SQL, HTML5, GitHub, full-stack development, cloud computing, DevOps, cybersecurity, API security, and application security.
+                    - listitem [ref=e72]:
+                      - generic [ref=e74]: It also supports hands-on learning through interactive courses, coding labs, and AI-powered practice tools.
+              - 'button "Leadership Accelerator $70 This program is designed for professionals who want to become stronger leaders at work. It covers three areas: leading yourself, leading your team, and leading the business. Learners explore executive presence, emotional intelligence, ethical leadership, team building, cross-cultural leadership, coaching, conflict management, customer-first leadership, decision-making, innovation, strategy, and leadership in the age of AI. It is suitable for emerging leaders, managers, team leads, and professionals preparing for more responsibility." [ref=e75]':
+                - generic [ref=e76]:
+                  - generic [ref=e77]:
+                    - img [ref=e79]
+                    - paragraph [ref=e83]: Leadership Accelerator
+                    - generic [ref=e84]:
+                      - generic [ref=e85]: $70
+                      - img [ref=e87]
+                  - list [ref=e89]:
+                    - listitem [ref=e90]:
+                      - generic [ref=e92]: This program is designed for professionals who want to become stronger leaders at work.
+                    - listitem [ref=e93]:
+                      - generic [ref=e95]: "It covers three areas: leading yourself, leading your team, and leading the business."
+                    - listitem [ref=e96]:
+                      - generic [ref=e98]: Learners explore executive presence, emotional intelligence, ethical leadership, team building, cross-cultural leadership, coaching, conflict management, customer-first leadership, decision-making, innovation, strategy, and leadership in the age of AI.
+                    - listitem [ref=e99]:
+                      - generic [ref=e101]: It is suitable for emerging leaders, managers, team leads, and professionals preparing for more responsibility.
+              - button "Workplace Readiness $60 This program is designed to help learners understand the rules, responsibilities, and safe practices required in modern workplaces. It covers legal and compliance topics such as anti-harassment, code of conduct, ethics, data privacy, GDPR compliance, HIPAA, cybersecurity, and workplace security. It also includes environmental, health, and safety topics such as ergonomics, home office safety, sustainability, transportation, workforce security, and post-pandemic workplace practices. It is useful for professionals, job seekers, and organizations that want stronger workplace readiness." [ref=e102]:
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - img [ref=e106]
+                    - paragraph [ref=e110]: Workplace Readiness
+                    - generic [ref=e111]:
+                      - generic [ref=e112]: $60
+                      - img [ref=e114]
+                  - list [ref=e116]:
+                    - listitem [ref=e117]:
+                      - generic [ref=e119]: This program is designed to help learners understand the rules, responsibilities, and safe practices required in modern workplaces.
+                    - listitem [ref=e120]:
+                      - generic [ref=e122]: It covers legal and compliance topics such as anti-harassment, code of conduct, ethics, data privacy, GDPR compliance, HIPAA, cybersecurity, and workplace security.
+                    - listitem [ref=e123]:
+                      - generic [ref=e125]: It also includes environmental, health, and safety topics such as ergonomics, home office safety, sustainability, transportation, workforce security, and post-pandemic workplace practices.
+                    - listitem [ref=e126]:
+                      - generic [ref=e128]: It is useful for professionals, job seekers, and organizations that want stronger workplace readiness.
+        - generic [ref=e132]:
+          - generic [ref=e133]:
+            - heading "Registration form" [level=3] [ref=e134]
+            - paragraph [ref=e135]: All fields required. Takes under 2 minutes.
+          - generic [ref=e136]:
+            - generic [ref=e137]:
+              - text: Full name
+              - textbox "Full name" [ref=e138]:
+                - /placeholder: Your full name
+            - generic [ref=e139]:
+              - text: Email address
+              - textbox "Email address" [ref=e140]:
+                - /placeholder: you@email.com
+            - generic [ref=e141]:
+              - text: Phone number
+              - textbox "Phone number" [ref=e142]:
+                - /placeholder: +234 000 000 0000
+            - generic [ref=e143]:
+              - text: Programme
+              - combobox "Programme" [ref=e144]:
+                - option "Soft Skills Accelerator — $300"
+                - option "Tech Career Launchpad — $325" [selected]
+                - option "Leadership Accelerator — $70"
+                - option "Workplace Readiness — $60"
+            - generic [ref=e145]:
+              - text: Why this programme?
+              - textbox "Why this programme?" [ref=e146]:
+                - /placeholder: Briefly describe your career goals…
+            - button "Submit Application" [ref=e147]:
+              - text: Submit Application
+              - img [ref=e149]
+            - paragraph [ref=e152]: No payment required. Selected candidates are contacted directly.
+      - generic [ref=e154]:
+        - generic [ref=e155]:
+          - heading "Three steps from where you are to where you want to be." [level=2] [ref=e156]
+          - paragraph [ref=e157]: Visualise the version of yourself on the other side of this. Higher earning, more confident, further ahead. That person took step one. So can you.
+        - generic [ref=e159]:
+          - img "Business professionals attending a corporate training seminar" [ref=e160]
+          - generic [ref=e162]:
+            - paragraph [ref=e163]: Your future self is already in this room.
+            - paragraph [ref=e164]: The only question is whether you show up.
+        - generic [ref=e165]:
+          - generic [ref=e167]:
+            - paragraph [ref=e168]: "01"
+            - heading "Seize the opening" [level=3] [ref=e169]
+            - paragraph [ref=e170]: Apply in under two minutes. Tell us which programme you chose and why it matters to you right now. That decision alone puts you ahead of everyone who scrolled past.
+          - generic [ref=e172]:
+            - paragraph [ref=e173]: "02"
+            - heading "Do the work that changes you" [level=3] [ref=e174]
+            - paragraph [ref=e175]: Complete a world-class programme — the same training organisations invest in for their top people. This is not passive learning. It is the version of you you have been putting off becoming.
+          - generic [ref=e177]:
+            - paragraph [ref=e178]: "03"
+            - heading "Step into a different future" [level=3] [ref=e179]
+            - paragraph [ref=e180]: A promotion you stopped waiting for. A salary conversation you can now have. A business move you finally feel ready to make. That future starts the moment you finish step one.
+      - generic [ref=e182]:
+        - heading "Real outcomes from the same programmes, inside real organisations." [level=2] [ref=e184]
+        - generic [ref=e185]:
+          - generic [ref=e187]:
+            - img [ref=e189]
+            - paragraph [ref=e192]: First role secured
+            - paragraph [ref=e193]: Graduates who completed iCUBEFARM training went on to land their first professional positions — in organisations they had been targeting for months.
+          - img "African woman in professional attire seated in a corporate conference room" [ref=e196]
+          - generic [ref=e198]:
+            - img [ref=e200]
+            - paragraph [ref=e203]: Promoted from within
+            - paragraph [ref=e204]: Employees who upskilled through iCUBEFARM's corporate programmes made the case for promotion with new capabilities their managers could see.
+          - img "Diverse group of young African professionals collaborating in a modern office" [ref=e207]
+          - img "Young African professional smiling confidently in a modern office setting" [ref=e210]
+          - generic [ref=e212]:
+            - img [ref=e214]
+            - paragraph [ref=e219]: First internship won
+            - paragraph [ref=e220]: Students with no prior corporate experience used the skills from these programmes to compete — and win — against candidates with longer CVs.
+          - img "African businessman in gray suit smiling confidently at his office desk" [ref=e223]
+          - generic [ref=e225]:
+            - img [ref=e227]
+            - paragraph [ref=e229]: Switched careers
+            - paragraph [ref=e230]: Professionals who felt stuck used targeted training to pivot into roles that paid more and aligned with where they actually wanted to go.
+        - generic [ref=e232]:
+          - paragraph [ref=e233]: "iCUBEFARM's trainiing initiatives delivered across leading organisations in Africa, including:"
+          - generic [ref=e234]:
+            - generic [ref=e235]: Chevron
+            - generic [ref=e236]: Africa Oil Corporation
+            - generic [ref=e237]: UNDP
+            - generic [ref=e238]: GEPETROL
+            - generic [ref=e239]: TrainingCred
+      - generic [ref=e241]:
+        - heading "Before you apply." [level=2] [ref=e243]
+        - generic [ref=e244]:
+          - generic [ref=e246]:
+            - button "Why is this free?" [ref=e247]:
+              - generic [ref=e248]: Why is this free?
+              - img [ref=e250]
+            - paragraph [ref=e252]: Pedagemy is launching as a dedicated e-learning platform that partners with companies, training institutions, and professional bodies across Africa to make quality career development accessible. This is our early access programme — we are opening the training iCUBEFARM has delivered inside corporates to the public for the first time. There is no catch. No cost to apply, no cost to access, no upsell.
+          - generic [ref=e254]:
+            - button "Who can apply?" [expanded] [active] [ref=e255]:
+              - generic [ref=e256]: Who can apply?
+              - img [ref=e258]
+            - paragraph [ref=e260]: Applications are open to students, job seekers, and working professionals at any career stage. There are no eligibility restrictions.
+          - generic [ref=e262]:
+            - button "What makes these programmes different?" [ref=e263]:
+              - generic [ref=e264]: What makes these programmes different?
+              - img [ref=e266]
+            - paragraph [ref=e268]: Each is from an established professional training provider — Skillsoft, Codecademy, or iCUBEFARM’s own leadership curriculum. These are the same accredited programmes organisations purchase for employee development, not generic self-study content.
+          - generic [ref=e270]:
+            - button "Who is iCUBEFARM?" [ref=e271]:
+              - generic [ref=e272]: Who is iCUBEFARM?
+              - img [ref=e274]
+            - paragraph [ref=e276]: iCUBEFARM is a career development organisation curating professional training for students and working professionals. Pedagemy is their dedicated learning platform.
+          - generic [ref=e278]:
+            - button "How are candidates selected?" [ref=e279]:
+              - generic [ref=e280]: How are candidates selected?
+              - img [ref=e282]
+            - paragraph [ref=e284]: Applications are personally reviewed. Priority is given to candidates who articulate clearly how the programme aligns with their specific career goals.
+          - generic [ref=e286]:
+            - button "What happens after selection?" [ref=e287]:
+              - generic [ref=e288]: What happens after selection?
+              - img [ref=e290]
+            - paragraph [ref=e292]: You receive an email with activation instructions. There is no payment step — just your programme.
+          - generic [ref=e294]:
+            - button "Can I apply for more than one programme?" [ref=e295]:
+              - generic [ref=e296]: Can I apply for more than one programme?
+              - img [ref=e298]
+            - paragraph [ref=e300]: Each application covers one programme. Choose the one that best fits your goals.
+          - generic [ref=e302]:
+            - button "When does the selection window close?" [ref=e303]:
+              - generic [ref=e304]: When does the selection window close?
+              - img [ref=e306]
+            - paragraph [ref=e308]: Seats are limited and reviewed in order of submission. Apply early to be considered before capacity is reached.
+      - generic [ref=e310]:
+        - generic [ref=e312]:
+          - heading "Two minutes to access." [level=2] [ref=e313]
+          - paragraph [ref=e314]: Every application is reviewed personally. A concise, specific statement of intent carries more weight than volume.
+          - paragraph [ref=e315]: Pedagemy is launching a platform to make professional training accessible across Africa. This early access is how we start — real programmes, no cost, no strings.
+          - generic [ref=e317]:
+            - img [ref=e319]
+            - generic [ref=e321]:
+              - paragraph [ref=e322]: Soft Skills Accelerator
+              - paragraph [ref=e323]: Skillsoft Expert · $300 value
+          - generic [ref=e324]:
+            - img "Professional one-on-one mentoring and application review session" [ref=e325]
+            - paragraph [ref=e327]: Every application is read by a real person — merit‑based, not a lottery.
+          - generic [ref=e328]: Limited seats — reviewed in order of submission
+        - generic [ref=e333]:
+          - generic [ref=e334]:
+            - heading "Your Application" [level=3] [ref=e335]
+            - paragraph [ref=e336]: All fields required. Your information is kept private.
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - generic [ref=e339]:
+                - text: Full name
+                - textbox "Full name" [ref=e340]:
+                  - /placeholder: Your full name
+              - generic [ref=e341]:
+                - text: Phone number
+                - textbox "Phone number" [ref=e342]:
+                  - /placeholder: +234 000 000 0000
+            - generic [ref=e343]:
+              - text: Email address
+              - textbox "Email address" [ref=e344]:
+                - /placeholder: you@email.com
+            - generic [ref=e345]:
+              - text: Programme
+              - combobox "Programme" [ref=e346]:
+                - option "Soft Skills Accelerator — $300" [selected]
+                - option "Tech Career Launchpad — $325"
+                - option "Leadership Accelerator — $70"
+                - option "Workplace Readiness — $60"
+            - generic [ref=e347]:
+              - text: Why this programme?
+              - textbox "Why this programme?" [ref=e348]:
+                - /placeholder: Describe how this programme aligns with your career goals…
+            - button "Submit Application" [ref=e349]:
+              - text: Submit Application
+              - img [ref=e351]
+            - paragraph [ref=e354]: No payment required. Selected candidates are contacted directly.
+    - contentinfo [ref=e355]:
+      - generic [ref=e356]:
+        - generic "Pedagemy" [ref=e357]:
+          - img "Pedagemy" [ref=e358]
+        - generic [ref=e359]:
+          - link "training@icubefarm.com" [ref=e360] [cursor=pointer]:
+            - /url: mailto:training@icubefarm.com
+          - generic [ref=e361]:
+            - generic [ref=e362]:
+              - text: "English:"
+              - link "+44 1234 567 890" [ref=e363] [cursor=pointer]:
+                - /url: tel:+441234567890
+            - generic [ref=e364]:
+              - text: "French and Spanish:"
+              - link "+44 1234 567 891" [ref=e365] [cursor=pointer]:
+                - /url: tel:+441234567891
+        - paragraph [ref=e366]: © 2026 Pedagemy. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e372] [cursor=pointer]:
+    - img [ref=e373]
+  - alert [ref=e376]

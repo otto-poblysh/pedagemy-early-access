@@ -8,6 +8,7 @@ export interface RegistrationInput {
   email: string;
   course: string;
   reason: string;
+  locale?: string;
 }
 
 export interface RegistrationRecord {

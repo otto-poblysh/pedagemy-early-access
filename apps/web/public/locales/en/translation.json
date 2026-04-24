@@ -1,0 +1,183 @@
+{
+  "nav": {
+    "applyNow": "Apply Now",
+    "registrationsOngoing": "Early access registrations ongoing"
+  },
+  "hero": {
+    "headline": "Win the career upgrade worth $755. Yours free.",
+    "subheadline": "Most people wait for their employer to invest in them. This is your chance to get there first — fully sponsored, no cost to you.",
+    "questionLabel": "One question before you apply",
+    "questionPrompt": "Which of these would move the needle most for you right now? Pick the one that makes you think \"I need that.\"",
+    "questionContext": "Someone is going to claim this spot. It may as well be the person who decided today was the day.",
+    "programmesIncluded": "4 programmes included",
+    "applyForAccess": "Apply for Access",
+    "applyCaveat": "Free. Reviewed personally. Open to anyone ready to grow."
+  },
+  "courses": {
+    "softSkills": {
+      "label": "Soft Skills Accelerator",
+      "description": [
+        "This program is designed for learners who want a wide foundation across today's workplace skills.",
+        "It covers leadership, communication, productivity, digital transformation, data literacy, Artificial Intelligence (AI), cybersecurity, cloud, DevOps, project management, customer service, and career development.",
+        "It is useful for students, professionals, and job seekers who want flexible access to many career-relevant learning paths."
+      ]
+    },
+    "techCareer": {
+      "label": "Tech Career Launchpad",
+      "description": [
+        "This program is built for learners who want to grow into technical roles or strengthen their existing tech skills.",
+        "It includes topics such as artificial intelligence, big data, data science, machine learning, business intelligence, Python, Java, SQL, HTML5, GitHub, full-stack development, cloud computing, DevOps, cybersecurity, API security, and application security.",
+        "It also supports hands-on learning through interactive courses, coding labs, and AI-powered practice tools."
+      ]
+    },
+    "leadership": {
+      "label": "Leadership Accelerator",
+      "description": [
+        "This program is designed for professionals who want to become stronger leaders at work.",
+        "It covers three areas: leading yourself, leading your team, and leading the business.",
+        "Learners explore executive presence, emotional intelligence, ethical leadership, team building, cross-cultural leadership, coaching, conflict management, customer-first leadership, decision-making, innovation, strategy, and leadership in the age of AI.",
+        "It is suitable for emerging leaders, managers, team leads, and professionals preparing for more responsibility."
+      ]
+    },
+    "workplaceReadiness": {
+      "label": "Workplace Readiness",
+      "description": [
+        "This program is designed to help learners understand the rules, responsibilities, and safe practices required in modern workplaces.",
+        "It covers legal and compliance topics such as anti-harassment, code of conduct, ethics, data privacy, GDPR compliance, HIPAA, cybersecurity, and workplace security.",
+        "It also includes environmental, health, and safety topics such as ergonomics, home office safety, sustainability, transportation, workforce security, and post-pandemic workplace practices.",
+        "It is useful for professionals, job seekers, and organizations that want stronger workplace readiness."
+      ]
+    }
+  },
+  "form": {
+    "title": "Registration form",
+    "subtitle": "All fields required. Takes under 2 minutes.",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Your full name",
+    "email": "Email address",
+    "emailPlaceholder": "you@email.com",
+    "phone": "Phone number",
+    "phonePlaceholder": "+237 000 000 0000",
+    "programme": "Programme",
+    "reason": "Why this programme?",
+    "reasonPlaceholder": "Describe how this programme aligns with your career goals\u2026",
+    "submit": "Submit Application",
+    "submitting": "Submitting\u2026",
+    "successTitle": "Application received.",
+    "successBody": "If selected, Pedagemy will contact you directly with access instructions.",
+    "noPayment": "No payment required. Selected candidates are contacted directly.",
+    "errorRequired": "All fields are required",
+    "errorInvalidEmail": "Invalid email address",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorNetwork": "Network error. Please try again."
+  },
+  "photoCard": {
+    "statusLabel": "Applications open",
+    "subtitle": "Curated by iCUBEFARM",
+    "cardHeadline": "The skills employers invest in — now available to you at no cost."
+  },
+  "stats": {
+    "programmes": "Programmes",
+    "value": "Value",
+    "free": "Free"
+  },
+  "process": {
+    "sectionTitle": "Three steps from where you are to where you want to be.",
+    "sectionSubtitle": "Visualise the version of yourself on the other side of this. Higher earning, more confident, further ahead. That person took step one. So can you.",
+    "futureContext": "Your future self is already in this room.",
+    "futurePrompt": "The only question is whether you show up.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Seize the opening",
+        "body": "Apply in under two minutes. Tell us which programme you chose and why it matters to you right now. That decision alone puts you ahead of everyone who scrolled past."
+      },
+      {
+        "n": "02",
+        "title": "Do the work that changes you",
+        "body": "Complete a world-class programme — the same training organisations invest in for their top people. This is not passive learning. It is the version of you you have been putting off becoming."
+      },
+      {
+        "n": "03",
+        "title": "Step into a different future",
+        "body": "A promotion you stopped waiting for. A salary conversation you can now have. A business move you finally feel ready to make. That future starts the moment you finish step one."
+      }
+    ]
+  },
+  "socialProof": {
+    "sectionTitle": "Real outcomes from the same programmes, inside real organisations.",
+    "trainingLabel": "iCUBEFARM's training initiatives delivered across leading organisations in Africa, including:",
+    "outcomes": [
+      {
+        "outcome": "First role secured",
+        "detail": "Graduates who completed iCUBEFARM training went on to land their first professional positions — in organisations they had been targeting for months."
+      },
+      {
+        "outcome": "First internship won",
+        "detail": "Students with no prior corporate experience used the skills from these programmes to compete — and win — against candidates with longer CVs."
+      },
+      {
+        "outcome": "Promoted from within",
+        "detail": "Employees who upskilled through iCUBEFARM's corporate programmes made the case for promotion with new capabilities their managers could see."
+      },
+      {
+        "outcome": "Switched careers",
+        "detail": "Professionals who felt stuck used targeted training to pivot into roles that paid more and aligned with where they actually wanted to go."
+      }
+    ]
+  },
+  "faq": {
+    "sectionTitle": "Before you apply.",
+    "items": [
+      {
+        "q": "Why is this free?",
+        "a": "Pedagemy is launching as a dedicated e-learning platform that partners with companies, training institutions, and professional bodies across Africa to make quality career development accessible. This is our early access programme — we are opening the training iCUBEFARM has delivered inside corporates to the public for the first time. There is no catch. No cost to apply, no cost to access, no upsell."
+      },
+      {
+        "q": "Who can apply?",
+        "a": "Applications are open to students, job seekers, and working professionals at any career stage. There are no eligibility restrictions."
+      },
+      {
+        "q": "What makes these programmes different?",
+        "a": "Each is from an established professional training provider — Skillsoft, Codecademy, or iCUBEFARM's own leadership curriculum. These are the same accredited programmes organisations purchase for employee development, not generic self-study content."
+      },
+      {
+        "q": "Who is iCUBEFARM?",
+        "a": "iCUBEFARM is a career development organisation curating professional training for students and working professionals. Pedagemy is their dedicated learning platform."
+      },
+      {
+        "q": "How are candidates selected?",
+        "a": "Applications are personally reviewed. Priority is given to candidates who articulate clearly how the programme aligns with their specific career goals."
+      },
+      {
+        "q": "What happens after selection?",
+        "a": "You receive an email with activation instructions. There is no payment step — just your programme."
+      },
+      {
+        "q": "Can I apply for more than one programme?",
+        "a": "Each application covers one programme. Choose the one that best fits your goals."
+      },
+      {
+        "q": "When does the selection window close?",
+        "a": "Seats are limited and reviewed in order of submission. Apply early to be considered before capacity is reached."
+      }
+    ]
+  },
+  "contact": {
+    "footerEmail": "training@icubefarm.com",
+    "englishPhone": "+237 683 064 880",
+    "frenchSpanishPhone": "+240 555 79 65 52"
+  },
+  "footer": {
+    "copyright": "\u00a9 2026 Pedagemy. All rights reserved."
+  },
+  "email": {
+    "subject": "Application received \u2014 {{course}}",
+    "greeting": "Hi {{name}},",
+    "confirmation": "Your application for <strong>{{course}}</strong> has been received.",
+    "timeline": "We will reach out to you with updates on the selection process by <strong>Friday, May 15, 2026</strong>.",
+    "contactLabel": "If you have any questions before then, reach out to us:",
+    "closing": "Best regards,",
+    "team": "The Pedagemy Team"
+  }
+}

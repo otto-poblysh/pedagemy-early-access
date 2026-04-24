@@ -1,0 +1,136 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - navigation [ref=e15]:
+        - generic "Pedagemy" [ref=e16]:
+          - img "Pedagemy" [ref=e17]
+        - generic [ref=e18]:
+          - generic [ref=e19]: Early access registrations ongoing
+          - generic [ref=e21]:
+            - button "EN" [ref=e22]
+            - button "FR" [ref=e23]
+            - button "ES" [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - heading "Win the career upgrade worth $755. Yours free." [level=1] [ref=e28]
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - paragraph [ref=e31]: One question before you apply
+              - paragraph [ref=e32]: Someone is going to claim this spot. It may as well be the person who decided today was the day.
+            - generic [ref=e33]:
+              - button "Soft Skills Accelerator $300 This program is designed for learners who want a wide foundation across today's workplace skills. It covers leadership, communication, productivity, digital transformation, data literacy, Artificial Intelligence (AI), cybersecurity, cloud, DevOps, project management, customer service, and career development. It is useful for students, professionals, and job seekers who want flexible access to many career-relevant learning paths." [ref=e34]:
+                - generic [ref=e35]:
+                  - generic [ref=e36]:
+                    - img [ref=e38]
+                    - paragraph [ref=e44]: Soft Skills Accelerator
+                    - generic [ref=e45]:
+                      - generic [ref=e46]: $300
+                      - img [ref=e48]
+                  - list [ref=e50]:
+                    - listitem [ref=e51]:
+                      - generic [ref=e53]: This program is designed for learners who want a wide foundation across today's workplace skills.
+                    - listitem [ref=e54]:
+                      - generic [ref=e56]: It covers leadership, communication, productivity, digital transformation, data literacy, Artificial Intelligence (AI), cybersecurity, cloud, DevOps, project management, customer service, and career development.
+                    - listitem [ref=e57]:
+                      - generic [ref=e59]: It is useful for students, professionals, and job seekers who want flexible access to many career-relevant learning paths.
+              - button "Tech Career Launchpad $325 This program is built for learners who want to grow into technical roles or strengthen their existing tech skills. It includes topics such as artificial intelligence, big data, data science, machine learning, business intelligence, Python, Java, SQL, HTML5, GitHub, full-stack development, cloud computing, DevOps, cybersecurity, API security, and application security. It also supports hands-on learning through interactive courses, coding labs, and AI-powered practice tools." [ref=e60]:
+                - generic [ref=e61]:
+                  - generic [ref=e62]:
+                    - img [ref=e64]
+                    - paragraph [ref=e67]: Tech Career Launchpad
+                    - generic [ref=e68]:
+                      - generic [ref=e69]: $325
+                      - img [ref=e71]
+                  - list [ref=e74]:
+                    - listitem [ref=e75]:
+                      - generic [ref=e77]: This program is built for learners who want to grow into technical roles or strengthen their existing tech skills.
+                    - listitem [ref=e78]:
+                      - generic [ref=e80]: It includes topics such as artificial intelligence, big data, data science, machine learning, business intelligence, Python, Java, SQL, HTML5, GitHub, full-stack development, cloud computing, DevOps, cybersecurity, API security, and application security.
+                    - listitem [ref=e81]:
+                      - generic [ref=e83]: It also supports hands-on learning through interactive courses, coding labs, and AI-powered practice tools.
+              - 'button "Leadership Accelerator $70 This program is designed for professionals who want to become stronger leaders at work. It covers three areas: leading yourself, leading your team, and leading the business. Learners explore executive presence, emotional intelligence, ethical leadership, team building, cross-cultural leadership, coaching, conflict management, customer-first leadership, decision-making, innovation, strategy, and leadership in the age of AI. It is suitable for emerging leaders, managers, team leads, and professionals preparing for more responsibility." [ref=e84]':
+                - generic [ref=e85]:
+                  - generic [ref=e86]:
+                    - img [ref=e88]
+                    - paragraph [ref=e92]: Leadership Accelerator
+                    - generic [ref=e93]:
+                      - generic [ref=e94]: $70
+                      - img [ref=e96]
+                  - list [ref=e98]:
+                    - listitem [ref=e99]:
+                      - generic [ref=e101]: This program is designed for professionals who want to become stronger leaders at work.
+                    - listitem [ref=e102]:
+                      - generic [ref=e104]: "It covers three areas: leading yourself, leading your team, and leading the business."
+                    - listitem [ref=e105]:
+                      - generic [ref=e107]: Learners explore executive presence, emotional intelligence, ethical leadership, team building, cross-cultural leadership, coaching, conflict management, customer-first leadership, decision-making, innovation, strategy, and leadership in the age of AI.
+                    - listitem [ref=e108]:
+                      - generic [ref=e110]: It is suitable for emerging leaders, managers, team leads, and professionals preparing for more responsibility.
+              - button "Workplace Readiness $60 This program is designed to help learners understand the rules, responsibilities, and safe practices required in modern workplaces. It covers legal and compliance topics such as anti-harassment, code of conduct, ethics, data privacy, GDPR compliance, HIPAA, cybersecurity, and workplace security. It also includes environmental, health, and safety topics such as ergonomics, home office safety, sustainability, transportation, workforce security, and post-pandemic workplace practices. It is useful for professionals, job seekers, and organizations that want stronger workplace readiness." [ref=e111]:
+                - generic [ref=e112]:
+                  - generic [ref=e113]:
+                    - img [ref=e115]
+                    - paragraph [ref=e119]: Workplace Readiness
+                    - generic [ref=e120]:
+                      - generic [ref=e121]: $60
+                      - img [ref=e123]
+                  - list [ref=e125]:
+                    - listitem [ref=e126]:
+                      - generic [ref=e128]: This program is designed to help learners understand the rules, responsibilities, and safe practices required in modern workplaces.
+                    - listitem [ref=e129]:
+                      - generic [ref=e131]: It covers legal and compliance topics such as anti-harassment, code of conduct, ethics, data privacy, GDPR compliance, HIPAA, cybersecurity, and workplace security.
+                    - listitem [ref=e132]:
+                      - generic [ref=e134]: It also includes environmental, health, and safety topics such as ergonomics, home office safety, sustainability, transportation, workforce security, and post-pandemic workplace practices.
+                    - listitem [ref=e135]:
+                      - generic [ref=e137]: It is useful for professionals, job seekers, and organizations that want stronger workplace readiness.
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - heading "Registration form" [level=3] [ref=e143]
+            - paragraph [ref=e144]: All fields required. Takes under 2 minutes.
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - text: Full name
+              - textbox "Full name" [ref=e147]:
+                - /placeholder: Your full name
+            - generic [ref=e148]:
+              - text: Email address
+              - textbox "Email address" [ref=e149]:
+                - /placeholder: you@email.com
+            - generic [ref=e150]:
+              - text: Phone number
+              - textbox "Phone number" [ref=e151]:
+                - /placeholder: +237 000 000 0000
+            - generic [ref=e152]:
+              - text: Programme
+              - combobox "Programme" [ref=e153]:
+                - option "Soft Skills Accelerator — $300"
+                - option "Tech Career Launchpad — $325" [selected]
+                - option "Leadership Accelerator — $70"
+                - option "Workplace Readiness — $60"
+            - generic [ref=e154]:
+              - text: Why this programme?
+              - textbox "Why this programme?" [ref=e155]:
+                - /placeholder: Describe how this programme aligns with your career goals…
+            - button "Submit Application" [ref=e156]:
+              - text: Submit Application
+              - img [ref=e158]
+            - paragraph [ref=e161]: No payment required. Selected candidates are contacted directly.
+    - contentinfo [ref=e162]:
+      - generic [ref=e163]:
+        - generic "Pedagemy" [ref=e164]:
+          - img "Pedagemy" [ref=e165]
+        - generic [ref=e166]:
+          - link "training@icubefarm.com" [ref=e167] [cursor=pointer]:
+            - /url: mailto:training@icubefarm.com
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - text: "English:"
+              - link "+237 683 064 880" [ref=e170] [cursor=pointer]:
+                - /url: tel:+237683064880
+            - generic [ref=e171]:
+              - text: "French and Spanish:"
+              - link "+240 555 79 65 52" [ref=e172] [cursor=pointer]:
+                - /url: tel:+240555796552
+        - paragraph [ref=e173]: © 2026 Pedagemy. All rights reserved.
