@@ -57,11 +57,8 @@ export default function DefinitelyNotASpreadsheetPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-[#DDE3EE] bg-white p-6 shadow-[0_8px_30px_rgba(0,30,80,0.06)] sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0056D2]">
-                Definitely not a spreadsheet
-              </p>
-              <h1 className="mt-2 text-[clamp(28px,4vw,40px)] font-black tracking-[-0.04em]">
-                Registration Inbox
+              <h1 className="text-[clamp(28px,4vw,40px)] font-black tracking-[-0.04em]">
+                Registrations Admin
               </h1>
               <p className="mt-2 text-sm text-[#6B7A99]">
                 {registrations.length} total {registrations.length === 1 ? "entry" : "entries"}.
@@ -140,11 +137,8 @@ export default function DefinitelyNotASpreadsheetPage() {
     <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,_#EBF2FF,_#F7F9FC_52%,_#EDF2F7)] px-6 py-10 font-(family-name:--font-dm-sans) text-[#1A1A2E]">
       <div className="w-full max-w-md overflow-hidden rounded-[28px] border border-[#DDE3EE] bg-white shadow-[0_24px_60px_rgba(0,30,80,0.12)]">
         <div className="bg-[#003A8C] px-7 py-6 text-white">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/65">
-            Absolutely normal page
-          </p>
-          <h1 className="mt-2 text-2xl font-black tracking-[-0.03em]">
-            Definitely Not A Spreadsheet
+          <h1 className="text-2xl font-black tracking-[-0.03em]">
+            Registrations Admin
           </h1>
           <p className="mt-2 text-sm leading-6 text-white/80">
             If you know why you are here, use the local access code and move along.

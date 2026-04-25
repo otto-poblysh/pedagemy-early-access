@@ -38,7 +38,7 @@ export function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.startsWith("/definitely-not-a-spreadsheet") ||
+    pathname.startsWith("/admin") ||
     pathname.startsWith("/locales") ||
     pathname.includes(".") ||
     pathname === "/favicon.ico"

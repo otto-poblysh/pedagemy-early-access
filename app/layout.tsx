@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: {
-    default: "Pedagemy — Sponsored Career Programme Access",
+    default: "Win Premium Learning Access — Worth up to $755.",
     template: "%s | Pedagemy",
   },
   description:
-    "Pedagemy and iCUBEFARM are awarding sponsored access to four premium workplace learning programmes. Apply free — reviewed personally.",
+    "Most people wait for their employer to invest in them. This is your chance to get there first — fully sponsored, no cost to you.",
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
