@@ -24,6 +24,11 @@ out/
 build
 dist
 
+# Remotion media artifacts
+public/pedagemy-corporate-bed.mp3
+public/remotion-media/
+remotion/media/
+
 # SQLite database
 data/*.sqlite
 data/*.sqlite-*
