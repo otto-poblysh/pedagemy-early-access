@@ -1,5 +1,6 @@
 import {
   AbsoluteFill,
+  Audio,
   Easing,
   Img,
   interpolate,
@@ -16,6 +17,7 @@ const PAPER = "#F7F9FC"
 const LINE = "rgba(26, 26, 46, 0.08)"
 const SOFT_LINE = "rgba(26, 26, 46, 0.10)"
 const GREEN = "#10B981"
+const WINDOW_SHADOW = "0 44px 120px rgba(26, 26, 46, 0.18)"
 
 const programs = [
   {
@@ -68,6 +70,7 @@ export function PedagemyRaffleVideo() {
 
   return (
     <AbsoluteFill style={styles.stage}>
+      <Audio src={staticFile("pedagemy-corporate-bed.mp3")} volume={0.18} />
       <PageTexture />
       <Progress frame={frame} />
       <Scene {...scene.hero}>
@@ -158,32 +161,33 @@ function Progress({ frame }: { frame: number }) {
 }
 
 function HeroScene({ localFrame }: { localFrame: number }) {
-  const cardScale = spring({
+  const windowScale = spring({
     frame: Math.max(localFrame - 18, 0),
     fps: 30,
-    config: { damping: 21, stiffness: 86 },
+    config: { damping: 24, stiffness: 72 },
+  })
+  const windowY = interpolate(localFrame, [0, 80], [24, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
   })
 
   return (
     <AbsoluteFill style={styles.heroScene}>
-      <div style={styles.heroCopy}>
-        <Kicker>Pedagemy Raffle</Kicker>
-        <h1 style={styles.heroTitle}>
-          Win premium learning access worth up to{" "}
-          <span style={styles.blueText}>$755.</span>
-        </h1>
-        <p style={styles.heroBody}>
-          The video now starts where learners start: the actual registration
-          page, the programme choices, and the form that takes under 2 minutes.
-        </p>
-        <div style={styles.pillRow}>
-          <Pill>Free to apply</Pill>
-          <Pill>Friday, May 15, 2026</Pill>
-          <Pill>Curated by iCUBEFARM</Pill>
-        </div>
+      <div
+        style={{
+          ...styles.heroWindowWrap,
+          transform: `translateY(${windowY}px) scale(${windowScale})`,
+        }}
+      >
+        <DesktopPagePreview localFrame={localFrame} focus="home" size="hero" />
       </div>
-      <div style={{ ...styles.desktopHeroWrap, transform: `scale(${cardScale})` }}>
-        <DesktopPagePreview localFrame={localFrame} focus="home" />
+      <div style={styles.heroMetaBar}>
+        <Kicker>Pedagemy Raffle</Kicker>
+        <div style={styles.heroMetaCopy}>
+          <strong>Premium learning access worth up to $755</strong>
+          <span>Free registration. Personally reviewed. Open until Friday, May 15, 2026.</span>
+        </div>
       </div>
     </AbsoluteFill>
   )
@@ -203,19 +207,19 @@ function RegistrationScene({ localFrame }: { localFrame: number }) {
   return (
     <AbsoluteFill style={styles.registrationScene}>
       <div style={styles.sceneHeader}>
-        <Kicker>How to register</Kicker>
-        <h2 style={styles.sectionTitle}>Show the form. Make the action obvious.</h2>
+        <Kicker>Register to win</Kicker>
+        <h2 style={styles.sectionTitle}>Pick the programme that can move your career forward.</h2>
       </div>
       <div style={styles.registrationGrid}>
         <div style={{ ...styles.registrationBrowser, transform: `scale(${zoom})` }}>
-          <DesktopPagePreview localFrame={localFrame} focus="form" />
+          <DesktopPagePreview localFrame={localFrame} focus="form" size="standard" />
           <div style={{ ...styles.cursorDot, top: cursorY }} />
         </div>
         <div style={styles.calloutStack}>
           {[
-            ["01", "Choose one programme", "The dropdown mirrors the live form."],
-            ["02", "Enter contact details", "Name, email, phone, and your reason."],
-            ["03", "Submit application", "No payment required after the click."],
+            ["01", "Choose one programme", "Select the training path that matches your next career step."],
+            ["02", "Share your goal", "Tell us why this programme matters for your growth."],
+            ["03", "Submit for review", "No payment required. Selected candidates are contacted directly."],
           ].map(([n, title, body], index) => {
             const active = localFrame > 55 + index * 62
             return (
@@ -252,19 +256,19 @@ function MobileScene({ localFrame }: { localFrame: number }) {
   return (
     <AbsoluteFill style={styles.mobileScene}>
       <div style={styles.mobileCopy}>
-        <Kicker>Mobile-first registration</Kicker>
-        <h2 style={styles.sectionTitle}>The form becomes a clean phone shot.</h2>
+        <Kicker>Fast registration</Kicker>
+        <h2 style={styles.sectionTitle}>Enter the raffle in under 2 minutes.</h2>
         <p style={styles.sectionBody}>
-          This gives the video a practical middle: viewers see the exact fields
-          they will complete and the blue submit button they should tap.
+          Add your contact details, choose a sponsored programme, and explain
+          the career goal you want this opportunity to support.
         </p>
       </div>
       <div style={{ ...styles.phoneFrame, transform: `translateY(${phoneY}px)` }}>
         <MobileFormPreview localFrame={localFrame} />
       </div>
       <div style={styles.mobileNote}>
-        <strong>No floating footer.</strong>
-        <span>The page now scrolls naturally, so the form has room to breathe.</span>
+        <strong>No payment required.</strong>
+        <span>Selected candidates receive access instructions directly.</span>
       </div>
     </AbsoluteFill>
   )
@@ -278,7 +282,7 @@ function ProgramsScene({ localFrame }: { localFrame: number }) {
     <AbsoluteFill style={styles.programsScene}>
       <div style={styles.sceneHeader}>
         <Kicker>Programme highlights</Kicker>
-        <h2 style={styles.sectionTitle}>Use the accordion as the visual rhythm.</h2>
+        <h2 style={styles.sectionTitle}>Four sponsored learning paths. Choose the one your career needs now.</h2>
       </div>
       <div style={styles.programSceneGrid}>
         <div style={styles.accordionBoard}>
@@ -325,7 +329,7 @@ function BenefitsScene({ localFrame }: { localFrame: number }) {
     <AbsoluteFill style={styles.benefitsScene}>
       <Kicker>Why this matters</Kicker>
       <h2 style={styles.benefitsTitle}>
-        The site UI does the selling: calm, credible, and action-focused.
+        A real chance to access career-building training at no cost.
       </h2>
       <div style={styles.benefitGrid}>
         {benefits.map((benefit, index) => {
@@ -364,10 +368,10 @@ function ClosingScene({ localFrame }: { localFrame: number }) {
       <h2 style={styles.closingTitle}>Register to win by Friday, May 15, 2026</h2>
       <p style={styles.closingBody}>
         Choose your programme, explain your career goal, and submit the
-        application in under 2 minutes.
+        registration in under 2 minutes.
       </p>
       <div style={{ ...styles.cta, transform: `scale(${pulse})` }}>
-        Apply on the Pedagemy page
+        Register for the Pedagemy Raffle
       </div>
       <p style={styles.contact}>training@icubefarm.com</p>
     </AbsoluteFill>
@@ -377,18 +381,27 @@ function ClosingScene({ localFrame }: { localFrame: number }) {
 function DesktopPagePreview({
   localFrame,
   focus,
+  size = "standard",
 }: {
   localFrame: number
   focus: "home" | "form"
+  size?: "standard" | "hero"
 }) {
   const selected = focus === "form" ? Math.min(1, localFrame / 90) : 1
 
   return (
-    <div style={styles.browserFrame}>
+    <MacWindow
+      title="Pedagemy Raffle Registration"
+      style={size === "hero" ? styles.browserFrameHero : styles.browserFrame}
+    >
       <SiteNav />
-      <div style={styles.siteGrid}>
-        <div style={styles.siteLeft}>
-          <h2 style={styles.siteHeadline}>
+      <div style={size === "hero" ? styles.siteGridHero : styles.siteGrid}>
+        <div style={size === "hero" ? styles.siteLeftHero : styles.siteLeft}>
+          <div style={styles.siteHeaderRow}>
+            <span style={styles.siteStatusPill}>Sponsored early access</span>
+            <span style={styles.siteStatusMeta}>Applications ongoing</span>
+          </div>
+          <h2 style={size === "hero" ? styles.siteHeadlineHero : styles.siteHeadline}>
             Win Premium Learning Access - Worth up to $755.
           </h2>
           <p style={styles.siteKicker}>Register to win by Friday, May 15, 2026</p>
@@ -412,6 +425,31 @@ function DesktopPagePreview({
         </div>
       </div>
       <SiteFooter />
+    </MacWindow>
+  )
+}
+
+function MacWindow({
+  title,
+  style,
+  children,
+}: {
+  title: string
+  style?: React.CSSProperties
+  children: React.ReactNode
+}) {
+  return (
+    <div style={{ ...styles.macWindow, ...style }}>
+      <div style={styles.macChrome}>
+        <div style={styles.trafficLights}>
+          <span style={{ ...styles.trafficLight, backgroundColor: "#FF5F57" }} />
+          <span style={{ ...styles.trafficLight, backgroundColor: "#FFBD2E" }} />
+          <span style={{ ...styles.trafficLight, backgroundColor: "#28C840" }} />
+        </div>
+        <div style={styles.windowTitle}>{title}</div>
+        <div style={styles.chromeStatus}>registration open</div>
+      </div>
+      <div style={styles.windowContent}>{children}</div>
     </div>
   )
 }
@@ -566,15 +604,6 @@ function Kicker({ children }: { children: React.ReactNode }) {
   return <div style={styles.kicker}>{children}</div>
 }
 
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={styles.pill}>
-      <span style={styles.pillDot} />
-      {children}
-    </div>
-  )
-}
-
 function iconFor(name: string) {
   if (name === "screen") return "▭"
   if (name === "case") return "▣"
@@ -599,8 +628,8 @@ const styles: Record<string, React.CSSProperties> = {
     position: "absolute",
     inset: -120,
     backgroundImage:
-      "linear-gradient(rgba(26,26,46,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,46,0.045) 1px, transparent 1px)",
-    backgroundSize: "80px 80px",
+      "linear-gradient(rgba(26,26,46,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,46,0.028) 1px, transparent 1px)",
+    backgroundSize: "92px 92px",
   },
   topGlow: {
     position: "absolute",
@@ -609,7 +638,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: 820,
     height: 820,
     borderRadius: 130,
-    backgroundColor: "rgba(11,132,243,0.14)",
+    backgroundColor: "rgba(0,86,210,0.10)",
   },
   bottomGlow: {
     position: "absolute",
@@ -618,15 +647,15 @@ const styles: Record<string, React.CSSProperties> = {
     width: 860,
     height: 620,
     borderRadius: 120,
-    backgroundColor: "rgba(26,26,46,0.055)",
+    backgroundColor: "rgba(26,26,46,0.045)",
   },
   progressTrack: {
     position: "absolute",
-    left: 72,
-    right: 72,
+    left: 84,
+    right: 84,
     bottom: 42,
     zIndex: 30,
-    height: 6,
+    height: 4,
     borderRadius: 999,
     backgroundColor: "rgba(0,86,210,0.12)",
     overflow: "hidden",
@@ -637,11 +666,10 @@ const styles: Record<string, React.CSSProperties> = {
     background: `linear-gradient(90deg, ${REMOTION_BLUE}, ${BLUE})`,
   },
   heroScene: {
-    display: "grid",
-    gridTemplateColumns: "0.92fr 1.08fr",
-    gap: 58,
+    display: "flex",
     alignItems: "center",
-    padding: "100px 84px 92px",
+    justifyContent: "center",
+    padding: "92px 78px 110px",
   },
   heroCopy: {
     display: "flex",
@@ -706,15 +734,92 @@ const styles: Record<string, React.CSSProperties> = {
   desktopHeroWrap: {
     transformOrigin: "center",
   },
-  browserFrame: {
+  heroWindowWrap: {
+    transformOrigin: "center",
+  },
+  heroMetaBar: {
+    position: "absolute",
+    left: 124,
+    right: 124,
+    bottom: 76,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 28,
+    border: "1px solid rgba(26,26,46,0.08)",
+    borderRadius: 18,
+    backgroundColor: "rgba(255,255,255,0.82)",
+    padding: "16px 18px",
+    boxShadow: "0 18px 60px rgba(26,26,46,0.08)",
+    backdropFilter: "blur(18px)",
+  },
+  heroMetaCopy: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 18,
+    color: INK,
+    fontSize: 19,
+    fontWeight: 780,
+  },
+  macWindow: {
     position: "relative",
-    width: 1030,
-    height: 720,
-    borderRadius: 26,
-    border: `1px solid ${LINE}`,
-    backgroundColor: PAPER,
-    boxShadow: "0 36px 110px rgba(26,26,46,0.16)",
+    borderRadius: 24,
+    border: "1px solid rgba(26,26,46,0.12)",
+    backgroundColor: "rgba(255,255,255,0.78)",
+    boxShadow: WINDOW_SHADOW,
     overflow: "hidden",
+  },
+  macChrome: {
+    position: "relative",
+    height: 42,
+    display: "grid",
+    gridTemplateColumns: "140px 1fr 140px",
+    alignItems: "center",
+    borderBottom: "1px solid rgba(26,26,46,0.08)",
+    background:
+      "linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,247,251,0.92))",
+    padding: "0 16px",
+  },
+  trafficLights: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  trafficLight: {
+    width: 12,
+    height: 12,
+    borderRadius: 999,
+    boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.10)",
+  },
+  windowTitle: {
+    justifySelf: "center",
+    color: "rgba(26,26,46,0.68)",
+    fontSize: 14,
+    fontWeight: 800,
+    letterSpacing: 0,
+  },
+  chromeStatus: {
+    justifySelf: "end",
+    color: "rgba(26,26,46,0.34)",
+    fontSize: 12,
+    fontWeight: 800,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  windowContent: {
+    height: "calc(100% - 42px)",
+    overflow: "hidden",
+    backgroundColor: PAPER,
+  },
+  browserFrame: {
+    width: 1030,
+    height: 762,
+  },
+  browserFrameHero: {
+    width: 1720,
+    height: 842,
+    borderRadius: 26,
+    boxShadow: "0 50px 140px rgba(26,26,46,0.20)",
   },
   siteNavWrap: {
     display: "flex",
@@ -774,13 +879,54 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 44,
     padding: "46px 58px 30px",
   },
+  siteGridHero: {
+    display: "grid",
+    gridTemplateColumns: "1fr 480px",
+    gap: 70,
+    padding: "58px 74px 34px",
+  },
   siteLeft: {
     minWidth: 0,
+  },
+  siteLeftHero: {
+    minWidth: 0,
+    paddingTop: 12,
+  },
+  siteHeaderRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 18,
+  },
+  siteStatusPill: {
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: 999,
+    backgroundColor: "rgba(0,86,210,0.08)",
+    color: BLUE,
+    padding: "8px 12px",
+    fontSize: 13,
+    fontWeight: 950,
+    textTransform: "uppercase",
+    letterSpacing: 1.4,
+  },
+  siteStatusMeta: {
+    color: "rgba(26,26,46,0.42)",
+    fontSize: 14,
+    fontWeight: 800,
   },
   siteHeadline: {
     margin: 0,
     fontSize: 48,
     lineHeight: 1.08,
+    fontWeight: 950,
+    letterSpacing: 0,
+  },
+  siteHeadlineHero: {
+    margin: 0,
+    maxWidth: 800,
+    fontSize: 72,
+    lineHeight: 1.02,
     fontWeight: 950,
     letterSpacing: 0,
   },
