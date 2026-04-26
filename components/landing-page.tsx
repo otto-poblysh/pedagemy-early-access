@@ -93,7 +93,7 @@ export default function PedagemyEarlyAccessLandingPage() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-[#F7F9FC] font-(family-name:--font-dm-sans) text-[#1A1A2E] antialiased">
-      <div className="flex-1 pb-52 sm:pb-28">
+      <div className="flex-1">
         <LandingNav
           registrationsLabel={t(
             "nav.registrationsOngoing",

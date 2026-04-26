@@ -20,7 +20,7 @@ export function LandingFooter({
   copyright,
 }: LandingFooterProps) {
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-[#1A1A2E]/8 bg-white/92 px-6 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(26,26,46,0.04)] backdrop-blur-md sm:px-8 lg:px-12">
+    <footer className="border-t border-[#1A1A2E]/8 bg-white/92 px-6 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(26,26,46,0.04)] sm:px-8 lg:px-12">
       <div className="mx-auto grid max-w-7xl items-center justify-items-center gap-3 text-center sm:grid-cols-[1fr_auto_1fr] sm:justify-items-stretch sm:gap-4 sm:text-left">
         <div className="sm:justify-self-start">
           <PedagemyLogo />
