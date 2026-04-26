@@ -6,55 +6,56 @@ import {
   spring,
   staticFile,
   useCurrentFrame,
-  useVideoConfig,
 } from "remotion"
 
+const BLUE = "#0056D2"
 const REMOTION_BLUE = "#0B84F3"
-const REMOTION_INK = "#282A36"
-const PAPER = "#F8FAFC"
-const LINE = "#EAEAEA"
-const PEDAGEMY_BLUE = "#0056D2"
-const GREEN = "#00B894"
-const GOLD = "#F7B731"
-const RED = "#E74C3C"
+const INK = "#1A1A2E"
+const MUTED = "#6B7280"
+const PAPER = "#F7F9FC"
+const LINE = "rgba(26, 26, 46, 0.08)"
+const SOFT_LINE = "rgba(26, 26, 46, 0.10)"
+const GREEN = "#10B981"
 
 const programs = [
   {
-    title: "Soft Skills Accelerator",
+    label: "Soft Skills Accelerator",
     value: "$300",
-    benefit: "Build the modern workplace range employers reward.",
+    icon: "people",
     topics: ["Leadership", "Communication", "AI literacy", "Productivity"],
-    color: REMOTION_BLUE,
+    body: "A wide foundation across today's workplace skills.",
   },
   {
-    title: "Tech Career Launchpad",
+    label: "Tech Career Launchpad",
     value: "$325",
-    benefit: "Move toward technical roles with hands-on practice.",
+    icon: "screen",
     topics: ["Python", "SQL", "Cloud", "Cybersecurity"],
-    color: GREEN,
+    body: "Hands-on learning for technical roles and stronger tech skills.",
   },
   {
-    title: "Leadership Accelerator",
+    label: "Leadership Accelerator",
     value: "$70",
-    benefit: "Lead yourself, your team, and the business with confidence.",
+    icon: "case",
     topics: ["Executive presence", "Strategy", "Coaching", "Decision-making"],
-    color: GOLD,
+    body: "Lead yourself, your team, and the business with more confidence.",
   },
   {
-    title: "Workplace Readiness",
+    label: "Workplace Readiness",
     value: "$60",
-    benefit: "Understand the rules and responsibilities of modern work.",
+    icon: "shield",
     topics: ["Ethics", "Data privacy", "Safety", "Compliance"],
-    color: RED,
+    body: "Understand the rules, responsibilities, and safe practices of work.",
   },
 ]
 
-const steps = [
-  "Choose the programme that fits your next career move.",
-  "Complete the short registration form in under 2 minutes.",
-  "Tell Pedagemy why this programme matters to your goals.",
-  "Selected candidates receive access instructions directly.",
-]
+const scene = {
+  hero: { start: 0, duration: 270 },
+  registration: { start: 240, duration: 360 },
+  mobile: { start: 570, duration: 330 },
+  programs: { start: 870, duration: 450 },
+  benefits: { start: 1260, duration: 270 },
+  close: { start: 1500, duration: 300 },
+}
 
 type SceneProps = {
   start: number
@@ -64,36 +65,28 @@ type SceneProps = {
 
 export function PedagemyRaffleVideo() {
   const frame = useCurrentFrame()
-  const { durationInFrames } = useVideoConfig()
 
   return (
     <AbsoluteFill style={styles.stage}>
-      <Background />
-      <BrandBar />
-      <Progress frame={frame} duration={durationInFrames} />
-
-      <Scene start={0} duration={210}>
-        {(localFrame) => <Opening localFrame={localFrame} />}
+      <PageTexture />
+      <Progress frame={frame} />
+      <Scene {...scene.hero}>
+        {(localFrame) => <HeroScene localFrame={localFrame} />}
       </Scene>
-
-      <Scene start={180} duration={270}>
-        {(localFrame) => <RaffleValue localFrame={localFrame} />}
+      <Scene {...scene.registration}>
+        {(localFrame) => <RegistrationScene localFrame={localFrame} />}
       </Scene>
-
-      <Scene start={420} duration={330}>
-        {(localFrame) => <RegistrationGuide localFrame={localFrame} />}
+      <Scene {...scene.mobile}>
+        {(localFrame) => <MobileScene localFrame={localFrame} />}
       </Scene>
-
-      <Scene start={720} duration={570}>
-        {(localFrame) => <ProgramHighlights localFrame={localFrame} />}
+      <Scene {...scene.programs}>
+        {(localFrame) => <ProgramsScene localFrame={localFrame} />}
       </Scene>
-
-      <Scene start={1260} duration={270}>
-        {(localFrame) => <Benefits localFrame={localFrame} />}
+      <Scene {...scene.benefits}>
+        {(localFrame) => <BenefitsScene localFrame={localFrame} />}
       </Scene>
-
-      <Scene start={1500} duration={300}>
-        {(localFrame) => <Closing localFrame={localFrame} />}
+      <Scene {...scene.close}>
+        {(localFrame) => <ClosingScene localFrame={localFrame} />}
       </Scene>
     </AbsoluteFill>
   )
@@ -104,17 +97,17 @@ function Scene({ start, duration, children }: SceneProps) {
   const localFrame = frame - start
   const opacity = interpolate(
     frame,
-    [start, start + 20, start + duration - 25, start + duration],
+    [start, start + 24, start + duration - 28, start + duration],
     [0, 1, 1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   )
-  const y = interpolate(frame, [start, start + 30], [28, 0], {
+  const y = interpolate(frame, [start, start + 34], [24, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   })
 
-  if (localFrame < -30 || localFrame > duration + 30) return null
+  if (localFrame < -40 || localFrame > duration + 40) return null
 
   return (
     <AbsoluteFill style={{ opacity, transform: `translateY(${y}px)` }}>
@@ -123,39 +116,40 @@ function Scene({ start, duration, children }: SceneProps) {
   )
 }
 
-function Background() {
+function PageTexture() {
   const frame = useCurrentFrame()
   const drift = interpolate(frame, [0, 1800], [0, 1])
 
   return (
-    <AbsoluteFill style={styles.background}>
+    <AbsoluteFill style={styles.textureWrap}>
       <div
         style={{
           ...styles.grid,
-          transform: `translateX(${-80 * drift}px) translateY(${-45 * drift}px)`,
+          transform: `translate(${-72 * drift}px, ${-40 * drift}px)`,
         }}
       />
-      <div style={{ ...styles.bluePanel, transform: `translateX(${28 * drift}px)` }} />
-      <div style={{ ...styles.darkPanel, transform: `translateY(${-40 * drift}px)` }} />
+      <div
+        style={{
+          ...styles.topGlow,
+          transform: `translateX(${24 * drift}px) rotate(-8deg)`,
+        }}
+      />
+      <div
+        style={{
+          ...styles.bottomGlow,
+          transform: `translateY(${-28 * drift}px) rotate(8deg)`,
+        }}
+      />
     </AbsoluteFill>
   )
 }
 
-function BrandBar() {
-  return (
-    <div style={styles.brandBar}>
-      <Img src={staticFile("pedagemy-logo.png")} style={styles.logo} />
-      <div style={styles.brandDivider} />
-      <span style={styles.brandText}>Pedagemy Raffle</span>
-    </div>
-  )
-}
-
-function Progress({ frame, duration }: { frame: number; duration: number }) {
-  const width = interpolate(frame, [0, duration], [0, 100], {
+function Progress({ frame }: { frame: number }) {
+  const width = interpolate(frame, [0, 1800], [0, 100], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   })
+
   return (
     <div style={styles.progressTrack}>
       <div style={{ ...styles.progressFill, width: `${width}%` }} />
@@ -163,203 +157,150 @@ function Progress({ frame, duration }: { frame: number; duration: number }) {
   )
 }
 
-function Opening({ localFrame }: { localFrame: number }) {
-  const scale = spring({
-    frame: Math.max(localFrame - 12, 0),
+function HeroScene({ localFrame }: { localFrame: number }) {
+  const cardScale = spring({
+    frame: Math.max(localFrame - 18, 0),
     fps: 30,
-    config: { damping: 18, stiffness: 90 },
+    config: { damping: 21, stiffness: 86 },
   })
 
   return (
-    <AbsoluteFill style={styles.centerLayout}>
-      <Kicker>Fully sponsored early access</Kicker>
-      <h1 style={styles.heroTitle}>
-        Win premium learning access worth up to{" "}
-        <span style={styles.heroAccent}>$755</span>
-      </h1>
-      <p style={styles.heroSubcopy}>
-        Four career-building programmes curated by iCUBEFARM. No payment
-        required. Selected candidates are contacted directly.
-      </p>
-      <div style={{ ...styles.heroPillRow, transform: `scale(${scale})` }}>
-        <Pill label="Applications open" color={GREEN} />
-        <Pill label="Deadline: Friday, May 15, 2026" color={REMOTION_BLUE} />
-        <Pill label="Open to ready learners" color={GOLD} />
+    <AbsoluteFill style={styles.heroScene}>
+      <div style={styles.heroCopy}>
+        <Kicker>Pedagemy Raffle</Kicker>
+        <h1 style={styles.heroTitle}>
+          Win premium learning access worth up to{" "}
+          <span style={styles.blueText}>$755.</span>
+        </h1>
+        <p style={styles.heroBody}>
+          The video now starts where learners start: the actual registration
+          page, the programme choices, and the form that takes under 2 minutes.
+        </p>
+        <div style={styles.pillRow}>
+          <Pill>Free to apply</Pill>
+          <Pill>Friday, May 15, 2026</Pill>
+          <Pill>Curated by iCUBEFARM</Pill>
+        </div>
+      </div>
+      <div style={{ ...styles.desktopHeroWrap, transform: `scale(${cardScale})` }}>
+        <DesktopPagePreview localFrame={localFrame} focus="home" />
       </div>
     </AbsoluteFill>
   )
 }
 
-function RaffleValue({ localFrame }: { localFrame: number }) {
-  const count = Math.round(
-    interpolate(localFrame, [25, 90], [0, 755], {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-      easing: Easing.out(Easing.cubic),
-    })
-  )
+function RegistrationScene({ localFrame }: { localFrame: number }) {
+  const zoom = interpolate(localFrame, [20, 110], [0.78, 0.88], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  })
+  const cursorY = interpolate(localFrame, [45, 260], [330, 690], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  })
 
   return (
-    <AbsoluteFill style={styles.splitLayout}>
-      <div style={styles.leftColumn}>
-        <Kicker>What is the Pedagemy Raffle?</Kicker>
-        <h2 style={styles.sectionTitle}>
-          A chance to access the same professional training organisations buy
-          for employee growth.
-        </h2>
-        <p style={styles.bodyText}>
-          Register free, choose one programme, and show how it aligns with your
-          next career goal.
-        </p>
+    <AbsoluteFill style={styles.registrationScene}>
+      <div style={styles.sceneHeader}>
+        <Kicker>How to register</Kicker>
+        <h2 style={styles.sectionTitle}>Show the form. Make the action obvious.</h2>
       </div>
-      <div style={styles.valueCard}>
-        <span style={styles.valueLabel}>Potential sponsored value</span>
-        <strong style={styles.valueNumber}>${count}</strong>
-        <div style={styles.valueBars}>
-          {programs.map((program, index) => (
-            <div key={program.title} style={styles.valueBarRow}>
-              <span style={styles.valueBarLabel}>{program.title}</span>
-              <div style={styles.valueBarTrack}>
-                <div
-                  style={{
-                    ...styles.valueBarFill,
-                    width: `${interpolate(localFrame, [40 + index * 9, 105 + index * 9], [0, 100], {
-                      extrapolateLeft: "clamp",
-                      extrapolateRight: "clamp",
-                    })}%`,
-                    backgroundColor: program.color,
-                  }}
-                />
+      <div style={styles.registrationGrid}>
+        <div style={{ ...styles.registrationBrowser, transform: `scale(${zoom})` }}>
+          <DesktopPagePreview localFrame={localFrame} focus="form" />
+          <div style={{ ...styles.cursorDot, top: cursorY }} />
+        </div>
+        <div style={styles.calloutStack}>
+          {[
+            ["01", "Choose one programme", "The dropdown mirrors the live form."],
+            ["02", "Enter contact details", "Name, email, phone, and your reason."],
+            ["03", "Submit application", "No payment required after the click."],
+          ].map(([n, title, body], index) => {
+            const active = localFrame > 55 + index * 62
+            return (
+              <div
+                key={n}
+                style={{
+                  ...styles.callout,
+                  borderColor: active ? BLUE : LINE,
+                  transform: `translateX(${active ? 0 : 18}px)`,
+                  opacity: active ? 1 : 0.62,
+                }}
+              >
+                <span style={styles.calloutNumber}>{n}</span>
+                <div>
+                  <h3 style={styles.calloutTitle}>{title}</h3>
+                  <p style={styles.calloutBody}>{body}</p>
+                </div>
               </div>
-              <b style={styles.valueBarAmount}>{program.value}</b>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </AbsoluteFill>
   )
 }
 
-function RegistrationGuide({ localFrame }: { localFrame: number }) {
+function MobileScene({ localFrame }: { localFrame: number }) {
+  const phoneY = interpolate(localFrame, [0, 80], [50, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  })
+
   return (
-    <AbsoluteFill style={styles.workflowLayout}>
-      <div style={styles.workflowHeader}>
-        <Kicker>How to register</Kicker>
-        <h2 style={styles.sectionTitle}>One focused form. Four clear moves.</h2>
+    <AbsoluteFill style={styles.mobileScene}>
+      <div style={styles.mobileCopy}>
+        <Kicker>Mobile-first registration</Kicker>
+        <h2 style={styles.sectionTitle}>The form becomes a clean phone shot.</h2>
+        <p style={styles.sectionBody}>
+          This gives the video a practical middle: viewers see the exact fields
+          they will complete and the blue submit button they should tap.
+        </p>
       </div>
-      <div style={styles.stepGrid}>
-        {steps.map((step, index) => {
-          const active = localFrame > 35 + index * 45
-          const enter = interpolate(
-            localFrame,
-            [10 + index * 20, 40 + index * 20],
-            [0, 1],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-          )
-          return (
-            <div
-              key={step}
-              style={{
-                ...styles.stepCard,
-                opacity: enter,
-                transform: `translateY(${(1 - enter) * 30}px)`,
-                borderColor: active ? REMOTION_BLUE : LINE,
-              }}
-            >
-              <span
-                style={{
-                  ...styles.stepNumber,
-                  backgroundColor: active ? REMOTION_BLUE : LINE,
-                  color: active ? "#fff" : REMOTION_INK,
-                }}
-              >
-                0{index + 1}
-              </span>
-              <p style={styles.stepText}>{step}</p>
-            </div>
-          )
-        })}
+      <div style={{ ...styles.phoneFrame, transform: `translateY(${phoneY}px)` }}>
+        <MobileFormPreview localFrame={localFrame} />
       </div>
-      <FormMockup localFrame={localFrame} />
+      <div style={styles.mobileNote}>
+        <strong>No floating footer.</strong>
+        <span>The page now scrolls naturally, so the form has room to breathe.</span>
+      </div>
     </AbsoluteFill>
   )
 }
 
-function FormMockup({ localFrame }: { localFrame: number }) {
-  const fill = interpolate(localFrame, [80, 210], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  })
+function ProgramsScene({ localFrame }: { localFrame: number }) {
+  const activeIndex = Math.min(3, Math.floor(Math.max(localFrame, 0) / 108))
+  const active = programs[activeIndex] ?? programs[1]!
 
   return (
-    <div style={styles.formMockup}>
-      <div style={styles.formHeader}>
-        <span>Registration form</span>
-        <small>Under 2 minutes</small>
-      </div>
-      {["Full name", "Email address", "Phone number", "Programme"].map(
-        (label, index) => (
-          <div key={label} style={styles.inputRow}>
-            <span>{label}</span>
-            <div style={styles.inputTrack}>
-              <div
-                style={{
-                  ...styles.inputFill,
-                  width: `${Math.min(100, Math.max(0, fill * 120 - index * 18))}%`,
-                }}
-              />
-            </div>
-          </div>
-        )
-      )}
-      <div style={styles.submitButton}>Submit Application</div>
-    </div>
-  )
-}
-
-function ProgramHighlights({ localFrame }: { localFrame: number }) {
-  const activeIndex = Math.min(3, Math.floor(Math.max(localFrame, 0) / 135))
-  const program = programs[activeIndex] ?? programs[0]!
-  const sweep = interpolate(localFrame % 135, [0, 120], [0, 100], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  })
-
-  return (
-    <AbsoluteFill style={styles.programLayout}>
-      <div style={styles.programHeader}>
+    <AbsoluteFill style={styles.programsScene}>
+      <div style={styles.sceneHeader}>
         <Kicker>Programme highlights</Kicker>
-        <h2 style={styles.sectionTitle}>Pick the path that moves you forward.</h2>
+        <h2 style={styles.sectionTitle}>Use the accordion as the visual rhythm.</h2>
       </div>
-      <div style={styles.programTabs}>
-        {programs.map((item, index) => (
-          <div
-            key={item.title}
-            style={{
-              ...styles.programTab,
-              borderColor: index === activeIndex ? item.color : LINE,
-              color: index === activeIndex ? item.color : "#6B7280",
-            }}
-          >
-            {item.title}
-          </div>
-        ))}
-      </div>
-      <div style={styles.programFocus}>
-        <div style={{ ...styles.programGlow, backgroundColor: program.color }} />
-        <div style={styles.programCopy}>
-          <span style={{ ...styles.programValue, color: program.color }}>
-            Sponsored access value {program.value}
-          </span>
-          <h3 style={styles.programTitle}>{program.title}</h3>
-          <p style={styles.programBenefit}>{program.benefit}</p>
+      <div style={styles.programSceneGrid}>
+        <div style={styles.accordionBoard}>
+          {programs.map((program, index) => (
+            <CourseAccordionPreview
+              key={program.label}
+              program={program}
+              active={index === activeIndex}
+            />
+          ))}
+        </div>
+        <div style={styles.topicPanel}>
+          <span style={styles.topicEyebrow}>Selected path</span>
+          <h3 style={styles.topicTitle}>{active.label}</h3>
+          <p style={styles.topicBody}>{active.body}</p>
           <div style={styles.topicGrid}>
-            {program.topics.map((topic, index) => (
-              <div key={topic} style={styles.topic}>
+            {active.topics.map((topic, index) => (
+              <div key={topic} style={styles.topicChip}>
                 <span
                   style={{
                     ...styles.topicDot,
-                    backgroundColor: index % 2 ? REMOTION_BLUE : program.color,
+                    backgroundColor: index % 2 === 0 ? BLUE : REMOTION_BLUE,
                   }}
                 />
                 {topic}
@@ -367,53 +308,42 @@ function ProgramHighlights({ localFrame }: { localFrame: number }) {
             ))}
           </div>
         </div>
-        <div style={styles.orbitCard}>
-          <div
-            style={{
-              ...styles.ring,
-              borderColor: program.color,
-              transform: `rotate(${sweep * 2.7}deg)`,
-            }}
-          />
-          <div style={styles.orbitCenter}>
-            <strong>{activeIndex + 1}/4</strong>
-            <span>career path</span>
-          </div>
-        </div>
       </div>
     </AbsoluteFill>
   )
 }
 
-function Benefits({ localFrame }: { localFrame: number }) {
+function BenefitsScene({ localFrame }: { localFrame: number }) {
   const benefits = [
-    ["No payment step", "Apply free and wait for selection updates."],
-    ["Career-relevant topics", "AI, leadership, compliance, tech, and workplace skills."],
-    ["Professional providers", "Skillsoft, Codecademy, and iCUBEFARM curriculum."],
+    "No payment required",
+    "World-class professional courses",
+    "Selection reviewed personally",
+    "Access instructions sent directly",
   ]
 
   return (
-    <AbsoluteFill style={styles.benefitsLayout}>
-      <Kicker>Why apply now?</Kicker>
-      <h2 style={styles.sectionTitle}>This is the access window before the door gets crowded.</h2>
+    <AbsoluteFill style={styles.benefitsScene}>
+      <Kicker>Why this matters</Kicker>
+      <h2 style={styles.benefitsTitle}>
+        The site UI does the selling: calm, credible, and action-focused.
+      </h2>
       <div style={styles.benefitGrid}>
-        {benefits.map(([title, body], index) => {
-          const enter = interpolate(localFrame, [20 + index * 25, 55 + index * 25], [0, 1], {
+        {benefits.map((benefit, index) => {
+          const enter = interpolate(localFrame, [20 + index * 22, 58 + index * 22], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })
           return (
             <div
-              key={title}
+              key={benefit}
               style={{
                 ...styles.benefitCard,
                 opacity: enter,
-                transform: `translateX(${(1 - enter) * -35}px)`,
+                transform: `translateY(${(1 - enter) * 30}px)`,
               }}
             >
-              <span style={styles.benefitMark}>{index + 1}</span>
-              <h3 style={styles.benefitTitle}>{title}</h3>
-              <p style={styles.benefitBody}>{body}</p>
+              <span style={styles.benefitMark}>0{index + 1}</span>
+              <h3 style={styles.benefitCardTitle}>{benefit}</h3>
             </div>
           )
         })}
@@ -422,25 +352,213 @@ function Benefits({ localFrame }: { localFrame: number }) {
   )
 }
 
-function Closing({ localFrame }: { localFrame: number }) {
-  const pulse = interpolate(localFrame % 60, [0, 30, 60], [1, 1.035, 1], {
+function ClosingScene({ localFrame }: { localFrame: number }) {
+  const pulse = interpolate(localFrame % 64, [0, 32, 64], [1, 1.025, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   })
 
   return (
-    <AbsoluteFill style={styles.closingLayout}>
+    <AbsoluteFill style={styles.closingScene}>
       <Img src={staticFile("pedagemy-logo.png")} style={styles.closingLogo} />
       <h2 style={styles.closingTitle}>Register to win by Friday, May 15, 2026</h2>
       <p style={styles.closingBody}>
-        Choose your programme, tell us your goal, and take the first step toward
-        sponsored professional learning.
+        Choose your programme, explain your career goal, and submit the
+        application in under 2 minutes.
       </p>
       <div style={{ ...styles.cta, transform: `scale(${pulse})` }}>
         Apply on the Pedagemy page
       </div>
-      <p style={styles.contact}>Questions: training@icubefarm.com</p>
+      <p style={styles.contact}>training@icubefarm.com</p>
     </AbsoluteFill>
+  )
+}
+
+function DesktopPagePreview({
+  localFrame,
+  focus,
+}: {
+  localFrame: number
+  focus: "home" | "form"
+}) {
+  const selected = focus === "form" ? Math.min(1, localFrame / 90) : 1
+
+  return (
+    <div style={styles.browserFrame}>
+      <SiteNav />
+      <div style={styles.siteGrid}>
+        <div style={styles.siteLeft}>
+          <h2 style={styles.siteHeadline}>
+            Win Premium Learning Access - Worth up to $755.
+          </h2>
+          <p style={styles.siteKicker}>Register to win by Friday, May 15, 2026</p>
+          <p style={styles.siteContext}>
+            Enter the Pedagemy Raffle for a chance to access world-class courses
+            curated by iCUBEFARM.
+          </p>
+          <div style={styles.siteAccordionList}>
+            {programs.map((program, index) => (
+              <CourseAccordionPreview
+                key={program.label}
+                program={program}
+                active={index === 1 && selected > 0.2}
+                compact
+              />
+            ))}
+          </div>
+        </div>
+        <div style={styles.siteFormRail}>
+          <RegistrationFormPreview filled={focus === "form"} />
+        </div>
+      </div>
+      <SiteFooter />
+    </div>
+  )
+}
+
+function SiteNav() {
+  return (
+    <div style={styles.siteNavWrap}>
+      <div style={styles.siteNav}>
+        <Img src={staticFile("pedagemy-logo.png")} style={styles.siteLogo} />
+        <div style={styles.navRight}>
+          <span style={styles.greenDot} />
+          <span style={styles.registrationOngoing}>Early access registrations ongoing</span>
+          <span style={styles.langActive}>EN</span>
+          <span style={styles.lang}>FR</span>
+          <span style={styles.lang}>ES</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SiteFooter() {
+  return (
+    <div style={styles.siteFooter}>
+      <Img src={staticFile("pedagemy-logo.png")} style={styles.footerLogo} />
+      <span>training@icubefarm.com</span>
+      <span>English: +237 683 064 880</span>
+      <span>French and Spanish: +240 555 79 65 52</span>
+    </div>
+  )
+}
+
+function RegistrationFormPreview({ filled }: { filled: boolean }) {
+  const fields = [
+    ["Full name", filled ? "Amina Okoro" : "Your full name"],
+    ["Email address", filled ? "amina@example.com" : "you@email.com"],
+    ["Phone number", filled ? "+237 683 064 880" : "+237 000 000 0000"],
+    ["Programme", "Codecademy Expert - $325"],
+  ]
+
+  return (
+    <div style={styles.formCard}>
+      <div style={styles.formHeader}>
+        <h3 style={styles.formTitle}>Registration form</h3>
+        <p style={styles.formSubtitle}>All fields required. Takes under 2 minutes.</p>
+      </div>
+      <div style={styles.formBody}>
+        {fields.map(([label, value], index) => (
+          <label key={label} style={styles.formLabel}>
+            <span>{label}</span>
+            <div style={styles.inputBox}>
+              <span style={{ color: filled || index === 3 ? INK : "#A8B0BE" }}>
+                {value}
+              </span>
+              {index === 3 ? <span style={styles.selectChevron}>⌄</span> : null}
+            </div>
+          </label>
+        ))}
+        <label style={styles.formLabel}>
+          <span>Why this programme?</span>
+          <div style={styles.textAreaBox}>
+            <span style={{ color: filled ? INK : "#A8B0BE" }}>
+              {filled
+                ? "I want to build practical tech skills for a stronger career move this year."
+                : "Describe how this programme aligns with your career goals..."}
+            </span>
+          </div>
+        </label>
+        <div style={styles.submitButton}>
+          Submit Application
+          <span style={styles.submitBadge}>↗</span>
+        </div>
+        <p style={styles.noPayment}>No payment required. Selected candidates are contacted directly.</p>
+      </div>
+    </div>
+  )
+}
+
+function MobileFormPreview({ localFrame }: { localFrame: number }) {
+  const filled = localFrame > 105
+
+  return (
+    <div style={styles.phoneScreen}>
+      <SiteNavMini />
+      <RegistrationFormPreview filled={filled} />
+    </div>
+  )
+}
+
+function SiteNavMini() {
+  return (
+    <div style={styles.mobileNav}>
+      <Img src={staticFile("pedagemy-logo.png")} style={styles.mobileLogo} />
+      <div style={styles.mobileLangs}>
+        <span style={styles.langActive}>EN</span>
+        <span style={styles.lang}>FR</span>
+        <span style={styles.lang}>ES</span>
+      </div>
+    </div>
+  )
+}
+
+function CourseAccordionPreview({
+  program,
+  active,
+  compact = false,
+}: {
+  program: (typeof programs)[number]
+  active: boolean
+  compact?: boolean
+}) {
+  return (
+    <div
+      style={{
+        ...styles.courseCard,
+        ...(active ? styles.courseCardActive : {}),
+        minHeight: active && !compact ? 250 : compact ? 82 : 96,
+      }}
+    >
+      <div style={styles.courseHeader}>
+        <div
+          style={{
+            ...styles.courseIcon,
+            backgroundColor: active ? BLUE : "rgba(26, 26, 46, 0.06)",
+            color: active ? "#fff" : "rgba(26, 26, 46, 0.45)",
+          }}
+        >
+          {iconFor(program.icon)}
+        </div>
+        <strong style={{ ...styles.courseName, color: active ? BLUE : "rgba(26,26,46,0.62)" }}>
+          {program.label}
+        </strong>
+        <b style={{ ...styles.courseValue, color: active ? "#003A8C" : "rgba(26,26,46,0.32)" }}>
+          {program.value}
+        </b>
+        <span style={{ ...styles.courseToggle, backgroundColor: active ? BLUE : "rgba(26,26,46,0.08)" }}>
+          ⌃
+        </span>
+      </div>
+      {active ? (
+        <ul style={styles.courseBullets}>
+          <li>{program.body}</li>
+          <li>{program.topics.join(", ")}</li>
+          <li>Interactive courses, guided practice, and career-relevant learning.</li>
+        </ul>
+      ) : null}
+    </div>
   )
 }
 
@@ -448,501 +566,664 @@ function Kicker({ children }: { children: React.ReactNode }) {
   return <div style={styles.kicker}>{children}</div>
 }
 
-function Pill({ label, color }: { label: string; color: string }) {
+function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ ...styles.pill, borderColor: color }}>
-      <span style={{ ...styles.pillDot, backgroundColor: color }} />
-      {label}
+    <div style={styles.pill}>
+      <span style={styles.pillDot} />
+      {children}
     </div>
   )
 }
 
+function iconFor(name: string) {
+  if (name === "screen") return "▭"
+  if (name === "case") return "▣"
+  if (name === "shield") return "◇"
+  return "◌"
+}
+
 const styles: Record<string, React.CSSProperties> = {
   stage: {
+    width: "100%",
+    height: "100%",
     backgroundColor: PAPER,
-    color: REMOTION_INK,
+    color: INK,
     fontFamily:
-      'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      'DM Sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     overflow: "hidden",
   },
-  background: {
-    background: `linear-gradient(135deg, ${PAPER} 0%, #FFFFFF 48%, #EEF6FF 100%)`,
+  textureWrap: {
+    background: "linear-gradient(135deg, #F7F9FC 0%, #FFFFFF 56%, #EDF6FF 100%)",
   },
   grid: {
     position: "absolute",
     inset: -120,
-    backgroundImage: `linear-gradient(${LINE} 1px, transparent 1px), linear-gradient(90deg, ${LINE} 1px, transparent 1px)`,
+    backgroundImage:
+      "linear-gradient(rgba(26,26,46,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,46,0.045) 1px, transparent 1px)",
     backgroundSize: "80px 80px",
-    opacity: 0.5,
   },
-  bluePanel: {
+  topGlow: {
     position: "absolute",
-    right: -150,
-    top: -220,
-    width: 780,
-    height: 780,
-    borderRadius: 120,
-    background: REMOTION_BLUE,
-    opacity: 0.13,
-    rotate: "18deg",
-  },
-  darkPanel: {
-    position: "absolute",
-    left: -240,
-    bottom: -260,
+    right: -170,
+    top: -260,
     width: 820,
-    height: 620,
-    borderRadius: 110,
-    background: REMOTION_INK,
-    opacity: 0.08,
-    rotate: "-10deg",
+    height: 820,
+    borderRadius: 130,
+    backgroundColor: "rgba(11,132,243,0.14)",
   },
-  brandBar: {
+  bottomGlow: {
     position: "absolute",
-    top: 42,
-    left: 70,
-    right: 70,
-    zIndex: 20,
-    display: "flex",
-    alignItems: "center",
-    gap: 20,
-    height: 58,
-  },
-  logo: {
-    width: 210,
-    height: 58,
-    objectFit: "contain",
-    objectPosition: "left center",
-  },
-  brandDivider: {
-    width: 1,
-    height: 32,
-    backgroundColor: "#C9D5E5",
-  },
-  brandText: {
-    fontSize: 22,
-    fontWeight: 800,
-    letterSpacing: 0,
-    color: REMOTION_INK,
+    left: -320,
+    bottom: -270,
+    width: 860,
+    height: 620,
+    borderRadius: 120,
+    backgroundColor: "rgba(26,26,46,0.055)",
   },
   progressTrack: {
     position: "absolute",
-    left: 70,
-    right: 70,
+    left: 72,
+    right: 72,
     bottom: 42,
+    zIndex: 30,
     height: 6,
     borderRadius: 999,
-    backgroundColor: "#DCE5EF",
+    backgroundColor: "rgba(0,86,210,0.12)",
     overflow: "hidden",
-    zIndex: 20,
   },
   progressFill: {
     height: "100%",
     borderRadius: 999,
-    background: `linear-gradient(90deg, ${REMOTION_BLUE}, ${PEDAGEMY_BLUE})`,
+    background: `linear-gradient(90deg, ${REMOTION_BLUE}, ${BLUE})`,
   },
-  centerLayout: {
+  heroScene: {
+    display: "grid",
+    gridTemplateColumns: "0.92fr 1.08fr",
+    gap: 58,
     alignItems: "center",
-    justifyContent: "center",
-    padding: "130px 150px",
-    textAlign: "center",
+    padding: "100px 84px 92px",
+  },
+  heroCopy: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   heroTitle: {
-    margin: "28px 0 0",
-    maxWidth: 1300,
-    fontSize: 104,
-    lineHeight: 0.95,
-    fontWeight: 900,
+    margin: "26px 0 0",
+    fontSize: 76,
+    lineHeight: 0.98,
+    fontWeight: 950,
     letterSpacing: 0,
   },
-  heroAccent: {
-    color: REMOTION_BLUE,
+  blueText: {
+    color: BLUE,
   },
-  heroSubcopy: {
-    margin: "34px 0 0",
-    maxWidth: 980,
-    fontSize: 34,
-    lineHeight: 1.35,
-    color: "#4B5563",
-    fontWeight: 500,
+  heroBody: {
+    margin: "28px 0 0",
+    maxWidth: 720,
+    color: "#465368",
+    fontSize: 28,
+    lineHeight: 1.38,
+    fontWeight: 600,
   },
-  heroPillRow: {
+  pillRow: {
     display: "flex",
-    gap: 18,
-    marginTop: 56,
-  },
-  kicker: {
-    display: "inline-flex",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    padding: "12px 18px",
-    border: `1px solid ${LINE}`,
-    borderRadius: 999,
-    backgroundColor: "#FFFFFF",
-    color: REMOTION_BLUE,
-    fontSize: 19,
-    fontWeight: 900,
-    textTransform: "uppercase",
-    letterSpacing: 2,
+    flexWrap: "wrap",
+    gap: 12,
+    marginTop: 38,
   },
   pill: {
     display: "flex",
     alignItems: "center",
     gap: 10,
-    padding: "13px 18px",
-    border: "2px solid",
+    border: `1px solid ${SOFT_LINE}`,
     borderRadius: 999,
     backgroundColor: "#fff",
-    fontSize: 20,
-    fontWeight: 800,
+    padding: "12px 16px",
+    fontSize: 18,
+    fontWeight: 850,
+    boxShadow: "0 12px 30px rgba(26,26,46,0.05)",
   },
   pillDot: {
-    width: 11,
-    height: 11,
+    width: 9,
+    height: 9,
     borderRadius: 99,
+    backgroundColor: GREEN,
   },
-  splitLayout: {
-    display: "grid",
-    gridTemplateColumns: "1fr 720px",
-    gap: 86,
+  kicker: {
+    display: "inline-flex",
     alignItems: "center",
-    padding: "150px 140px 120px",
+    border: `1px solid ${SOFT_LINE}`,
+    borderRadius: 999,
+    backgroundColor: "rgba(255,255,255,0.86)",
+    padding: "10px 16px",
+    color: BLUE,
+    fontSize: 18,
+    fontWeight: 950,
+    textTransform: "uppercase",
+    letterSpacing: 2,
   },
-  leftColumn: {
+  desktopHeroWrap: {
+    transformOrigin: "center",
+  },
+  browserFrame: {
+    position: "relative",
+    width: 1030,
+    height: 720,
+    borderRadius: 26,
+    border: `1px solid ${LINE}`,
+    backgroundColor: PAPER,
+    boxShadow: "0 36px 110px rgba(26,26,46,0.16)",
+    overflow: "hidden",
+  },
+  siteNavWrap: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "18px 34px 0",
+  },
+  siteNav: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: 54,
+    borderRadius: 10,
+    border: `1px solid ${SOFT_LINE}`,
+    backgroundColor: "rgba(247,249,252,0.92)",
+    padding: "0 20px",
+    boxShadow: "0 2px 24px rgba(26,26,46,0.06)",
+  },
+  siteLogo: {
+    width: 165,
+    height: 32,
+    objectFit: "contain",
+  },
+  navRight: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    fontSize: 12,
+    color: "rgba(26,26,46,0.42)",
+  },
+  greenDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 99,
+    backgroundColor: GREEN,
+  },
+  registrationOngoing: {
+    whiteSpace: "nowrap",
+  },
+  langActive: {
+    display: "grid",
+    placeItems: "center",
+    minWidth: 34,
+    height: 30,
+    borderRadius: 6,
+    backgroundColor: BLUE,
+    color: "#fff",
+    fontWeight: 950,
+  },
+  lang: {
+    fontWeight: 800,
+    color: "rgba(26,26,46,0.38)",
+  },
+  siteGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 390px",
+    gap: 44,
+    padding: "46px 58px 30px",
+  },
+  siteLeft: {
+    minWidth: 0,
+  },
+  siteHeadline: {
+    margin: 0,
+    fontSize: 48,
+    lineHeight: 1.08,
+    fontWeight: 950,
+    letterSpacing: 0,
+  },
+  siteKicker: {
+    margin: "34px 0 0",
+    color: BLUE,
+    fontSize: 17,
+    fontWeight: 950,
+    letterSpacing: 2,
+    textTransform: "uppercase",
+  },
+  siteContext: {
+    margin: "16px 0 0",
+    color: INK,
+    fontSize: 18,
+    lineHeight: 1.45,
+    fontWeight: 500,
+  },
+  siteAccordionList: {
+    display: "grid",
+    gap: 12,
+    marginTop: 22,
+  },
+  siteFormRail: {
+    minWidth: 0,
+  },
+  formCard: {
+    borderRadius: 18,
+    border: `1px solid ${LINE}`,
+    backgroundColor: "#fff",
+    boxShadow: "0 18px 70px rgba(26,26,46,0.10)",
+    overflow: "hidden",
+  },
+  formHeader: {
+    padding: "26px 30px 20px",
+    borderBottom: "1px solid rgba(26,26,46,0.06)",
+  },
+  formTitle: {
+    margin: 0,
+    fontSize: 17,
+    fontWeight: 950,
+    color: INK,
+  },
+  formSubtitle: {
+    margin: "8px 0 0",
+    fontSize: 13,
+    color: "rgba(26,26,46,0.42)",
+  },
+  formBody: {
+    padding: "22px 30px 24px",
+  },
+  formLabel: {
+    display: "block",
+    marginBottom: 12,
+    color: "rgba(26,26,46,0.62)",
+    fontSize: 13,
+    fontWeight: 700,
+  },
+  inputBox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 38,
+    marginTop: 7,
+    borderRadius: 5,
+    border: `1px solid ${SOFT_LINE}`,
+    backgroundColor: PAPER,
+    padding: "0 14px",
+    fontSize: 14,
+    fontWeight: 650,
+  },
+  selectChevron: {
+    color: "rgba(26,26,46,0.45)",
+    fontSize: 18,
+  },
+  textAreaBox: {
+    height: 62,
+    marginTop: 7,
+    borderRadius: 5,
+    border: `1px solid ${SOFT_LINE}`,
+    backgroundColor: PAPER,
+    padding: "13px 14px",
+    fontSize: 14,
+    lineHeight: 1.35,
+    fontWeight: 650,
+  },
+  submitButton: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    height: 44,
+    borderRadius: 5,
+    backgroundColor: BLUE,
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: 950,
+    boxShadow: "0 8px 22px rgba(0,86,210,0.25)",
+  },
+  submitBadge: {
+    display: "grid",
+    placeItems: "center",
+    width: 20,
+    height: 20,
+    borderRadius: 99,
+    backgroundColor: "rgba(255,255,255,0.14)",
+    fontSize: 11,
+  },
+  noPayment: {
+    margin: "12px 0 0",
+    textAlign: "center",
+    color: "rgba(26,26,46,0.30)",
+    fontSize: 12,
+    lineHeight: 1.35,
+  },
+  siteFooter: {
+    height: 66,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 24,
+    borderTop: `1px solid ${LINE}`,
+    backgroundColor: "rgba(255,255,255,0.92)",
+    color: "rgba(26,26,46,0.45)",
+    fontSize: 12,
+  },
+  footerLogo: {
+    width: 148,
+    height: 29,
+    objectFit: "contain",
+  },
+  courseCard: {
+    borderRadius: 10,
+    border: `1px solid ${LINE}`,
+    backgroundColor: "rgba(255,255,255,0.72)",
+    padding: 1,
+    overflow: "hidden",
+  },
+  courseCardActive: {
+    borderColor: "rgba(0,86,210,0.30)",
+    backgroundColor: "#fff",
+    boxShadow: "0 4px 24px rgba(0,86,210,0.10)",
+  },
+  courseHeader: {
+    display: "grid",
+    gridTemplateColumns: "40px 1fr auto 24px",
+    alignItems: "center",
+    gap: 13,
+    padding: "16px 18px",
+  },
+  courseIcon: {
+    display: "grid",
+    placeItems: "center",
+    width: 35,
+    height: 35,
+    borderRadius: 7,
+    fontSize: 20,
+    fontWeight: 950,
+  },
+  courseName: {
+    fontSize: 15,
+    fontWeight: 950,
+  },
+  courseValue: {
+    fontSize: 16,
+    fontWeight: 950,
+  },
+  courseToggle: {
+    display: "grid",
+    placeItems: "center",
+    width: 22,
+    height: 22,
+    borderRadius: 99,
+    color: "#fff",
+    fontSize: 13,
+    fontWeight: 950,
+  },
+  courseBullets: {
+    margin: "0 22px 22px 74px",
+    padding: 0,
+    color: "rgba(26,26,46,0.54)",
+    fontSize: 14,
+    lineHeight: 1.62,
+  },
+  registrationScene: {
+    padding: "96px 92px 90px",
+  },
+  sceneHeader: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
   },
   sectionTitle: {
-    margin: "26px 0 0",
-    fontSize: 64,
-    lineHeight: 1.03,
-    fontWeight: 900,
-    letterSpacing: 0,
-    maxWidth: 980,
-  },
-  bodyText: {
-    margin: "28px 0 0",
-    fontSize: 31,
-    lineHeight: 1.42,
-    color: "#4B5563",
-    maxWidth: 840,
-  },
-  valueCard: {
-    backgroundColor: "#FFFFFF",
-    border: `1px solid ${LINE}`,
-    borderRadius: 24,
-    padding: 46,
-    boxShadow: "0 34px 90px rgba(40, 42, 54, 0.14)",
-  },
-  valueLabel: {
-    display: "block",
-    color: "#6B7280",
-    fontSize: 22,
-    fontWeight: 800,
-  },
-  valueNumber: {
-    display: "block",
-    marginTop: 10,
-    color: REMOTION_BLUE,
-    fontSize: 128,
-    lineHeight: 1,
+    margin: "22px 0 0",
+    maxWidth: 920,
+    fontSize: 58,
+    lineHeight: 1.02,
     fontWeight: 950,
+    letterSpacing: 0,
   },
-  valueBars: {
-    display: "grid",
-    gap: 22,
-    marginTop: 42,
+  sectionBody: {
+    margin: "26px 0 0",
+    maxWidth: 700,
+    color: "#465368",
+    fontSize: 28,
+    lineHeight: 1.38,
+    fontWeight: 650,
   },
-  valueBarRow: {
+  registrationGrid: {
     display: "grid",
-    gridTemplateColumns: "210px 1fr 70px",
+    gridTemplateColumns: "1fr 480px",
     alignItems: "center",
-    gap: 16,
+    gap: 56,
+    marginTop: 34,
   },
-  valueBarLabel: {
-    fontSize: 18,
-    lineHeight: 1.15,
-    fontWeight: 800,
+  registrationBrowser: {
+    transformOrigin: "left center",
   },
-  valueBarTrack: {
-    height: 14,
-    backgroundColor: "#E8EEF6",
-    borderRadius: 999,
-    overflow: "hidden",
+  cursorDot: {
+    position: "absolute",
+    right: 150,
+    width: 28,
+    height: 28,
+    borderRadius: 99,
+    border: "5px solid #fff",
+    backgroundColor: REMOTION_BLUE,
+    boxShadow: "0 12px 30px rgba(11,132,243,0.28)",
   },
-  valueBarFill: {
-    height: "100%",
-    borderRadius: 999,
-  },
-  valueBarAmount: {
-    fontSize: 20,
-    textAlign: "right",
-  },
-  workflowLayout: {
-    padding: "142px 140px 116px",
-  },
-  workflowHeader: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  },
-  stepGrid: {
+  calloutStack: {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: 22,
-    marginTop: 54,
+    gap: 18,
   },
-  stepCard: {
-    minHeight: 210,
-    padding: 28,
+  callout: {
+    display: "grid",
+    gridTemplateColumns: "58px 1fr",
+    gap: 18,
     border: "2px solid",
-    borderRadius: 20,
-    backgroundColor: "#FFFFFF",
-    boxShadow: "0 18px 44px rgba(40, 42, 54, 0.08)",
+    borderRadius: 18,
+    backgroundColor: "#fff",
+    padding: 24,
+    boxShadow: "0 20px 50px rgba(26,26,46,0.08)",
   },
-  stepNumber: {
+  calloutNumber: {
     display: "grid",
     placeItems: "center",
-    width: 58,
-    height: 58,
-    borderRadius: 16,
-    fontSize: 20,
+    width: 54,
+    height: 54,
+    borderRadius: 14,
+    backgroundColor: BLUE,
+    color: "#fff",
+    fontSize: 18,
     fontWeight: 950,
   },
-  stepText: {
-    marginTop: 26,
-    fontSize: 25,
-    lineHeight: 1.25,
-    fontWeight: 850,
+  calloutTitle: {
+    margin: 0,
+    fontSize: 26,
+    lineHeight: 1.05,
+    fontWeight: 950,
   },
-  formMockup: {
-    position: "absolute",
-    right: 140,
-    bottom: 105,
-    width: 660,
-    padding: 28,
-    borderRadius: 24,
-    backgroundColor: "#FFFFFF",
-    border: `1px solid ${LINE}`,
-    boxShadow: "0 34px 90px rgba(40, 42, 54, 0.16)",
+  calloutBody: {
+    margin: "8px 0 0",
+    color: MUTED,
+    fontSize: 19,
+    lineHeight: 1.34,
+    fontWeight: 650,
   },
-  formHeader: {
+  mobileScene: {
+    display: "grid",
+    gridTemplateColumns: "1fr 460px 350px",
+    gap: 58,
+    alignItems: "center",
+    padding: "98px 110px 90px",
+  },
+  mobileCopy: {
+    alignSelf: "center",
+  },
+  phoneFrame: {
+    width: 390,
+    height: 790,
+    borderRadius: 42,
+    border: "12px solid #111827",
+    backgroundColor: "#111827",
+    boxShadow: "0 40px 110px rgba(17,24,39,0.25)",
+    overflow: "hidden",
+  },
+  phoneScreen: {
+    width: "100%",
+    height: "100%",
+    overflow: "hidden",
+    backgroundColor: PAPER,
+    padding: "18px 18px 26px",
+  },
+  mobileNav: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 24,
-    fontSize: 25,
-    fontWeight: 900,
-  },
-  inputRow: {
-    display: "grid",
-    gridTemplateColumns: "165px 1fr",
-    alignItems: "center",
-    gap: 16,
-    marginTop: 18,
-    color: "#64748B",
-    fontSize: 18,
-    fontWeight: 800,
-  },
-  inputTrack: {
-    height: 36,
+    height: 50,
     borderRadius: 9,
-    backgroundColor: "#EEF3F8",
-    overflow: "hidden",
+    border: `1px solid ${SOFT_LINE}`,
+    backgroundColor: "rgba(247,249,252,0.94)",
+    padding: "0 12px",
+    marginBottom: 14,
   },
-  inputFill: {
-    height: "100%",
-    backgroundColor: "#D4E8FF",
-    borderRadius: 9,
+  mobileLogo: {
+    width: 160,
+    height: 31,
+    objectFit: "contain",
   },
-  submitButton: {
-    marginTop: 24,
-    height: 52,
-    display: "grid",
-    placeItems: "center",
-    borderRadius: 10,
-    backgroundColor: REMOTION_BLUE,
-    color: "#fff",
-    fontSize: 19,
-    fontWeight: 900,
-  },
-  programLayout: {
-    padding: "140px 120px 112px",
-  },
-  programHeader: {
+  mobileLangs: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  },
-  programTabs: {
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: 14,
-    marginTop: 34,
-  },
-  programTab: {
-    border: "2px solid",
-    borderRadius: 16,
-    backgroundColor: "#FFFFFF",
-    padding: "18px 20px",
-    fontSize: 20,
-    lineHeight: 1.1,
-    fontWeight: 900,
-    textAlign: "center",
-  },
-  programFocus: {
-    position: "relative",
-    display: "grid",
-    gridTemplateColumns: "1fr 500px",
     alignItems: "center",
-    gap: 70,
-    marginTop: 44,
-    minHeight: 430,
-    padding: 48,
-    borderRadius: 28,
+    gap: 10,
+    fontSize: 10,
+  },
+  mobileNote: {
+    display: "grid",
+    gap: 14,
+    alignSelf: "end",
+    marginBottom: 120,
+    color: "#465368",
+    fontSize: 24,
+    lineHeight: 1.3,
+    fontWeight: 650,
+  },
+  programsScene: {
+    padding: "96px 104px 88px",
+  },
+  programSceneGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 650px",
+    gap: 42,
+    alignItems: "stretch",
+    marginTop: 38,
+  },
+  accordionBoard: {
+    display: "grid",
+    gap: 16,
+  },
+  topicPanel: {
+    borderRadius: 24,
     border: `1px solid ${LINE}`,
-    backgroundColor: "#FFFFFF",
-    boxShadow: "0 30px 80px rgba(40, 42, 54, 0.12)",
-    overflow: "hidden",
+    backgroundColor: "#fff",
+    padding: 46,
+    boxShadow: "0 30px 80px rgba(26,26,46,0.12)",
   },
-  programGlow: {
-    position: "absolute",
-    right: -180,
-    top: -180,
-    width: 520,
-    height: 520,
-    borderRadius: 520,
-    opacity: 0.16,
-  },
-  programCopy: {
-    position: "relative",
-    zIndex: 2,
-  },
-  programValue: {
-    fontSize: 25,
+  topicEyebrow: {
+    color: BLUE,
+    fontSize: 22,
     fontWeight: 950,
   },
-  programTitle: {
+  topicTitle: {
     margin: "16px 0 0",
-    fontSize: 70,
-    lineHeight: 0.98,
+    fontSize: 58,
+    lineHeight: 1,
     fontWeight: 950,
     letterSpacing: 0,
   },
-  programBenefit: {
-    margin: "24px 0 0",
-    maxWidth: 800,
-    fontSize: 31,
-    lineHeight: 1.3,
-    color: "#4B5563",
+  topicBody: {
+    margin: "22px 0 0",
+    color: "#465368",
+    fontSize: 27,
+    lineHeight: 1.32,
+    fontWeight: 650,
   },
   topicGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    gap: 16,
-    marginTop: 30,
-    maxWidth: 760,
+    gridTemplateColumns: "1fr 1fr",
+    gap: 14,
+    marginTop: 34,
   },
-  topic: {
+  topicChip: {
     display: "flex",
     alignItems: "center",
     gap: 12,
+    borderRadius: 12,
+    backgroundColor: PAPER,
     padding: "16px 18px",
-    borderRadius: 14,
-    backgroundColor: "#F4F7FB",
-    fontSize: 22,
-    fontWeight: 850,
+    fontSize: 21,
+    fontWeight: 900,
   },
   topicDot: {
-    width: 11,
-    height: 11,
+    width: 10,
+    height: 10,
     borderRadius: 99,
-    flex: "0 0 auto",
   },
-  orbitCard: {
-    position: "relative",
-    zIndex: 2,
-    display: "grid",
-    placeItems: "center",
-    width: 420,
-    height: 420,
-    justifySelf: "center",
-  },
-  ring: {
-    position: "absolute",
-    inset: 18,
-    borderRadius: 999,
-    border: "15px solid",
-    borderLeftColor: "transparent",
-    borderBottomColor: "#E8EEF6",
-  },
-  orbitCenter: {
-    display: "grid",
-    placeItems: "center",
-    width: 220,
-    height: 220,
-    borderRadius: 999,
-    backgroundColor: REMOTION_INK,
-    color: "#FFFFFF",
-  },
-  benefitsLayout: {
-    padding: "154px 150px 120px",
+  benefitsScene: {
     alignItems: "flex-start",
+    padding: "128px 128px 110px",
+  },
+  benefitsTitle: {
+    margin: "28px 0 0",
+    maxWidth: 1340,
+    fontSize: 76,
+    lineHeight: 1,
+    fontWeight: 950,
+    letterSpacing: 0,
   },
   benefitGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 24,
-    marginTop: 58,
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: 18,
     width: "100%",
+    marginTop: 62,
   },
   benefitCard: {
-    minHeight: 300,
-    borderRadius: 24,
+    minHeight: 230,
+    borderRadius: 20,
     border: `1px solid ${LINE}`,
-    backgroundColor: "#FFFFFF",
-    padding: 36,
-    boxShadow: "0 24px 70px rgba(40, 42, 54, 0.1)",
+    backgroundColor: "#fff",
+    padding: 28,
+    boxShadow: "0 24px 70px rgba(26,26,46,0.09)",
   },
   benefitMark: {
     display: "grid",
     placeItems: "center",
-    width: 60,
-    height: 60,
-    borderRadius: 16,
-    backgroundColor: REMOTION_BLUE,
+    width: 56,
+    height: 56,
+    borderRadius: 14,
+    backgroundColor: BLUE,
     color: "#fff",
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 950,
   },
-  benefitTitle: {
+  benefitCardTitle: {
     margin: "28px 0 0",
-    fontSize: 38,
-    lineHeight: 1,
+    fontSize: 30,
+    lineHeight: 1.08,
     fontWeight: 950,
   },
-  benefitBody: {
-    margin: "18px 0 0",
-    fontSize: 25,
-    lineHeight: 1.35,
-    color: "#4B5563",
-    fontWeight: 600,
-  },
-  closingLayout: {
+  closingScene: {
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    padding: "150px 170px",
+    padding: "140px 180px",
   },
   closingLogo: {
-    width: 360,
-    height: 110,
+    width: 380,
+    height: 74,
     objectFit: "contain",
   },
   closingTitle: {
-    margin: "42px 0 0",
-    maxWidth: 1180,
+    margin: "44px 0 0",
+    maxWidth: 1200,
     fontSize: 82,
     lineHeight: 1,
     fontWeight: 950,
@@ -950,25 +1231,26 @@ const styles: Record<string, React.CSSProperties> = {
   },
   closingBody: {
     margin: "28px 0 0",
-    maxWidth: 950,
-    fontSize: 31,
-    lineHeight: 1.38,
-    color: "#4B5563",
+    maxWidth: 980,
+    color: "#465368",
+    fontSize: 30,
+    lineHeight: 1.35,
+    fontWeight: 650,
   },
   cta: {
     marginTop: 44,
-    padding: "24px 54px",
-    borderRadius: 18,
-    backgroundColor: REMOTION_BLUE,
-    color: "#FFFFFF",
-    fontSize: 34,
+    borderRadius: 10,
+    backgroundColor: BLUE,
+    color: "#fff",
+    padding: "22px 44px",
+    fontSize: 30,
     fontWeight: 950,
-    boxShadow: "0 24px 60px rgba(11, 132, 243, 0.28)",
+    boxShadow: "0 24px 60px rgba(0,86,210,0.28)",
   },
   contact: {
-    marginTop: 28,
-    fontSize: 24,
-    color: "#6B7280",
+    marginTop: 24,
+    color: "rgba(26,26,46,0.48)",
+    fontSize: 22,
     fontWeight: 750,
   },
 }
