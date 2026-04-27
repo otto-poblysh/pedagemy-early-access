@@ -1,6 +1,4 @@
-import Database from "better-sqlite3";
-import fs from "node:fs";
-import path from "node:path";
+import { createClient } from "@supabase/supabase-js";
 
 export interface RegistrationInput {
   name: string;
@@ -21,55 +19,74 @@ export interface RegistrationRecord {
   created_at: string;
 }
 
+interface RegistrationLookup {
+  id: number;
+}
+
+export interface RegistrationPersistence {
+  close?: () => Promise<void> | void;
+  findByEmail: (email: string) => Promise<RegistrationLookup | null>;
+  insert: (input: Omit<RegistrationInput, "locale">) => Promise<RegistrationRecord>;
+  list: () => Promise<RegistrationRecord[]>;
+}
+
 export interface RaffleStore {
-  close: () => void;
-  isValidAdminLogin: (email: string, password: string) => boolean;
-  listRegistrations: () => RegistrationRecord[];
-  saveRegistration: (input: RegistrationInput) => RegistrationRecord;
+  close: () => Promise<void>;
+  isValidAdminLogin: (email: string, password: string) => Promise<boolean>;
+  listRegistrations: () => Promise<RegistrationRecord[]>;
+  saveRegistration: (input: RegistrationInput) => Promise<RegistrationRecord>;
 }
 
 interface CreateRaffleStoreOptions {
-  dbPath?: string;
+  adminEmail?: string;
+  adminPassword?: string;
+  persistence?: RegistrationPersistence;
 }
 
-function getDefaultDbPath() {
-  if (process.env.PEDAGEMY_DB_PATH) {
-    return process.env.PEDAGEMY_DB_PATH;
-  }
-
-  return path.join(process.cwd(), "data", "db.sqlite");
-}
-
-function ensureSchema(db: Database.Database) {
-  db.pragma("journal_mode = WAL");
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS registrations (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      email TEXT NOT NULL,
-      course TEXT NOT NULL,
-      reason TEXT NOT NULL,
-      created_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-
-    CREATE TABLE IF NOT EXISTS admin_credentials (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      email TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL
-    );
-  `);
-
-  const adminCount = db.prepare("SELECT COUNT(*) AS count FROM admin_credentials").get() as { count: number };
-  if (adminCount.count === 0) {
-    db.prepare("INSERT INTO admin_credentials (email, password) VALUES (?, ?)").run(
-      "admin@pedagemy.com",
-      "pedagemy2024",
-    );
+export class DuplicateRegistrationError extends Error {
+  constructor(email: string) {
+    super(`A registration already exists for ${email}.`);
+    this.name = "DuplicateRegistrationError";
   }
 }
 
-function normalizeRegistration(input: RegistrationInput): RegistrationInput {
+export class MissingStoreConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "MissingStoreConfigError";
+  }
+}
+
+export class MissingRegistrationsTableError extends Error {
+  constructor() {
+    super("Supabase registrations table is missing. Apply supabase/registrations.sql.");
+    this.name = "MissingRegistrationsTableError";
+  }
+}
+
+function getEnvValue(...names: string[]) {
+  for (const name of names) {
+    const value = process.env[name]?.trim();
+
+    if (value) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
+function getRequiredEnv(name: string, ...fallbackNames: string[]) {
+  const value = getEnvValue(name, ...fallbackNames);
+
+  if (!value) {
+    throw new MissingStoreConfigError(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+}
+
+function normalizeRegistration(input: RegistrationInput): Omit<RegistrationInput, "locale"> {
   return {
     course: input.course.trim(),
     email: input.email.trim().toLowerCase(),
@@ -79,41 +96,138 @@ function normalizeRegistration(input: RegistrationInput): RegistrationInput {
   };
 }
 
-export function createRaffleStore(options: CreateRaffleStoreOptions = {}): RaffleStore {
-  const dbPath = options.dbPath ?? getDefaultDbPath();
-  const dbDir = path.dirname(dbPath);
+function isDuplicateConstraintError(error: unknown) {
+  if (!error || typeof error !== "object") {
+    return false;
+  }
 
-  fs.mkdirSync(dbDir, { recursive: true });
+  return "code" in error && error.code === "23505";
+}
 
-  const db = new Database(dbPath);
-  ensureSchema(db);
+function isMissingRegistrationsTableError(error: unknown) {
+  if (!error || typeof error !== "object") {
+    return false;
+  }
 
-  const insertRegistration = db.prepare(
-    "INSERT INTO registrations (name, phone, email, course, reason) VALUES (?, ?, ?, ?, ?)"
-  );
-  const selectRegistrationById = db.prepare("SELECT * FROM registrations WHERE id = ?");
-  const selectAdmin = db.prepare(
-    "SELECT id FROM admin_credentials WHERE email = ? AND password = ?"
-  );
-  const listRegistrations = db.prepare("SELECT * FROM registrations ORDER BY id DESC");
+  const code = "code" in error ? error.code : undefined;
+  const message = "message" in error && typeof error.message === "string" ? error.message : "";
+
+  return code === "PGRST205" || code === "42P01" || message.includes("public.registrations");
+}
+
+function createSupabasePersistence(): RegistrationPersistence {
+  const supabaseUrl = getRequiredEnv("SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL");
+  const serviceRoleKey = getRequiredEnv("SUPABASE_SERVICE_ROLE_KEY");
+  const client = createClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
 
   return {
-    close: () => db.close(),
-    isValidAdminLogin: (email, password) => {
-      const admin = selectAdmin.get(email.trim().toLowerCase(), password.trim()) as { id: number } | undefined;
-      return Boolean(admin);
+    findByEmail: async (email) => {
+      const { data, error } = await client
+        .from("registrations")
+        .select("id")
+        .eq("email", email)
+        .limit(1)
+        .maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+
+      return data ? { id: data.id } : null;
     },
-    listRegistrations: () => listRegistrations.all() as RegistrationRecord[],
-    saveRegistration: (input) => {
+    insert: async (input) => {
+      const { data, error } = await client
+        .from("registrations")
+        .insert(input)
+        .select("id, name, phone, email, course, reason, created_at")
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      return data as RegistrationRecord;
+    },
+    list: async () => {
+      const { data, error } = await client
+        .from("registrations")
+        .select("id, name, phone, email, course, reason, created_at")
+        .order("id", { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      return (data ?? []) as RegistrationRecord[];
+    },
+  };
+}
+
+export function createRaffleStore(options: CreateRaffleStoreOptions = {}): RaffleStore {
+  const adminEmail = (
+    options.adminEmail ??
+    process.env.PEDAGEMY_ADMIN_EMAIL ??
+    "admin@pedagemy.com"
+  )
+    .trim()
+    .toLowerCase();
+  const adminPassword = options.adminPassword ?? process.env.PEDAGEMY_ADMIN_PASSWORD ?? "pedagemy2024";
+  const persistence = options.persistence ?? createSupabasePersistence();
+
+  return {
+    close: async () => {
+      await persistence.close?.();
+    },
+    isValidAdminLogin: async (email, password) => {
+      return email.trim().toLowerCase() === adminEmail && password.trim() === adminPassword;
+    },
+    listRegistrations: async () => {
+      try {
+        return await persistence.list();
+      } catch (error) {
+        if (isMissingRegistrationsTableError(error)) {
+          throw new MissingRegistrationsTableError();
+        }
+
+        throw error;
+      }
+    },
+    saveRegistration: async (input) => {
       const normalized = normalizeRegistration(input);
-      const result = insertRegistration.run(
-        normalized.name,
-        normalized.phone,
-        normalized.email,
-        normalized.course,
-        normalized.reason,
-      );
-      return selectRegistrationById.get(Number(result.lastInsertRowid)) as RegistrationRecord;
+      let existingRegistration;
+
+      try {
+        existingRegistration = await persistence.findByEmail(normalized.email);
+      } catch (error) {
+        if (isMissingRegistrationsTableError(error)) {
+          throw new MissingRegistrationsTableError();
+        }
+
+        throw error;
+      }
+
+      if (existingRegistration) {
+        throw new DuplicateRegistrationError(normalized.email);
+      }
+
+      try {
+        return await persistence.insert(normalized);
+      } catch (error) {
+        if (isDuplicateConstraintError(error)) {
+          throw new DuplicateRegistrationError(normalized.email);
+        }
+
+        if (isMissingRegistrationsTableError(error)) {
+          throw new MissingRegistrationsTableError();
+        }
+
+        throw error;
+      }
     },
   };
 }

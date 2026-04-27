@@ -8,6 +8,19 @@ const iconPaths: Record<string, React.ReactNode> = {
     </>
   ),
   check: <path d="m6 12 4 4 8-8" />,
+  copy: (
+    <>
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M12 3v11" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M4 21h16" />
+    </>
+  ),
   briefcase: (
     <>
       <rect x="3" y="7" width="18" height="13" rx="2" />

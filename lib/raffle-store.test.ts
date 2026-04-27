@@ -1,31 +1,63 @@
 import { afterEach, test } from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
 
-import { createRaffleStore } from "./raffle-store";
+import {
+  createRaffleStore,
+  DuplicateRegistrationError,
+  MissingRegistrationsTableError,
+  type RegistrationRecord,
+} from "./raffle-store";
 
-const tempDirs: string[] = [];
+function createInMemoryPersistence() {
+  const registrations: RegistrationRecord[] = [];
+  let nextId = 1;
+
+  return {
+    findByEmail: async (email: string) => {
+      const existing = registrations.find((registration) => registration.email === email);
+      return existing ? { id: existing.id } : null;
+    },
+    insert: async (input: {
+      course: string;
+      email: string;
+      name: string;
+      phone: string;
+      reason: string;
+    }) => {
+      const record: RegistrationRecord = {
+        id: nextId++,
+        name: input.name,
+        phone: input.phone,
+        email: input.email,
+        course: input.course,
+        reason: input.reason,
+        created_at: new Date("2026-04-27T00:00:00.000Z").toISOString(),
+      };
+
+      registrations.unshift(record);
+      return record;
+    },
+    list: async () => registrations,
+  };
+}
 
 afterEach(() => {
-  for (const dir of tempDirs.splice(0)) {
-    fs.rmSync(dir, { force: true, recursive: true });
-  }
+  delete process.env.PEDAGEMY_ADMIN_EMAIL;
+  delete process.env.PEDAGEMY_ADMIN_PASSWORD;
 });
 
-test("seeds a default admin and stores normalized registrations", () => {
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "pedagemy-store-"));
-  tempDirs.push(tempDir);
+test("uses env-backed admin credentials and stores normalized registrations asynchronously", async () => {
+  process.env.PEDAGEMY_ADMIN_EMAIL = "admin@pedagemy.com";
+  process.env.PEDAGEMY_ADMIN_PASSWORD = "pedagemy2024";
 
   const store = createRaffleStore({
-    dbPath: path.join(tempDir, "test.sqlite"),
+    persistence: createInMemoryPersistence(),
   });
 
-  assert.equal(store.isValidAdminLogin("admin@pedagemy.com", "pedagemy2024"), true);
-  assert.equal(store.isValidAdminLogin("admin@pedagemy.com", "wrong-password"), false);
+  assert.equal(await store.isValidAdminLogin("admin@pedagemy.com", "pedagemy2024"), true);
+  assert.equal(await store.isValidAdminLogin("admin@pedagemy.com", "wrong-password"), false);
 
-  const registration = store.saveRegistration({
+  const registration = await store.saveRegistration({
     name: "  Ada Lovelace  ",
     phone: "  +234 000 000 0000 ",
     email: "  ADA@EXAMPLE.COM ",
@@ -37,7 +69,7 @@ test("seeds a default admin and stores normalized registrations", () => {
   assert.equal(registration.name, "Ada Lovelace");
   assert.equal(registration.phone, "+234 000 000 0000");
 
-  const registrations = store.listRegistrations();
+  const registrations = await store.listRegistrations();
   assert.equal(registrations.length, 1);
   assert.deepEqual(registrations[0], {
     id: registration.id,
@@ -48,6 +80,59 @@ test("seeds a default admin and stores normalized registrations", () => {
     reason: "I want to sharpen my technical skills.",
     created_at: registration.created_at,
   });
+});
 
-  store.close();
+test("rejects duplicate registration emails case-insensitively", async () => {
+  const store = createRaffleStore({
+    persistence: createInMemoryPersistence(),
+  });
+
+  await store.saveRegistration({
+    name: "Ada Lovelace",
+    phone: "+234 000 000 0000",
+    email: "ada@example.com",
+    course: "Tech Career Launchpad",
+    reason: "First application.",
+  });
+
+  await assert.rejects(
+    () =>
+      store.saveRegistration({
+        name: "Ada Lovelace",
+        phone: "+234 000 000 0000",
+        email: " ADA@EXAMPLE.COM ",
+        course: "Leadership Accelerator",
+        reason: "Second application.",
+      }),
+    DuplicateRegistrationError,
+  );
+
+  assert.equal((await store.listRegistrations()).length, 1);
+});
+
+test("surfaces a missing registrations table as a dedicated setup error", async () => {
+  const store = createRaffleStore({
+    persistence: {
+      findByEmail: async () => null,
+      insert: async () => {
+        throw {
+          code: "PGRST205",
+          message: "Could not find the table 'public.registrations' in the schema cache",
+        };
+      },
+      list: async () => [],
+    },
+  });
+
+  await assert.rejects(
+    () =>
+      store.saveRegistration({
+        name: "Ada Lovelace",
+        phone: "+234 000 000 0000",
+        email: "ada@example.com",
+        course: "Tech Career Launchpad",
+        reason: "First application.",
+      }),
+    MissingRegistrationsTableError,
+  );
 });

@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
-import { getRaffleStore } from "@/lib/raffle-store"
+import {
+  DuplicateRegistrationError,
+  getRaffleStore,
+  MissingRegistrationsTableError,
+  MissingStoreConfigError,
+} from "@/lib/raffle-store"
 
 function getResendClient() {
   return process.env.RESEND_API_KEY
@@ -23,6 +28,10 @@ function isNonEmpty(value: unknown): value is string {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function hasAtLeastTwoNames(name: string) {
+  return name.trim().split(/\s+/).filter(Boolean).length >= 2
 }
 
 type EmailContent = {
@@ -119,7 +128,7 @@ async function sendRegistrationEmail(
 
   const { error } = await resend.emails.send(
     {
-      from: "Pedagemy <onboarding@resend.dev>",
+      from: "Pedagemy <training@icubefarm.com>",
       to: [body.email],
       cc: ["training@icubefarm.com"],
       subject,
@@ -162,16 +171,49 @@ export async function POST(request: Request) {
     )
   }
 
+  if (!hasAtLeastTwoNames(body.name)) {
+    return NextResponse.json(
+      { error: "Full name must include at least first and last name" },
+      { status: 400 }
+    )
+  }
+
   const locale =
     body.locale && ["en", "fr", "es"].includes(body.locale)
       ? body.locale
       : "en"
 
   try {
-    getRaffleStore().saveRegistration({ ...body, locale })
+    await getRaffleStore().saveRegistration({ ...body, locale })
     await sendRegistrationEmail(body, locale)
     return NextResponse.json({ ok: true })
   } catch (error) {
+    if (error instanceof DuplicateRegistrationError) {
+      return NextResponse.json(
+        {
+          code: "DUPLICATE_EMAIL",
+          error: "An application with this email has already been submitted.",
+        },
+        { status: 409 }
+      )
+    }
+
+    if (error instanceof MissingStoreConfigError) {
+      console.error("Registration storage is not configured", error.message)
+      return NextResponse.json(
+        { error: "Registration storage is not configured" },
+        { status: 500 }
+      )
+    }
+
+    if (error instanceof MissingRegistrationsTableError) {
+      console.error("Supabase registrations table is missing", error.message)
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      )
+    }
+
     console.error("Failed to process registration", error)
     return NextResponse.json(
       { error: "Failed to process registration" },

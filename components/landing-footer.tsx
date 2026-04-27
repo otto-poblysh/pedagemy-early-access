@@ -20,15 +20,15 @@ export function LandingFooter({
   copyright,
 }: LandingFooterProps) {
   return (
-    <footer className="border-t border-[#1A1A2E]/8 bg-white/92 px-6 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(26,26,46,0.04)] sm:px-8 lg:px-12">
-      <div className="mx-auto grid max-w-7xl items-center justify-items-center gap-3 text-center sm:grid-cols-[1fr_auto_1fr] sm:justify-items-stretch sm:gap-4 sm:text-left">
+    <footer className="border-t border-white/70 bg-white/62 px-6 pt-5 pb-[calc(1rem+env(safe-area-inset-bottom))] backdrop-blur-xl shadow-[0_-18px_42px_rgba(15,23,42,0.04)] sm:px-8 lg:px-12">
+      <div className="mx-auto grid max-w-[1380px] items-center justify-items-center gap-3 text-center sm:grid-cols-[1fr_auto_1fr] sm:justify-items-stretch sm:gap-4 sm:text-left">
         <div className="sm:justify-self-start">
           <PedagemyLogo />
         </div>
-        <div className="flex min-w-0 flex-col items-center gap-1.5 text-center text-[11px] leading-5 text-[#1A1A2E]/50 sm:text-[12px]">
+        <div className="flex min-w-0 flex-col items-center gap-1.5 text-center text-[11px] leading-5 text-[#1A1A2E]/52 sm:text-[12px]">
           <a
             href={`mailto:${footerEmail}`}
-            className="font-medium transition-colors duration-200 hover:text-[#1A1A2E]/75"
+            className="font-medium transition-colors duration-200 hover:text-[#1A1A2E]/76"
           >
             {footerEmail}
           </a>
@@ -53,7 +53,7 @@ export function LandingFooter({
             </span>
           </div>
         </div>
-        <p className="text-[11px] leading-5 text-[#1A1A2E]/32 sm:justify-self-end sm:text-right sm:text-[12px]">
+        <p className="text-[11px] leading-5 text-[#1A1A2E]/36 sm:justify-self-end sm:text-right sm:text-[12px]">
           {copyright}
         </p>
       </div>
