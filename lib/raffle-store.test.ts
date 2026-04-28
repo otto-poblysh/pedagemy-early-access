@@ -13,6 +13,13 @@ function createInMemoryPersistence() {
   let nextId = 1;
 
   return {
+    deleteByEmail: async (email: string) => {
+      const index = registrations.findIndex((registration) => registration.email === email);
+
+      if (index >= 0) {
+        registrations.splice(index, 1);
+      }
+    },
     findByEmail: async (email: string) => {
       const existing = registrations.find((registration) => registration.email === email);
       return existing ? { id: existing.id } : null;
@@ -113,6 +120,7 @@ test("rejects duplicate registration emails case-insensitively", async () => {
 test("surfaces a missing registrations table as a dedicated setup error", async () => {
   const store = createRaffleStore({
     persistence: {
+      deleteByEmail: async () => {},
       findByEmail: async () => null,
       insert: async () => {
         throw {

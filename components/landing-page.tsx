@@ -40,15 +40,57 @@ type CourseKey = (typeof courseCatalog)[number]["key"]
 export interface CountryCodeOption {
   country: string
   flag: string
+  id: string
   value: string
 }
 
-export function buildCountryCodeOptions(): CountryCodeOption[] {
-  return countryListApi.getAll().map((country) => ({
-    country: country.name,
-    flag: country.flag,
-    value: country.dialCode,
-  }))
+const supportedCountryNameLocales = new Set(["en", "fr", "es"])
+const countryDisplayNamesCache = new Map<string, Intl.DisplayNames | null>()
+
+function normalizeCountryNameLocale(locale?: string) {
+  const baseLocale = locale?.trim().toLowerCase().split("-")[0]
+
+  if (baseLocale && supportedCountryNameLocales.has(baseLocale)) {
+    return baseLocale
+  }
+
+  return "en"
+}
+
+function getCountryDisplayNames(locale: string) {
+  if (!countryDisplayNamesCache.has(locale)) {
+    countryDisplayNamesCache.set(
+      locale,
+      typeof Intl.DisplayNames === "function"
+        ? new Intl.DisplayNames([locale, "en"], { type: "region" })
+        : null
+    )
+  }
+
+  return countryDisplayNamesCache.get(locale) ?? null
+}
+
+export function buildCountryCodeOptions(locale = "en"): CountryCodeOption[] {
+  const normalizedLocale = normalizeCountryNameLocale(locale)
+  const displayNames = getCountryDisplayNames(normalizedLocale)
+  const seenOptionIds = new Set<string>()
+
+  return countryListApi.getAll().flatMap((country) => {
+    const optionId = `${country.code}-${country.dialCode}`
+
+    if (seenOptionIds.has(optionId)) {
+      return []
+    }
+
+    seenOptionIds.add(optionId)
+
+    return {
+      country: displayNames?.of(country.code) ?? country.name,
+      flag: country.flag,
+      id: optionId,
+      value: country.dialCode,
+    }
+  })
 }
 
 export function filterCountryCodeOptions(
@@ -175,7 +217,7 @@ function clearFieldError(
 export default function PedagemyEarlyAccessLandingPage() {
   const { t, i18n } = useTranslation()
   const courseOptions = buildCourseOptions(t)
-  const countryCodeOptions = buildCountryCodeOptions()
+  const countryCodeOptions = buildCountryCodeOptions(i18n.language)
   const [selectedCourse, setSelectedCourse] = useState<CourseKey | "">("")
   const [selectedCountryCode, setSelectedCountryCode] = useState("")
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})

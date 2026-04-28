@@ -27,6 +27,7 @@ dist
 # Remotion media artifacts
 public/pedagemy-corporate-bed.mp3
 public/remotion-media/
+remotion/
 remotion/media/
 
 # SQLite database

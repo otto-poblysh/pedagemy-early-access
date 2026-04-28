@@ -25,6 +25,7 @@ interface RegistrationLookup {
 
 export interface RegistrationPersistence {
   close?: () => Promise<void> | void;
+  deleteByEmail: (email: string) => Promise<void>;
   findByEmail: (email: string) => Promise<RegistrationLookup | null>;
   insert: (input: Omit<RegistrationInput, "locale">) => Promise<RegistrationRecord>;
   list: () => Promise<RegistrationRecord[]>;
@@ -32,6 +33,7 @@ export interface RegistrationPersistence {
 
 export interface RaffleStore {
   close: () => Promise<void>;
+  deleteRegistration: (email: string) => Promise<void>;
   isValidAdminLogin: (email: string, password: string) => Promise<boolean>;
   listRegistrations: () => Promise<RegistrationRecord[]>;
   saveRegistration: (input: RegistrationInput) => Promise<RegistrationRecord>;
@@ -126,6 +128,16 @@ function createSupabasePersistence(): RegistrationPersistence {
   });
 
   return {
+    deleteByEmail: async (email) => {
+      const { error } = await client
+        .from("registrations")
+        .delete()
+        .eq("email", email);
+
+      if (error) {
+        throw error;
+      }
+    },
     findByEmail: async (email) => {
       const { data, error } = await client
         .from("registrations")
@@ -182,6 +194,19 @@ export function createRaffleStore(options: CreateRaffleStoreOptions = {}): Raffl
   return {
     close: async () => {
       await persistence.close?.();
+    },
+    deleteRegistration: async (email) => {
+      const normalizedEmail = email.trim().toLowerCase();
+
+      try {
+        await persistence.deleteByEmail(normalizedEmail);
+      } catch (error) {
+        if (isMissingRegistrationsTableError(error)) {
+          throw new MissingRegistrationsTableError();
+        }
+
+        throw error;
+      }
     },
     isValidAdminLogin: async (email, password) => {
       return email.trim().toLowerCase() === adminEmail && password.trim() === adminPassword;

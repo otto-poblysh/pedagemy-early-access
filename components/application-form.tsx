@@ -20,6 +20,7 @@ interface CourseOption {
 interface CountryCodeOption {
   country: string
   flag: string
+  id: string
   value: string
 }
 
@@ -261,7 +262,7 @@ export function ApplicationForm({
                   {filteredCountryCodeOptions.length > 0 ? (
                     filteredCountryCodeOptions.map((option) => (
                       <button
-                        key={`${option.value}-${option.country}`}
+                        key={option.id}
                         type="button"
                         onClick={() => {
                           onCountryCodeSelect(option.value)
@@ -327,7 +328,7 @@ export function ApplicationForm({
             <option value="">{programmePlaceholder}</option>
             {courseOptions.map((c) => (
               <option key={c.value} value={c.value}>
-                {c.label} — {c.price}
+                {c.label}
               </option>
             ))}
           </select>

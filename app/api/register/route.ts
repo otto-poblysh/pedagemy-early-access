@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import { buildRegistrationConfirmationEmail } from "@/lib/registration-email"
 import {
   DuplicateRegistrationError,
   getRaffleStore,
@@ -7,10 +8,26 @@ import {
   MissingStoreConfigError,
 } from "@/lib/raffle-store"
 
+class EmailDeliveryError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = "EmailDeliveryError"
+  }
+}
+
+class MissingEmailConfigError extends Error {
+  constructor() {
+    super("Missing required environment variable: RESEND_API_KEY")
+    this.name = "MissingEmailConfigError"
+  }
+}
+
 function getResendClient() {
-  return process.env.RESEND_API_KEY
-    ? new Resend(process.env.RESEND_API_KEY)
-    : null
+  if (!process.env.RESEND_API_KEY) {
+    throw new MissingEmailConfigError()
+  }
+
+  return new Resend(process.env.RESEND_API_KEY)
 }
 
 interface RegisterBody {
@@ -34,116 +51,41 @@ function hasAtLeastTwoNames(name: string) {
   return name.trim().split(/\s+/).filter(Boolean).length >= 2
 }
 
-type EmailContent = {
-  subject: string
-  greeting: string
-  confirmation: string
-  timeline: string
-  contactLabel: string
-  contactEmail: string
-  contactEnglishWhatsApp: string
-  contactFrenchSpanishWhatsApp: string
-  closing: string
-  team: string
-}
-
-const emailContent: Record<string, EmailContent> = {
-  en: {
-    subject: "Application received — {{course}}",
-    greeting: "Hi {{name}},",
-    confirmation:
-      "Your application for <strong>{{course}}</strong> has been received.",
-    timeline:
-      "We will reach out to you with updates on the selection process by <strong>Friday, May 15, 2026</strong>.",
-    contactLabel: "If you have any questions before then, reach out to us:",
-    contactEmail: "training@icubefarm.com",
-    contactEnglishWhatsApp: "+237 683 064 880",
-    contactFrenchSpanishWhatsApp: "+240 555 79 65 52",
-    closing: "Best regards,",
-    team: "The Pedagemy Team",
-  },
-  fr: {
-    subject: "Candidature reçue — {{course}}",
-    greeting: "Bonjour {{name}},",
-    confirmation:
-      "Votre candidature pour <strong>{{course}}</strong> a été reçue.",
-    timeline:
-      "Nous vous contacterons avec des mises à jour sur le processus de sélection avant le <strong>vendredi 15 mai 2026</strong>.",
-    contactLabel: "Si vous avez des questions d'ici là, contactez-nous :",
-    contactEmail: "training@icubefarm.com",
-    contactEnglishWhatsApp: "+237 683 064 880",
-    contactFrenchSpanishWhatsApp: "+240 555 79 65 52",
-    closing: "Cordialement,",
-    team: "L'équipe Pedagemy",
-  },
-  es: {
-    subject: "Solicitud recibida — {{course}}",
-    greeting: "Hola {{name}},",
-    confirmation:
-      "Tu solicitud para <strong>{{course}}</strong> ha sido recibida.",
-    timeline:
-      "Te contactaremos con actualizaciones sobre el proceso de selección antes del <strong>viernes 15 de mayo de 2026</strong>.",
-    contactLabel:
-      "Si tienes preguntas antes de entonces, comunícate con nosotros:",
-    contactEmail: "training@icubefarm.com",
-    contactEnglishWhatsApp: "+237 683 064 880",
-    contactFrenchSpanishWhatsApp: "+240 555 79 65 52",
-    closing: "Saludos cordiales,",
-    team: "El equipo de Pedagemy",
-  },
-}
-
-function buildEmailHtml(
-  content: EmailContent,
-  name: string,
-  course: string
-): string {
-  return `
-    <p>${content.greeting.replace("{{name}}", name)},</p>
-    <p>${content.confirmation.replace("{{course}}", course)}</p>
-    <p>${content.timeline}</p>
-    <p>${content.contactLabel}</p>
-    <ul>
-      <li>Email: <a href="mailto:${content.contactEmail}">${content.contactEmail}</a></li>
-      <li>WhatsApp (English): <a href="https://wa.me/237683064880">${content.contactEnglishWhatsApp}</a></li>
-      <li>WhatsApp (French/Spanish): <a href="https://wa.me/240555796552">${content.contactFrenchSpanishWhatsApp}</a></li>
-    </ul>
-    <p>${content.closing}<br/>${content.team}</p>
-  `
-}
-
-async function sendRegistrationEmail(
-  body: RegisterBody,
-  locale: string
-) {
+const REGISTRATION_CONTACT_EMAIL = "info@pedagemy.com"
+async function sendRegistrationEmail(body: RegisterBody) {
   const resend = getResendClient()
 
-  if (!resend) {
-    return
-  }
+  const email = buildRegistrationConfirmationEmail({
+    fullName: body.name,
+    locale: body.locale,
+    selectedProgramme: body.course,
+  })
 
-  const content = emailContent[locale] ?? emailContent["en"]!
-  const subject = content.subject.replace("{{course}}", body.course)
-  const html = buildEmailHtml(content, body.name, body.course)
-
-  const { error } = await resend.emails.send(
+  const { data, error } = await resend.emails.send(
     {
-      from: "Pedagemy <training@icubefarm.com>",
+      from: "Pedagemy <info@pedagemy.com>",
       to: [body.email],
-      cc: ["training@icubefarm.com"],
-      subject,
-      html,
+      cc: [REGISTRATION_CONTACT_EMAIL],
+      subject: email.subject,
+      html: email.html,
+      text: email.text,
     },
     { idempotencyKey: `registration-confirmation/${body.email}/${body.course}` }
   )
 
   if (error) {
-    console.error("Failed to send confirmation email:", error.message)
+    throw new EmailDeliveryError(error.message)
   }
+
+  console.info("Registration confirmation email queued", {
+    email: body.email,
+    id: data?.id ?? null,
+  })
 }
 
 export async function POST(request: Request) {
   let body: RegisterBody
+  const raffleStore = getRaffleStore()
 
   try {
     body = (await request.json()) as RegisterBody
@@ -178,14 +120,16 @@ export async function POST(request: Request) {
     )
   }
 
-  const locale =
-    body.locale && ["en", "fr", "es"].includes(body.locale)
-      ? body.locale
-      : "en"
-
   try {
-    await getRaffleStore().saveRegistration({ ...body, locale })
-    await sendRegistrationEmail(body, locale)
+    const savedRegistration = await raffleStore.saveRegistration(body)
+
+    try {
+      await sendRegistrationEmail(body)
+    } catch (error) {
+      await raffleStore.deleteRegistration(savedRegistration.email)
+      throw error
+    }
+
     return NextResponse.json({ ok: true })
   } catch (error) {
     if (error instanceof DuplicateRegistrationError) {
@@ -203,6 +147,28 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Registration storage is not configured" },
         { status: 500 }
+      )
+    }
+
+    if (error instanceof MissingEmailConfigError) {
+      console.error("Registration email is not configured", error.message)
+      return NextResponse.json(
+        {
+          code: "EMAIL_NOT_CONFIGURED",
+          error: "Confirmation email is not configured. Please try again later.",
+        },
+        { status: 500 }
+      )
+    }
+
+    if (error instanceof EmailDeliveryError) {
+      console.error("Failed to send confirmation email", error.message)
+      return NextResponse.json(
+        {
+          code: "EMAIL_SEND_FAILED",
+          error: "Confirmation email could not be sent. Please try again.",
+        },
+        { status: 502 }
       )
     }
 

@@ -1,8 +1,35 @@
 import assert from "node:assert/strict"
+import { readFile } from "node:fs/promises"
 import test from "node:test"
 import { renderToStaticMarkup } from "react-dom/server"
 
 import { ApplicationForm } from "./application-form"
+import { CourseAccordion } from "./course-accordion"
+
+test("footer translations use the updated email and WhatsApp labels in every locale", async () => {
+  const localeFiles = ["en", "fr", "es"]
+
+  for (const locale of localeFiles) {
+    const raw = await readFile(
+      new URL(`../public/locales/${locale}/translation.json`, import.meta.url),
+      "utf8"
+    )
+    const parsed = JSON.parse(raw) as {
+      contact?: {
+        englishPhoneLabel?: string
+        footerEmail?: string
+        frenchSpanishPhoneLabel?: string
+      }
+    }
+
+    assert.equal(parsed.contact?.footerEmail, "info@pedagemy.com")
+    assert.equal(parsed.contact?.englishPhoneLabel, "WhatsApp (English)")
+    assert.equal(
+      parsed.contact?.frenchSpanishPhoneLabel,
+      "WhatsApp (French/Spanish)"
+    )
+  }
+})
 
 test("buildCourseOptions uses accordion labels as the form source of truth", async () => {
   const landingPageModule = await import("./landing-page")
@@ -58,23 +85,88 @@ test("buildCourseOptions uses accordion labels as the form source of truth", asy
   )
 })
 
-test("buildCountryCodeOptions uses the package dataset and includes countries beyond the old hardcoded list", async () => {
+test("buildCountryCodeOptions uses locale-aware country names for English, French, and Spanish", async () => {
   const landingPageModule = await import("./landing-page")
 
   assert.equal(typeof landingPageModule.buildCountryCodeOptions, "function")
 
-  const options = landingPageModule.buildCountryCodeOptions()
+  const englishOptions = landingPageModule.buildCountryCodeOptions("en")
+  const frenchOptions = landingPageModule.buildCountryCodeOptions("fr")
+  const spanishOptions = landingPageModule.buildCountryCodeOptions("es-MX")
 
-  assert.ok(options.length > 150)
+  assert.ok(englishOptions.length > 150)
+  assert.deepEqual(
+    englishOptions.find((option: { value: string }) => option.value === "+237"),
+    {
+      country: "Cameroon",
+      flag: "🇨🇲",
+      id: "CM-+237",
+      value: "+237",
+    }
+  )
+  assert.deepEqual(
+    frenchOptions.find((option: { value: string }) => option.value === "+237"),
+    {
+      country: "Cameroun",
+      flag: "🇨🇲",
+      id: "CM-+237",
+      value: "+237",
+    }
+  )
+  assert.deepEqual(
+    spanishOptions.find((option: { value: string }) => option.value === "+237"),
+    {
+      country: "Camerún",
+      flag: "🇨🇲",
+      id: "CM-+237",
+      value: "+237",
+    }
+  )
+  assert.deepEqual(
+    englishOptions.find((option: { value: string }) => option.value === "+81"),
+    {
+      country: "Japan",
+      flag: "🇯🇵",
+      id: "JP-+81",
+      value: "+81",
+    }
+  )
+})
+
+test("buildCountryCodeOptions deduplicates alias rows that collapse under localization", async () => {
+  const landingPageModule = await import("./landing-page")
+
+  assert.equal(typeof landingPageModule.buildCountryCodeOptions, "function")
+
+  const frenchTurkeyOptions = landingPageModule
+    .buildCountryCodeOptions("fr")
+    .filter(
+      (option: { country: string; value: string }) =>
+        option.country === "Turquie" && option.value === "+90"
+    )
+
+  assert.deepEqual(frenchTurkeyOptions, [
+    {
+      country: "Turquie",
+      flag: "🇹🇷",
+      id: "TR-+90",
+      value: "+90",
+    },
+  ])
+})
+
+test("buildCountryCodeOptions falls back to English names when a locale is unsupported", async () => {
+  const landingPageModule = await import("./landing-page")
+
+  assert.equal(typeof landingPageModule.buildCountryCodeOptions, "function")
+
+  const options = landingPageModule.buildCountryCodeOptions("de")
+
   assert.deepEqual(options.find((option: { value: string }) => option.value === "+237"), {
     country: "Cameroon",
     flag: "🇨🇲",
+    id: "CM-+237",
     value: "+237",
-  })
-  assert.deepEqual(options.find((option: { value: string }) => option.value === "+81"), {
-    country: "Japan",
-    flag: "🇯🇵",
-    value: "+81",
   })
 })
 
@@ -84,16 +176,16 @@ test("filterCountryCodeOptions matches country names and dial codes", async () =
   assert.equal(typeof landingPageModule.filterCountryCodeOptions, "function")
 
   const options = [
-    { country: "Cameroon", flag: "🇨🇲", value: "+237" },
-    { country: "Japan", flag: "🇯🇵", value: "+81" },
-    { country: "United States", flag: "🇺🇸", value: "+1" },
+    { country: "Cameroon", flag: "🇨🇲", id: "CM-+237", value: "+237" },
+    { country: "Japan", flag: "🇯🇵", id: "JP-+81", value: "+81" },
+    { country: "United States", flag: "🇺🇸", id: "US-+1", value: "+1" },
   ]
 
   assert.deepEqual(landingPageModule.filterCountryCodeOptions(options, "cam"), [
-    { country: "Cameroon", flag: "🇨🇲", value: "+237" },
+    { country: "Cameroon", flag: "🇨🇲", id: "CM-+237", value: "+237" },
   ])
   assert.deepEqual(landingPageModule.filterCountryCodeOptions(options, "+81"), [
-    { country: "Japan", flag: "🇯🇵", value: "+81" },
+    { country: "Japan", flag: "🇯🇵", id: "JP-+81", value: "+81" },
   ])
 })
 
@@ -152,6 +244,7 @@ test("ApplicationForm renders a searchable country-code dropdown with embedded s
         {
           country: "Cameroon",
           flag: "🇨🇲",
+          id: "CM-+237",
           value: "+237",
         },
       ] as never}
@@ -203,5 +296,29 @@ test("ApplicationForm renders a searchable country-code dropdown with embedded s
   assert.match(html, /Select a country code\./)
   assert.match(html, /Enter your phone number\./)
   assert.match(html, /Select a programme\./)
+  assert.doesNotMatch(html, /Tech Career Launchpad — \$325/)
   assert.doesNotMatch(html, /<select required="" name="phoneCountryCode"/)
+})
+
+test("CourseAccordion hides programme prices in the accordion header", () => {
+  const html = renderToStaticMarkup(
+    <CourseAccordion
+      course={{
+        icon: "laptop",
+        key: "techCareer",
+        price: "$325",
+        value: "techCareer",
+      }}
+      label="Tech Career Launchpad"
+      descriptions={[
+        "Learn the essentials for a modern tech career.",
+        "Build practical confidence through guided exercises.",
+      ]}
+      isSelected={false}
+      onToggle={() => {}}
+    />
+  )
+
+  assert.match(html, /Tech Career Launchpad/)
+  assert.doesNotMatch(html, /\$325/)
 })

@@ -60,13 +60,6 @@ export function CourseAccordion({
           </div>
           <div className="flex items-center gap-3">
             <span
-              className={`shrink-0 text-[15px] font-bold tabular-nums transition-colors duration-300 ${
-                isSelected ? "text-[#003A8C]" : "text-[#1A1A2E]/38"
-              }`}
-            >
-              {course.price}
-            </span>
-            <span
               className={`grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-300 ${
                 isSelected
                   ? "rotate-180 bg-[#0D5BD1] text-white"
