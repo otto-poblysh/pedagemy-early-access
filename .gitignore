@@ -37,6 +37,7 @@ data/*.sqlite-*
 
 # Debug
 npm-debug.log*
+.playwright-mcp/
 
 # Misc
 .DS_Store
