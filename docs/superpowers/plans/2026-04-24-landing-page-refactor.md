@@ -4,6 +4,11 @@
 
 **Goal:** Fix sticky footer (position: fixed, always visible) and decompose the 704-line landing-page.tsx into 9 focused component files.
 
+**Approved Copy (source of truth):** `apps/web/public/locales/en/translation.json` — all page text lives here. Translations live in `fr/translation.json` and `es/translation.json`. Key approved strings:
+- `hero.headline`: "Win Premium Learning Access — Worth up to $755."
+- `hero.questionLabel`: "Register to Win by Friday, May 15, 2026"
+- `hero.questionContext`: "Enter the Pedagemy Raffle for a chance to access world-class courses curated by iCUBEFARM."
+
 **Architecture:** All i18n `useTranslation()` stays in `landing-page.tsx`. Sub-components receive data via props only. Footer uses `position: fixed inset-x-0 bottom-0` to always anchor to viewport bottom. Content wrapper has `pb-20` to reserve footer height.
 
 **Tech Stack:** React 19, Next.js 16, TypeScript, Tailwind CSS, react-i18next
