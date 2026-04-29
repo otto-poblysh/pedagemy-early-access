@@ -34,6 +34,9 @@ remotion/media/
 data/*.sqlite
 data/*.sqlite-*
 
+# Ignore generated brochure export
+public/brochure/
+
 
 # Debug
 npm-debug.log*

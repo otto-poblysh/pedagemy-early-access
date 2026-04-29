@@ -64,6 +64,10 @@
     "programmePlaceholder": "Select a programme",
     "reason": "Why this programme?",
     "reasonPlaceholder": "Describe how this programme aligns with your career goals\u2026",
+    "termsPrefix": "I accept the",
+    "termsConnector": "and the",
+    "termsAndConditionsLabel": "Terms and Conditions",
+    "privacyPolicyLabel": "Privacy Policy",
     "submit": "Submit Application",
     "submitting": "Submitting\u2026",
     "successTitle": "Application received.",
@@ -77,6 +81,7 @@
     "errorPhoneCountryCodeRequired": "Select a country code.",
     "errorPhoneRequired": "Enter your phone number.",
     "errorReasonRequired": "Tell us why this programme fits your goals.",
+    "errorTermsRequired": "You must accept the Terms and Conditions and Privacy Policy.",
     "errorDuplicateEmail": "An application with this email has already been submitted.",
     "errorGeneric": "Something went wrong. Please try again.",
     "errorNetwork": "Network error. Please try again."
@@ -181,7 +186,9 @@
     "frenchSpanishPhone": "+240 555 79 65 52"
   },
   "footer": {
-    "copyright": "\u00a9 2026 Pedagemy. All rights reserved."
+    "copyright": "\u00a9 2026 Pedagemy. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms and Conditions"
   },
   "email": {
     "subject": "Application received \u2014 {{course}}",

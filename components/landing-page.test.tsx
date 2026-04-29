@@ -202,6 +202,7 @@ test("validateRegistrationFields returns field-level errors for missing and inva
       phoneCountryCode: "",
       phoneNumber: "",
       reason: "",
+      termsAccepted: false,
     },
     {
       duplicateEmail: "Duplicate email",
@@ -212,6 +213,7 @@ test("validateRegistrationFields returns field-level errors for missing and inva
       phoneCountryCodeRequired: "Select a country code.",
       phoneNumberRequired: "Enter your phone number.",
       reasonRequired: "Tell us why this programme fits your goals.",
+      termsRequired: "You must accept the Terms and Conditions and Privacy Policy.",
       selectProgram: "Select a programme.",
     }
   )
@@ -223,7 +225,35 @@ test("validateRegistrationFields returns field-level errors for missing and inva
     phoneCountryCode: "Select a country code.",
     phoneNumber: "Enter your phone number.",
     reason: "Tell us why this programme fits your goals.",
+    termsAccepted: "You must accept the Terms and Conditions and Privacy Policy.",
   })
+})
+
+test("buildLegalLinks creates locale-aware privacy and terms links", async () => {
+  const landingPageModule = await import("./landing-page")
+
+  assert.equal(typeof landingPageModule.buildLegalLinks, "function")
+
+  assert.deepEqual(
+    landingPageModule.buildLegalLinks("fr", (key: string) => {
+      const translations: Record<string, string> = {
+        "footer.privacyPolicy": "Politique de confidentialité",
+        "footer.termsAndConditions": "Conditions générales",
+      }
+
+      return translations[key] ?? key
+    }),
+    [
+      {
+        href: "/fr/privacy-policy",
+        label: "Politique de confidentialité",
+      },
+      {
+        href: "/fr/terms-and-conditions",
+        label: "Conditions générales",
+      },
+    ]
+  )
 })
 
 test("ApplicationForm renders a searchable country-code dropdown with embedded search UI", () => {
@@ -255,6 +285,8 @@ test("ApplicationForm renders a searchable country-code dropdown with embedded s
         name: "Enter at least first and last name.",
         phoneCountryCode: "Select a country code.",
         phoneNumber: "Enter your phone number.",
+        termsAccepted:
+          "You must accept the Terms and Conditions and Privacy Policy.",
       } as never}
       submitting={false}
       submitError={null}
@@ -277,6 +309,12 @@ test("ApplicationForm renders a searchable country-code dropdown with embedded s
       programmePlaceholder="Select a programme"
       reasonLabel="Why this programme?"
       reasonPlaceholder="Describe how this programme aligns with your career goals…"
+      termsLabel="I accept the"
+      termsConnectorLabel="and the"
+      privacyPolicyLabel="Privacy Policy"
+      privacyPolicyHref="/en/privacy-policy"
+      termsAndConditionsLabel="Terms and Conditions"
+      termsAndConditionsHref="/en/terms-and-conditions"
       noPayment="No payment required."
       submitLabel="Submit Application"
       submittingLabel="Submitting…"
@@ -296,6 +334,16 @@ test("ApplicationForm renders a searchable country-code dropdown with embedded s
   assert.match(html, /Select a country code\./)
   assert.match(html, /Enter your phone number\./)
   assert.match(html, /Select a programme\./)
+  assert.match(html, /I accept the /)
+  assert.match(html, />Terms and Conditions<\/a>/)
+  assert.match(html, / and the /)
+  assert.match(html, />Privacy Policy<\/a>\./)
+  assert.match(html, /href="\/en\/privacy-policy"/)
+  assert.match(html, /href="\/en\/terms-and-conditions"/)
+  assert.match(
+    html,
+    /You must accept the Terms and Conditions and Privacy Policy\./
+  )
   assert.doesNotMatch(html, /Tech Career Launchpad — \$325/)
   assert.doesNotMatch(html, /<select required="" name="phoneCountryCode"/)
 })

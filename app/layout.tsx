@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DM_Sans, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -44,7 +45,30 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, dmSans.variable)}
     >
       <body>
+        <Script id="linkedin-insight-base" strategy="afterInteractive">
+          {`window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push("9234436");`}
+        </Script>
+        <Script id="linkedin-insight-loader" strategy="afterInteractive">
+          {`(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);`}
+        </Script>
         <ThemeProvider>{children}</ThemeProvider>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            className="hidden"
+            alt=""
+            src="https://px.ads.linkedin.com/collect/?pid=9234436&fmt=gif"
+          />
+        </noscript>
       </body>
     </html>
   )

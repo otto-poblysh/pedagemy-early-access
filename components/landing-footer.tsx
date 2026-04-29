@@ -2,6 +2,11 @@
 
 import { PedagemyLogo } from "@/components/logo"
 
+interface LegalLink {
+  href: string
+  label: string
+}
+
 interface LandingFooterProps {
   footerEmail: string
   englishPhone: string
@@ -9,6 +14,7 @@ interface LandingFooterProps {
   frenchSpanishPhone: string
   frenchSpanishPhoneLabel: string
   copyright: string
+  legalLinks: LegalLink[]
 }
 
 export function LandingFooter({
@@ -18,6 +24,7 @@ export function LandingFooter({
   frenchSpanishPhone,
   frenchSpanishPhoneLabel,
   copyright,
+  legalLinks,
 }: LandingFooterProps) {
   return (
     <footer className="border-t border-white/70 bg-white/62 px-6 pt-5 pb-[calc(1rem+env(safe-area-inset-bottom))] backdrop-blur-xl shadow-[0_-18px_42px_rgba(15,23,42,0.04)] sm:px-8 lg:px-12">
@@ -53,9 +60,20 @@ export function LandingFooter({
             </span>
           </div>
         </div>
-        <p className="text-[11px] leading-5 text-[#1A1A2E]/36 sm:justify-self-end sm:text-right sm:text-[12px]">
-          {copyright}
-        </p>
+        <div className="flex flex-col items-center gap-1 text-[11px] leading-5 text-[#1A1A2E]/36 sm:justify-self-end sm:items-end sm:text-right sm:text-[12px]">
+          <p>{copyright}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-end">
+            {legalLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="transition-colors duration-200 hover:text-[#1A1A2E]/68"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   )

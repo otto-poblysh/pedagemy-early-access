@@ -125,8 +125,17 @@ type RegistrationField =
   | "phoneNumber"
   | "course"
   | "reason"
+  | "termsAccepted"
 
-type RegistrationValues = Record<RegistrationField, string>
+type RegistrationValues = {
+  course: string
+  email: string
+  name: string
+  phoneCountryCode: string
+  phoneNumber: string
+  reason: string
+  termsAccepted: boolean
+}
 
 type ValidationMessages = {
   duplicateEmail: string
@@ -138,6 +147,7 @@ type ValidationMessages = {
   phoneNumberRequired: string
   reasonRequired: string
   selectProgram: string
+  termsRequired: string
 }
 
 type FieldErrors = Partial<Record<RegistrationField, string>>
@@ -150,6 +160,21 @@ export function buildCourseOptions(
     label: t(`courses.${course.key}.label`),
     value: course.key,
   }))
+}
+
+export function buildLegalLinks(locale: string, t: (key: string) => string) {
+  const normalizedLocale = normalizeCountryNameLocale(locale)
+
+  return [
+    {
+      href: `/${normalizedLocale}/privacy-policy`,
+      label: t("footer.privacyPolicy"),
+    },
+    {
+      href: `/${normalizedLocale}/terms-and-conditions`,
+      label: t("footer.termsAndConditions"),
+    },
+  ]
 }
 
 function isValidEmail(email: string) {
@@ -196,6 +221,10 @@ export function validateRegistrationFields(
     errors.reason = messages.reasonRequired
   }
 
+  if (!values.termsAccepted) {
+    errors.termsAccepted = messages.termsRequired
+  }
+
   return errors
 }
 
@@ -224,6 +253,7 @@ export default function PedagemyEarlyAccessLandingPage() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const legalLinks = buildLegalLinks(i18n.language, t)
 
   const handleFieldChange = (field: RegistrationField) => {
     setFieldErrors((currentErrors) => clearFieldError(currentErrors, field))
@@ -251,6 +281,7 @@ export default function PedagemyEarlyAccessLandingPage() {
       phoneCountryCode: selectedCountryCode,
       phoneNumber: String(formData.get("phoneNumber") ?? ""),
       reason: String(formData.get("reason") ?? ""),
+      termsAccepted: formData.get("termsAccepted") === "accepted",
     }
 
     const nextFieldErrors = validateRegistrationFields(values, {
@@ -263,6 +294,7 @@ export default function PedagemyEarlyAccessLandingPage() {
       phoneNumberRequired: t("form.errorPhoneRequired"),
       reasonRequired: t("form.errorReasonRequired"),
       selectProgram: t("form.programmePlaceholder"),
+      termsRequired: t("form.errorTermsRequired"),
     })
 
     if (Object.keys(nextFieldErrors).length > 0) {
@@ -283,6 +315,7 @@ export default function PedagemyEarlyAccessLandingPage() {
       phone: `${values.phoneCountryCode} ${values.phoneNumber.trim()}`.trim(),
       reason: values.reason,
       locale: i18n.language,
+      acceptedLegal: values.termsAccepted,
     }
 
     try {
@@ -370,6 +403,12 @@ export default function PedagemyEarlyAccessLandingPage() {
             programmePlaceholder={t("form.programmePlaceholder")}
             reasonLabel={t("form.reason")}
             reasonPlaceholder={t("form.reasonPlaceholder")}
+            termsLabel={t("form.termsPrefix")}
+            termsConnectorLabel={t("form.termsConnector")}
+            privacyPolicyLabel={t("form.privacyPolicyLabel")}
+            privacyPolicyHref={legalLinks[0]!.href}
+            termsAndConditionsLabel={t("form.termsAndConditionsLabel")}
+            termsAndConditionsHref={legalLinks[1]!.href}
             noPayment={t("form.noPayment")}
             submitLabel={t("form.submit")}
             submittingLabel={t("form.submitting")}
@@ -386,6 +425,7 @@ export default function PedagemyEarlyAccessLandingPage() {
         frenchSpanishPhone={t("contact.frenchSpanishPhone")}
         frenchSpanishPhoneLabel={t("contact.frenchSpanishPhoneLabel")}
         copyright={t("footer.copyright")}
+        legalLinks={legalLinks}
       />
     </div>
   )

@@ -112,6 +112,7 @@ test("stores a registration and returns it to an authenticated admin", async () 
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Grace Hopper",
           phone: "+1 555 0100",
           email: "GRACE@example.com",
@@ -202,6 +203,7 @@ test("rejects duplicate registration emails", async () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Grace Hopper",
           phone: "+1 555 0100",
           email: "grace@example.com",
@@ -216,6 +218,7 @@ test("rejects duplicate registration emails", async () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Grace Hopper",
           phone: "+1 555 0100",
           email: "GRACE@example.com",
@@ -244,6 +247,7 @@ test("rejects registrations without at least first and last name", async () => {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
+        acceptedLegal: true,
         name: "Prince",
         phone: "+237 600 111 222",
         email: "prince@example.com",
@@ -256,6 +260,31 @@ test("rejects registrations without at least first and last name", async () => {
   assert.equal(response.status, 400);
   assert.deepEqual(await response.json(), {
     error: "Full name must include at least first and last name",
+  });
+});
+
+test("rejects registrations when terms and privacy consent is missing", async () => {
+  resetGlobalStore();
+  seedStore();
+
+  const response = await registerPost(
+    new Request("http://localhost/api/register", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        acceptedLegal: false,
+        name: "Grace Hopper",
+        phone: "+237 600 111 222",
+        email: "grace@example.com",
+        course: "Leadership Accelerator",
+        reason: "I want to grow as a leader.",
+      }),
+    }) as never,
+  );
+
+  assert.equal(response.status, 400);
+  assert.deepEqual(await response.json(), {
+    error: "Terms and privacy policy acceptance is required",
   });
 });
 
@@ -278,6 +307,7 @@ test("returns a clear setup error when the Supabase registrations table is missi
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
+        acceptedLegal: true,
         name: "Grace Hopper",
         phone: "+1 555 0100",
         email: "grace@example.com",
@@ -322,6 +352,7 @@ test("sends the approved English confirmation email with the selected programme"
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Grace Hopper",
           phone: "+1 555 0100",
           email: "grace@example.com",
@@ -370,6 +401,7 @@ test("sends the approved French confirmation email when locale is fr", async () 
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Marie Curie",
           phone: "+237 600 111 222",
           email: "marie@example.com",
@@ -416,6 +448,7 @@ test("normalizes regional Spanish locales before sending the approved Spanish em
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Ada Lovelace",
           phone: "+240 555 79 65 52",
           email: "ada@example.com",
@@ -469,6 +502,7 @@ test("returns an email delivery error and does not keep the registration when re
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          acceptedLegal: true,
           name: "Grace Hopper",
           phone: "+1 555 0100",
           email: "grace@example.com",

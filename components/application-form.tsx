@@ -31,6 +31,7 @@ type FieldName =
   | "phoneNumber"
   | "course"
   | "reason"
+  | "termsAccepted"
 
 interface ApplicationFormProps {
   selectedCourse: string
@@ -59,6 +60,12 @@ interface ApplicationFormProps {
   programmePlaceholder: string
   reasonLabel: string
   reasonPlaceholder: string
+  termsLabel: string
+  termsConnectorLabel: string
+  privacyPolicyLabel: string
+  privacyPolicyHref: string
+  termsAndConditionsLabel: string
+  termsAndConditionsHref: string
   noPayment: string
   submitLabel: string
   submittingLabel: string
@@ -110,6 +117,12 @@ export function ApplicationForm({
   programmePlaceholder,
   reasonLabel,
   reasonPlaceholder,
+  termsLabel,
+  termsConnectorLabel,
+  privacyPolicyLabel,
+  privacyPolicyHref,
+  termsAndConditionsLabel,
+  termsAndConditionsHref,
   noPayment,
   submitLabel,
   submittingLabel,
@@ -354,6 +367,41 @@ export function ApplicationForm({
           {fieldErrors.reason ? (
             <p className="mt-2 text-[12px] font-medium text-red-700">
               {fieldErrors.reason}
+            </p>
+          ) : null}
+        </label>
+
+        <label className="mt-4 block">
+          <span className="flex items-start gap-3 rounded-2xl border border-[#1A1A2E]/8 bg-[#F7F9FC] px-4 py-3 text-[12px] leading-5 text-[#1A1A2E]/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">
+            <input
+              required
+              name="termsAccepted"
+              type="checkbox"
+              value="accepted"
+              onChange={() => onFieldChange("termsAccepted")}
+              className="mt-0.5 h-4 w-4 rounded border border-[#1A1A2E]/18 text-[#0056D2] focus:ring-2 focus:ring-[#0056D2]/25"
+            />
+            <span>
+              {termsLabel}{" "}
+              <a
+                href={termsAndConditionsHref}
+                className="font-semibold text-[#0056D2] underline decoration-[#0056D2]/30 underline-offset-3 transition-colors duration-200 hover:text-[#003A8C]"
+              >
+                {termsAndConditionsLabel}
+              </a>{" "}
+              {termsConnectorLabel}{" "}
+              <a
+                href={privacyPolicyHref}
+                className="font-semibold text-[#0056D2] underline decoration-[#0056D2]/30 underline-offset-3 transition-colors duration-200 hover:text-[#003A8C]"
+              >
+                {privacyPolicyLabel}
+              </a>
+              .
+            </span>
+          </span>
+          {fieldErrors.termsAccepted ? (
+            <p className="mt-2 text-[12px] font-medium text-red-700">
+              {fieldErrors.termsAccepted}
             </p>
           ) : null}
         </label>

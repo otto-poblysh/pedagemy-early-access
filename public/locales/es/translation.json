@@ -64,6 +64,10 @@
     "programmePlaceholder": "Selecciona un programa",
     "reason": "¿Por qué este programa?",
     "reasonPlaceholder": "Describe cómo este programa se alinea con tus metas de carrera\u2026",
+    "termsPrefix": "Acepto los",
+    "termsConnector": "y el",
+    "termsAndConditionsLabel": "Términos y condiciones",
+    "privacyPolicyLabel": "Aviso de privacidad",
     "submit": "Enviar solicitud",
     "submitting": "Enviando\u2026",
     "successTitle": "Solicitud recibida.",
@@ -77,6 +81,7 @@
     "errorPhoneCountryCodeRequired": "Selecciona un código de país.",
     "errorPhoneRequired": "Ingresa tu número de teléfono.",
     "errorReasonRequired": "Cuéntanos por qué este programa encaja con tus objetivos.",
+    "errorTermsRequired": "Debes aceptar los Términos y condiciones y el Aviso de privacidad.",
     "errorDuplicateEmail": "Ya se ha enviado una solicitud con este correo electrónico.",
     "errorGeneric": "Algo salió mal. Por favor intenta de nuevo.",
     "errorNetwork": "Error de red. Por favor intenta de nuevo."
@@ -181,7 +186,9 @@
     "frenchSpanishPhone": "+240 555 79 65 52"
   },
   "footer": {
-    "copyright": "\u00a9 2026 Pedagemy. Todos los derechos reservados."
+    "copyright": "\u00a9 2026 Pedagemy. Todos los derechos reservados.",
+    "privacyPolicy": "Aviso de privacidad",
+    "termsAndConditions": "Términos y condiciones"
   },
   "email": {
     "subject": "Solicitud recibida \u2014 {{course}}",

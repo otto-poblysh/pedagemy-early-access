@@ -31,6 +31,7 @@ function getResendClient() {
 }
 
 interface RegisterBody {
+  acceptedLegal?: boolean
   course: string
   email: string
   name: string
@@ -116,6 +117,13 @@ export async function POST(request: Request) {
   if (!hasAtLeastTwoNames(body.name)) {
     return NextResponse.json(
       { error: "Full name must include at least first and last name" },
+      { status: 400 }
+    )
+  }
+
+  if (body.acceptedLegal !== true) {
+    return NextResponse.json(
+      { error: "Terms and privacy policy acceptance is required" },
       { status: 400 }
     )
   }

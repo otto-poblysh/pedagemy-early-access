@@ -64,6 +64,10 @@
     "programmePlaceholder": "Sélectionnez un programme",
     "reason": "Pourquoi ce programme ?",
     "reasonPlaceholder": "Décrivez comment ce programme s'aligne avec vos objectifs de carrière\u2026",
+    "termsPrefix": "J'accepte les",
+    "termsConnector": "et la",
+    "termsAndConditionsLabel": "Conditions générales",
+    "privacyPolicyLabel": "Politique de confidentialité",
     "submit": "Soumettre ma candidature",
     "submitting": "Soumission en cours\u2026",
     "successTitle": "Candidature reçue.",
@@ -77,6 +81,7 @@
     "errorPhoneCountryCodeRequired": "Sélectionnez un indicatif.",
     "errorPhoneRequired": "Saisissez votre numéro de téléphone.",
     "errorReasonRequired": "Expliquez pourquoi ce programme correspond à vos objectifs.",
+    "errorTermsRequired": "Vous devez accepter les Conditions générales et la Politique de confidentialité.",
     "errorDuplicateEmail": "Une candidature a déjà été soumise avec cette adresse e-mail.",
     "errorGeneric": "Une erreur s'est produite. Veuillez réessayer.",
     "errorNetwork": "Erreur réseau. Veuillez réessayer."
@@ -181,7 +186,9 @@
     "frenchSpanishPhone": "+240 555 79 65 52"
   },
   "footer": {
-    "copyright": "\u00a9 2026 Pedagemy. Tous droits réservés."
+    "copyright": "\u00a9 2026 Pedagemy. Tous droits réservés.",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsAndConditions": "Conditions générales"
   },
   "email": {
     "subject": "Candidature reçue \u2014 {{course}}",

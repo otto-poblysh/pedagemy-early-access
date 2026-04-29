@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "PDF Processing": {
+      "source": "michelg10/evanai-client",
+      "sourceType": "github",
+      "skillPath": "reference/environment_reference/skills/public/pdf/SKILL.md",
+      "computedHash": "9722b0445570a1c4f5b39dca0f881f0dd4a2db0cf0189ce2bf40032e0a668c68"
+    },
+    "PowerPoint Suite": {
+      "source": "michelg10/evanai-client",
+      "sourceType": "github",
+      "skillPath": "reference/environment_reference/skills/public/pptx/SKILL.md",
+      "computedHash": "1fc043143664afae9d44a93a923c0d8e303831745d75499468d0ca670e450de9"
+    },
     "brainstorming": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -20,6 +32,12 @@
       "source": "obra/superpowers",
       "sourceType": "github",
       "computedHash": "e21044ae7496fc285f1df9ff3fb518a3a20bea6f5216c1f59f4987e12c769a0a"
+    },
+    "elite-powerpoint-designer": {
+      "source": "willem4130/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "skills/elite-powerpoint-designer/SKILL.md",
+      "computedHash": "93c18e7db1899926c8527b485858ed633f07c1f4b09930e2f32053f5bfb5ed7d"
     },
     "email-best-practices": {
       "source": "resend/email-best-practices",
@@ -90,6 +108,12 @@
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "computedHash": "9505748dba2319487b285f8ab8c1e5417fce38a512d596e1c9e2e87b34b196e1"
+    },
+    "powerpoint-presentations": {
+      "source": "aws-samples/sample-strands-agent-with-agentcore",
+      "sourceType": "github",
+      "skillPath": "chatbot-app/agentcore/skills/powerpoint-presentations/SKILL.md",
+      "computedHash": "cdc80df754577c6cd87be814bae24ea1a116e00509bf8818797a4cd618e63205"
     },
     "receiving-code-review": {
       "source": "obra/superpowers",
