@@ -138,7 +138,27 @@ export async function POST(request: Request) {
       throw error
     }
 
-    return NextResponse.json({ ok: true })
+    const cookieValue = JSON.stringify({
+      name: body.name,
+      email: body.email,
+      course: body.course,
+      locale: body.locale ?? "en",
+    })
+
+    const response = NextResponse.json({
+      ok: true,
+      redirectTo: `/${body.locale ?? "en"}/success`,
+    })
+
+    response.cookies.set("pedagemy_registration", cookieValue, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 30,
+      path: "/",
+    })
+
+    return response
   } catch (error) {
     if (error instanceof DuplicateRegistrationError) {
       return NextResponse.json(
