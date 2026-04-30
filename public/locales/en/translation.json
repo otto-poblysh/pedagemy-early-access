@@ -201,7 +201,7 @@
   },
   "success": {
     "headline": "You're in, {firstName}.",
-    "body": "Your application for **{course}** has been received. We'll be in touch before May 15, 2026.",
+    "body": "Your application for **{course}** has been received. We'll be in touch after the selection process to let you know the outcome.",
     "emailNote": "A confirmation has been sent to {email}.",
     "nextStepsTitle": "What happens next?",
     "nextSteps": [

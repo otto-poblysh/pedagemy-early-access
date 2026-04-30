@@ -201,7 +201,7 @@
   },
   "success": {
     "headline": "Tu y es, {firstName}.",
-    "body": "Ta candidature pour **{course}** a été reçue. Nous te contacterons avant le 15 mai 2026.",
+    "body": "Ta candidature pour **{course}** a été reçue. Nous te contacterons après le processus de sélection pour te communiquer le résultat.",
     "emailNote": "Une confirmation a été envoyée à {email}.",
     "nextStepsTitle": "Prochaine étape ?",
     "nextSteps": [
