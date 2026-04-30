@@ -123,7 +123,9 @@ test("stores a registration and returns it to an authenticated admin", async () 
     );
 
     assert.equal(registerResponse.status, 200);
-    assert.deepEqual(await registerResponse.json(), { ok: true });
+    const registerBody = await registerResponse.json() as { ok: boolean; redirectTo?: string }
+    assert.equal(registerBody.ok, true)
+    assert.ok(registerBody.redirectTo?.endsWith("/success"))
 
     const adminResponse = await adminDataPost(
       new Request("http://localhost/api/admin/data", {
