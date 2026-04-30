@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 import CountryList from "country-list-with-dial-code-and-flag"
 import { LandingFooter } from "@/components/landing-footer"
 import { LandingNav } from "@/components/landing-nav"
@@ -245,6 +246,7 @@ function clearFieldError(
 
 export default function PedagemyEarlyAccessLandingPage() {
   const { t, i18n } = useTranslation()
+  const router = useRouter()
   const courseOptions = buildCourseOptions(t)
   const countryCodeOptions = buildCountryCodeOptions(i18n.language)
   const [selectedCourse, setSelectedCourse] = useState<CourseKey | "">("")
@@ -343,7 +345,12 @@ export default function PedagemyEarlyAccessLandingPage() {
         return
       }
 
-      setSubmitted(true)
+      const redirectTo = (data as { redirectTo?: string }).redirectTo
+      if (redirectTo) {
+        void router.push(redirectTo)
+      } else {
+        setSubmitted(true)
+      }
     } catch {
       setSubmitError(t("form.errorNetwork"))
     } finally {
