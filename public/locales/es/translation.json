@@ -198,5 +198,19 @@
     "contactLabel": "Si tienes preguntas antes de entonces, comunícate con nosotros:",
     "closing": "Saludos cordiales,",
     "team": "El equipo de Pedagemy"
+  },
+  "success": {
+    "headline": "Estás dentro, {firstName}.",
+    "body": "Tu solicitud para **{course}** ha sido recibida. Nos pondremos en contacto contigo antes del 15 de mayo de 2026.",
+    "emailNote": "Se ha enviado una confirmación a {email}.",
+    "nextStepsTitle": "¿Qué pasa ahora?",
+    "nextSteps": [
+      "Tu solicitud es revisada personalmente.",
+      "Si eres seleccionado/a, Pedagemy te contacta directamente.",
+      "Las instrucciones de acceso se envían por correo electrónico."
+    ],
+    "backToHome": "Volver al inicio",
+    "metaTitle": "Solicitud recibida — Pedagemy",
+    "metaDescription": "Tu solicitud ha sido recibida. Nos pondremos en contacto contigo pronto."
   }
 }

@@ -198,5 +198,19 @@
     "contactLabel": "If you have any questions before then, reach out to us:",
     "closing": "Best regards,",
     "team": "The Pedagemy Team"
+  },
+  "success": {
+    "headline": "You're in, {firstName}.",
+    "body": "Your application for **{course}** has been received. We'll be in touch before May 15, 2026.",
+    "emailNote": "A confirmation has been sent to {email}.",
+    "nextStepsTitle": "What happens next?",
+    "nextSteps": [
+      "Your application is reviewed personally.",
+      "If selected, Pedagemy contacts you directly.",
+      "Access instructions sent by email."
+    ],
+    "backToHome": "Back to home",
+    "metaTitle": "Application Received — Pedagemy",
+    "metaDescription": "Your application has been received. We'll be in touch soon."
   }
 }
