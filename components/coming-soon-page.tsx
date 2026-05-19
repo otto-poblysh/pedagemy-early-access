@@ -11,7 +11,7 @@ function isValidEmail(email: string) {
 }
 
 export default function ComingSoonPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [nameError, setNameError] = useState("")
@@ -50,7 +50,11 @@ export default function ComingSoonPage() {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: trimmedName, email: trimmedEmail }),
+        body: JSON.stringify({
+          name: trimmedName,
+          email: trimmedEmail,
+          locale: i18n.language,
+        }),
       })
       const data = (await response.json()) as {
         code?: string

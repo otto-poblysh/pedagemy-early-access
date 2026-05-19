@@ -6,6 +6,7 @@ interface WaitlistEntry {
   id: number;
   name: string;
   email: string;
+  locale: string;
   created_at: string;
 }
 
@@ -28,7 +29,8 @@ function filterEntries(entries: WaitlistEntry[], query: string) {
   return entries.filter(
     (e) =>
       e.name.toLowerCase().includes(normalized) ||
-      e.email.toLowerCase().includes(normalized),
+      e.email.toLowerCase().includes(normalized) ||
+      e.locale.toLowerCase().includes(normalized),
   );
 }
 
@@ -45,11 +47,12 @@ function paginate<T>(items: T[], page: number, size: number) {
 
 function buildCsv(entries: WaitlistEntry[]) {
   const bom = "\uFEFF";
-  const headers = ["ID", "Name", "Email", "Created At"];
+  const headers = ["ID", "Name", "Email", "Locale", "Created At"];
   const rows = entries.map((e) => [
     String(e.id),
     e.name,
     e.email,
+    e.locale,
     new Date(e.created_at).toISOString(),
   ]);
   const escape = (cell: string) => {
@@ -251,6 +254,9 @@ export default function WaitlistAdminPage() {
                           Email
                         </th>
                         <th className="px-5 py-3.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#44506A]">
+                          Locale
+                        </th>
+                        <th className="px-5 py-3.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#44506A]">
                           Date
                         </th>
                         <th className="px-5 py-3.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#44506A]">
@@ -269,6 +275,11 @@ export default function WaitlistAdminPage() {
                           </td>
                           <td className="px-5 py-3.5 text-sm text-[#3B4557]">
                             {entry.email}
+                          </td>
+                          <td className="px-5 py-3.5 text-sm text-[#6B7A99]">
+                            <span className="inline-flex rounded-full bg-[#EAF2FF] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#0056D2]">
+                              {entry.locale}
+                            </span>
                           </td>
                           <td className="px-5 py-3.5 text-sm text-[#6B7A99]">
                             {formatDate(entry.created_at)}

@@ -45,7 +45,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    await store.saveEntry({ name: body.name, email: body.email });
+    await store.saveEntry({
+      name: body.name,
+      email: body.email,
+      locale: body.locale,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (error) {

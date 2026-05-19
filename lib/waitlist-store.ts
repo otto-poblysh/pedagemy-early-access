@@ -3,12 +3,14 @@ import { createClient } from "@supabase/supabase-js";
 export interface WaitlistInput {
   name: string;
   email: string;
+  locale?: string;
 }
 
 export interface WaitlistRecord {
   id: number;
   name: string;
   email: string;
+  locale: string;
   created_at: string;
 }
 
@@ -76,6 +78,7 @@ function normalizeEntry(input: WaitlistInput): WaitlistInput {
   return {
     email: input.email.trim().toLowerCase(),
     name: input.name.trim(),
+    locale: (input.locale ?? "en").trim().toLowerCase(),
   };
 }
 
@@ -117,7 +120,7 @@ function createSupabasePersistence(): WaitlistPersistence {
       const { data, error } = await client
         .from("waiting_list")
         .insert(input)
-        .select("id, name, email, created_at")
+        .select("id, name, email, locale, created_at")
         .single();
       if (error) throw error;
       return data as WaitlistRecord;
@@ -125,7 +128,7 @@ function createSupabasePersistence(): WaitlistPersistence {
     list: async () => {
       const { data, error } = await client
         .from("waiting_list")
-        .select("id, name, email, created_at")
+        .select("id, name, email, locale, created_at")
         .order("id", { ascending: false });
       if (error) throw error;
       return (data ?? []) as WaitlistRecord[];
