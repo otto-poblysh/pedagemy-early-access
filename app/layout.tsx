@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: {
-    default: "Win Premium Learning Access — Worth up to $755.",
+    default: "Pedagemy — Coming Soon",
     template: "%s | Pedagemy",
   },
   description:
-    "Most people wait for their employer to invest in them. This is your chance to get there first — fully sponsored, no cost to you.",
+    "Pedagemy is a modern learning platform. Join the waitlist to be the first to know when we launch.",
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
