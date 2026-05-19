@@ -1,22 +1,21 @@
 import type { Metadata } from "next"
-
-import PedagemyEarlyAccessLandingPage from "@/components/landing-page"
+import ComingSoonPage from "@/components/coming-soon-page"
 
 const metadataByLocale: Record<string, { title: string; description: string }> = {
   en: {
-    title: "Win Premium Learning Access — Worth up to $755.",
+    title: "Pedagemy — Coming Soon",
     description:
-      "Most people wait for their employer to invest in them. This is your chance to get there first — fully sponsored, no cost to you.",
+      "Pedagemy is a modern learning platform. Join the waitlist to be the first to know when we launch.",
   },
   es: {
-    title: "Gana acceso a formación premium — hasta $755 de valor.",
+    title: "Pedagemy — Próximamente",
     description:
-      "La mayoría espera a que su empleador invierta en ellos. Esta es tu oportunidad de llegar primero — totalmente patrocinada, sin costo para ti.",
+      "Pedagemy es una plataforma de aprendizaje moderna. Únete a la lista de espera para ser el primero en saber cuándo lanzamos.",
   },
   fr: {
-    title: "Gagnez un accès à une formation premium — d'une valeur allant jusqu'à 755 $.",
+    title: "Pedagemy — Bientôt disponible",
     description:
-      "La plupart attendent que leur employeur investisse en eux. C'est votre chance d'arriver en premier — entièrement financée, sans frais pour vous.",
+      "Pedagemy est une plateforme d'apprentissage moderne. Rejoignez la liste d'attente pour être le premier informé de notre lancement.",
   },
 }
 
@@ -34,5 +33,5 @@ export async function generateMetadata({
 }
 
 export default function LocalePage() {
-  return <PedagemyEarlyAccessLandingPage />
+  return <ComingSoonPage />
 }

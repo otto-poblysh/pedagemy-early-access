@@ -1,18 +1,17 @@
 import type { Metadata } from "next"
-
 import { I18nProvider } from "@/components/i18n-provider"
-import PedagemyEarlyAccessLandingPage from "@/components/landing-page"
+import ComingSoonPage from "@/components/coming-soon-page"
 
 export const metadata: Metadata = {
-  title: "Apply for Sponsored Career Programme Access",
+  title: "Pedagemy — Coming Soon",
   description:
-    "Pedagemy and iCUBEFARM are awarding sponsored access to four workplace learning programmes — leadership, technology, communication, and compliance. Apply free, reviewed personally.",
+    "Pedagemy is a modern learning platform. Join the waitlist to be the first to know when we launch.",
 }
 
 export default function Page() {
   return (
     <I18nProvider locale="en">
-      <PedagemyEarlyAccessLandingPage />
+      <ComingSoonPage />
     </I18nProvider>
   )
 }
