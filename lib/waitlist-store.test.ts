@@ -100,3 +100,17 @@ test("surfaces missing table as dedicated setup error", async () => {
     MissingWaitlistTableError,
   );
 });
+
+test("lists all entries in descending id order", async () => {
+  const store = createWaitlistStore({
+    persistence: createInMemoryPersistence(),
+  });
+
+  await store.saveEntry({ name: "Ada Lovelace", email: "ada@example.com" });
+  await store.saveEntry({ name: "Grace Hopper", email: "grace@example.com" });
+
+  const entries = await store.listEntries();
+  assert.equal(entries.length, 2);
+  assert.equal(entries[0]!.name, "Grace Hopper");
+  assert.equal(entries[1]!.name, "Ada Lovelace");
+});
