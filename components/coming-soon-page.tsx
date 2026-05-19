@@ -102,14 +102,9 @@ export default function ComingSoonPage() {
             {t("comingSoon.headline")}
           </h1>
 
-          <div className="mt-12 w-full max-w-lg rounded-[28px] border border-white/75 bg-white/80 p-8 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-10">
-            <h2 className="text-xl font-black tracking-[-0.03em] text-[#182032]">
-              {t("comingSoon.whatIsTitle")}
-            </h2>
-            <p className="mt-3 text-[15px] leading-7 text-[#44506A]">
-              {t("comingSoon.whatIsBody")}
-            </p>
-          </div>
+          <p className="mt-4 max-w-md text-[15px] leading-7 text-[#44506A]">
+            {t("comingSoon.whatIsBody")}
+          </p>
 
           <div className="mt-8 w-full max-w-lg rounded-[28px] border border-white/75 bg-white/80 p-8 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-10">
             <h2 className="text-xl font-black tracking-[-0.03em] text-[#182032]">
@@ -122,7 +117,7 @@ export default function ComingSoonPage() {
               {t("comingSoon.waitlistBody")}
             </p>
 
-            <ul className="mt-5 space-y-2.5 text-left">
+            <ul className="mt-5 grid gap-2.5 text-left sm:grid-cols-2">
               {(t("comingSoon.waitlistBenefits", { returnObjects: true }) as string[]).map(
                 (benefit, index) => (
                   <li
